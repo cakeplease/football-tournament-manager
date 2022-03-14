@@ -2,6 +2,9 @@ package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
 import java.util.Objects;
 
+/**
+ * FootballClub class
+ */
 public class FootballClub {
     private String name;
     private String nationality;
