@@ -1,4 +1,5 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
-public class Match {
+public abstract class Match {
+
 }
