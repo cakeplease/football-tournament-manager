@@ -5,6 +5,7 @@ public class Match {
     private FootballClub footballClub2;
     private int score1;
     private int score2;
+    private FootballClub winner;
 
     /**
      * Creates an instance of a footballmatch between to teams
@@ -21,7 +22,10 @@ public class Match {
         }
         this.footballClub1 = footballClub1;
         this.footballClub2 = footballClub2;
+        this.score1 = score1;
+        this.score2 = score2;
     }
+
 
     public FootballClub getFootballClub1() {
         return footballClub1;
@@ -37,5 +41,21 @@ public class Match {
 
     public int getScore2() {
         return score2;
+    }
+
+    public void setWinner(FootballClub winner) {
+        this.winner = winner;
+    }
+
+    public FootballClub getResult(){
+        if (score1 < score2){
+            setWinner(footballClub2);
+            return winner;
+        } else if(score1 > score2){
+            setWinner(footballClub1);
+            return winner;
+        }else{
+            return null;
+        }
     }
 }
