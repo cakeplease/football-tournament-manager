@@ -1,19 +1,23 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
-public abstract class Match {
+public class Match {
     private FootballClub footballClub1;
     private FootballClub footballClub2;
-    private int score;
+    private int score1;
+    private int score2;
 
     /**
      * Creates an instance of a footballmatch between to teams
      * @param footballClub1 the first football club
      * @param footballClub2 the second football club
-     * @throws NullPointerException if one of the clubs is null
+     * @throws Exception if one of the clubs is null or one of the scores are negative
      */
-    public Match(FootballClub footballClub1, FootballClub footballClub2)throws NullPointerException{
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2)throws Exception{
         if (footballClub1 == null || footballClub2 == null){
             throw new NullPointerException("The football club can not be null!!");
+        }
+        if (score1 < 0 || score2 < 0){
+            throw new IllegalArgumentException("The score can not be negative!!");
         }
         this.footballClub1 = footballClub1;
         this.footballClub2 = footballClub2;
@@ -27,9 +31,11 @@ public abstract class Match {
         return footballClub2;
     }
 
-    public int getScore() {
-        return score;
+    public int getScore1() {
+        return score1;
     }
 
-
+    public int getScore2() {
+        return score2;
+    }
 }
