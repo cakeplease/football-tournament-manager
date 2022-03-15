@@ -62,14 +62,12 @@ public class Group {
         }else if(this.grupeMatches == null){
             this.grupeMatches = new ArrayList<Match>();
 
+            //loops threw the array and adds all matches to match array
             for (int i = 0; i < this.grupeTeams.size(); i++) {
-                for (int j = i; j < this.grupeTeams.size(); j++) {
-                    this.grupeMatches.add();
+                for (int j = i + 1; j < this.grupeTeams.size(); j++) {
+                    this.grupeMatches.add(new Match(this.grupeTeams.get(i), this.grupeTeams.get(j), 0, 0));
                 }
             }
-
-
         }
     }
-
 }
