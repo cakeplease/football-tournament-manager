@@ -11,7 +11,7 @@ public class Match {
     private final FootballClub footballClub2; //the second football club in the match
     private int score1 = 0; //the score of the first team
     private int score2 = 0; //the score of the second team
-    private FootballClub winner; //the winner of the match
+    private FootballClub winner = null; //the winner of the match
     private int time; //the time of when the match is played, in format (hhmm)
     private int date; //the date of when the match is played, in format (ddmmyyyy)
     private int fieldNr; //the field where the match is played
@@ -148,6 +148,8 @@ public class Match {
      * @return the winner or null.
      */
     public FootballClub getWinner(){
+        if (this.winner != null) return this.winner;
+
         if (score1 < score2){
             setWinner(footballClub2);
             return winner;
