@@ -1,16 +1,41 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
+/**
+ * Creates an instance of a match between two football clubs.
+ *
+ * @author danielnesvag
+ * @version 16.03.2022
+ */
 public class Match {
-    private final FootballClub footballClub1;
-    private final FootballClub footballClub2;
-    private final int score1;
-    private final int score2;
-    private FootballClub winner;
+    private final FootballClub footballClub1; //the first football club in the match
+    private final FootballClub footballClub2; //the second football club in the match
+    private int score1 = 0; //the score of the first team
+    private int score2 = 0; //the score of the second team
+    private FootballClub winner; //the winner of the match
+    private int time; //the time of when the match is played, in format (hhmm)
+    private int date; //the date of when the match is played, in format (ddmmyyyy)
+    private int fieldNr; //the field where the match is played
 
     /**
-     * Creates an instance of a footballmatch between to teams
+     * Creates an instance of a football match.
      * @param footballClub1 the first football club
      * @param footballClub2 the second football club
+     * @throws NullPointerException if one of the clubs are null
+     */
+    public Match(FootballClub footballClub1, FootballClub footballClub2)throws NullPointerException{
+        if (footballClub1 == null || footballClub2 == null){
+            throw new NullPointerException("The football club can not be null!!");
+        }
+        this.footballClub1 = footballClub1;
+        this.footballClub2 = footballClub2;
+    }
+
+    /**
+     * Creates an instance of a football match between to teams
+     * @param footballClub1 the first football club
+     * @param footballClub2 the second football club
+     * @param score1 the score of the first team
+     * @param score2 the score of the second team
      * @throws IllegalArgumentException if one of the scores are negative
      * @throws NullPointerException if one of the football clubs are null
      */
@@ -61,6 +86,51 @@ public class Match {
      */
     public int getScore2() {
         return score2;
+    }
+
+    /**
+     * Sets the first score
+     *
+     * @param score1 the first score
+     */
+    public void setScore1(int score1) {
+        this.score1 = score1;
+    }
+
+    /**
+     * Sets the second score
+     *
+     * @param score2 the second score
+     */
+    public void setScore2(int score2) {
+        this.score2 = score2;
+    }
+
+    /**
+     * Sets the time of the match
+     *
+     * @param time when the match is played
+     */
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    /**
+     * Sets the date of the match
+     *
+     * @param date what date the match is played
+     */
+    public void setDate(int date) {
+        this.date = date;
+    }
+
+    /**
+     * Sets the field of where the match is played
+     *
+     * @param fieldNr which field it is played
+     */
+    public void setFieldNr(int fieldNr) {
+        this.fieldNr = fieldNr;
     }
 
     /**
