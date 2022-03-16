@@ -26,27 +26,56 @@ public class Match {
         this.score2 = score2;
     }
 
-
+    /**
+     * Return the first footballclub
+     *
+     * @return footballClub1
+     */
     public FootballClub getFootballClub1() {
         return footballClub1;
     }
 
+    /**
+     * Return the second footballclub
+     *
+     * @return footballClub2
+     */
     public FootballClub getFootballClub2() {
         return footballClub2;
     }
 
+    /**
+     * Return the first score, which belongs to footballClub1
+     *
+     * @return score1
+     */
     public int getScore1() {
         return score1;
     }
 
+    /**
+     * Return the second score which belongs to footballClub2
+     *
+     * @return score2
+     */
     public int getScore2() {
         return score2;
     }
 
+    /**
+     * Sets the a footballclub to winner
+     * @param winner the footballclub which won the match
+     */
     public void setWinner(FootballClub winner) {
         this.winner = winner;
     }
 
+    /**
+     * Method which returns the victorious football club from the match.
+     * If the match results in a tie it returns null.
+     *
+     * @return the winner or null.
+     */
     public FootballClub getResult(){
         if (score1 < score2){
             setWinner(footballClub2);
