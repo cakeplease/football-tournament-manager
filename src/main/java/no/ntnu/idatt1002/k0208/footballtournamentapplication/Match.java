@@ -1,19 +1,20 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
 public class Match {
-    private FootballClub footballClub1;
-    private FootballClub footballClub2;
-    private int score1;
-    private int score2;
+    private final FootballClub footballClub1;
+    private final FootballClub footballClub2;
+    private final int score1;
+    private final int score2;
     private FootballClub winner;
 
     /**
      * Creates an instance of a footballmatch between to teams
      * @param footballClub1 the first football club
      * @param footballClub2 the second football club
-     * @throws Exception if one of the clubs is null or one of the scores are negative
+     * @throws IllegalArgumentException if one of the scores are negative
+     * @throws NullPointerException if one of the football clubs are null
      */
-    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2)throws Exception{
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2)throws IllegalArgumentException, NullPointerException{
         if (footballClub1 == null || footballClub2 == null){
             throw new NullPointerException("The football club can not be null!!");
         }
@@ -27,7 +28,7 @@ public class Match {
     }
 
     /**
-     * Return the first footballclub
+     * Return the first football club
      *
      * @return footballClub1
      */
@@ -36,7 +37,7 @@ public class Match {
     }
 
     /**
-     * Return the second footballclub
+     * Return the second football club
      *
      * @return footballClub2
      */
@@ -63,8 +64,8 @@ public class Match {
     }
 
     /**
-     * Sets the a footballclub to winner
-     * @param winner the footballclub which won the match
+     * Sets the football club to winner
+     * @param winner the football club which won the match
      */
     public void setWinner(FootballClub winner) {
         this.winner = winner;
@@ -76,7 +77,7 @@ public class Match {
      *
      * @return the winner or null.
      */
-    public FootballClub getResult(){
+    public FootballClub getWinner(){
         if (score1 < score2){
             setWinner(footballClub2);
             return winner;
