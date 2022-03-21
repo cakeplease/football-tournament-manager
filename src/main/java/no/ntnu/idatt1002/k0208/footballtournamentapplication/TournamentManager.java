@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TournamentManager {
     //- contains all matches?
     //-
-    private GroupController groupController = new GroupController();
+    private final GroupController groupController = new GroupController();
 
     public TournamentManager(){
 
@@ -24,5 +24,8 @@ public class TournamentManager {
         }
     }
 
+    public void generateAfinalsRoundOf16(){
+        ArrayList<FootballClub> groupWinners = new ArrayList<>();
+    }
 
 }
