@@ -1,5 +1,9 @@
 package base;
 
+import model.DataHandler;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
@@ -38,6 +42,12 @@ public class FootballClub {
 
     public void setGoalsLetIn(int goalsLetIn) {
         this.goalsLetIn = goalsLetIn;
+    }
+
+    public void saveFootballClub() {
+        String data = this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
+        Path path = Paths.get("src/main/resources");
+        DataHandler.saveToFile(data, path);
     }
 
     @Override
