@@ -1,5 +1,7 @@
 package base;
 
+import controller.GroupController;
+
 import java.util.ArrayList;
 
 public class TournamentManager {
