@@ -1,6 +1,8 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * GroupController class that stores football clubs and generates groups.
@@ -23,6 +25,30 @@ public class GroupController {
         FootballClub team = new FootballClub(name, nationality);
         this.footballClubs.add(team);
     }
+
+    public boolean generateGroups(){
+        if (this.footballClubs.size() != 64) return false;
+        ArrayList<FootballClub> norwegianClubs = new ArrayList<>();
+        ArrayList<FootballClub> internationalClubs = new ArrayList<>();
+        for (FootballClub f : this.footballClubs) {
+            if (f.getNationality().equalsIgnoreCase("norge") || f.getNationality().equalsIgnoreCase("norway")) {
+                norwegianClubs.add(f);
+            } else {
+                internationalClubs.add(f);
+            }
+            //randomizes both lists
+            Collections.shuffle(norwegianClubs);
+            Collections.shuffle(internationalClubs);
+            for(int i = 0; i < internationalClubs.size(); i++){
+                for(int j = 0; j < norwegianClubs.size(); j++){
+                    //TODO: write code here
+                }
+            }
+
+
+        }
+        return true;
+        }
 
     @Override
     public String toString() {
