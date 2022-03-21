@@ -7,21 +7,23 @@ import java.util.Collections;
 
 public class TournamentManager {
     private final GroupController groupController = new GroupController();
-    private ArrayList<Match> roundOf16A = new ArrayList<>();
-    private ArrayList<Match> roundOf16B = new ArrayList<>();
-    private ArrayList<Match> quarterFinalsA = new ArrayList<>();
-    private ArrayList<Match> quarterFinalsB = new ArrayList<>();
+    private final ArrayList<Match> roundOf32A = new ArrayList<>();
+    private final ArrayList<Match> roundOf32B = new ArrayList<>();
+    private final ArrayList<Match> roundOf16A = new ArrayList<>();
+    private final ArrayList<Match> roundOf16B = new ArrayList<>();
+    private final ArrayList<Match> quarterFinalsA = new ArrayList<>();
+    private final ArrayList<Match> quarterFinalsB = new ArrayList<>();
 
     public TournamentManager(){
 
     }
 
-    public ArrayList<Match> getRoundOf16A() {
-        return roundOf16A;
+    public ArrayList<Match> getRoundOf32A() {
+        return roundOf32A;
     }
 
-    public ArrayList<Match> getRoundOf16B() {
-        return roundOf16B;
+    public ArrayList<Match> getRoundOf32B() {
+        return roundOf32B;
     }
 
     public ArrayList<Match> listGroupMatches(){
@@ -37,7 +39,7 @@ public class TournamentManager {
         }
     }
 
-    public boolean generateRoundOf16(){
+    public boolean generateRoundOf32(){
         ArrayList<FootballClub> groupWinners = new ArrayList<>();
         ArrayList<FootballClub> secondPlace = new ArrayList<>();
         ArrayList<FootballClub> thirdPlace = new ArrayList<>();
@@ -60,15 +62,54 @@ public class TournamentManager {
         Collections.shuffle(thirdPlace);
         Collections.shuffle(fourthPlace);
         for (int i = 0; i < groupWinners.size(); i++){
-            this.roundOf16A.add(new Match(groupWinners.get(i), secondPlace.get(i)));
+            this.roundOf32A.add(new Match(groupWinners.get(i), secondPlace.get(i)));
         }
         for (int i = 0; i < thirdPlace.size(); i++){
-            this.roundOf16B.add(new Match(thirdPlace.get(i), fourthPlace.get(i)));
+            this.roundOf32B.add(new Match(thirdPlace.get(i), fourthPlace.get(i)));
+        }
+        return !roundOf32A.isEmpty() && !roundOf32B.isEmpty();
+    }
+
+    public boolean generateRoundOf16(){
+        ArrayList<FootballClub> winnersA = new ArrayList<>();
+        ArrayList<FootballClub> winnersB = new ArrayList<>();
+        for (int i = 0; i < 16; i++){
+            winnersA.add(roundOf32A.get(i).getWinner());
+        }
+        for (int i = 0; i < 16; i++){
+            winnersB.add(roundOf32B.get(i).getWinner());
+        }
+        Collections.shuffle(winnersA);
+        Collections.shuffle(winnersB);
+        for (int i = 0; i < 8; i++){
+            this.roundOf16A.add(new Match(winnersA.get(i), winnersA.get(15-i)));
+        }
+        for (int i = 0; i < 8; i++){
+            this.roundOf16B.add(new Match(winnersB.get(i), winnersB.get(15-i)));
         }
         return !roundOf16A.isEmpty() && !roundOf16B.isEmpty();
     }
 
 
+    public boolean generateQuarterFinals(){
+        ArrayList<FootballClub> winnersA = new ArrayList<>();
+        ArrayList<FootballClub> winnersB = new ArrayList<>();
+        for (int i = 0; i < 8; i++){
+            winnersA.add(roundOf16A.get(i).getWinner());
+        }
+        for (int i = 0; i < 8; i++){
+            winnersB.add(roundOf16B.get(i).getWinner());
+        }
+        Collections.shuffle(winnersA);
+        Collections.shuffle(winnersB);
+        for (int i = 0; i < 4; i++){
+            this.quarterFinalsA.add(new Match(winnersA.get(i), winnersA.get(7-i)));
+        }
+        for (int i = 0; i < 4; i++){
+            this.quarterFinalsB.add(new Match(winnersB.get(i), winnersB.get(7-i)));
+        }
+        return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
+    }
 
 
 }
