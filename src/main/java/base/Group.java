@@ -64,7 +64,7 @@ public class Group {
      * and adds to matches array
      * @throws Exception if group size != 4
      */
-    public void genereateMatches() throws Exception {
+    public void generateMatches() throws Exception {
         if (this.groupTeams.size() != 4){
             throw new Exception("There needs to be 4 teams in the group");
         }else if(this.groupMatches == null){
