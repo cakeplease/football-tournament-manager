@@ -9,12 +9,14 @@ import java.util.Random;
  */
 public class GroupController {
     private ArrayList<FootballClub> footballClubs;
+    private ArrayList<Group> groups;
 
     /**
      * GroupController constructor
      */
     public GroupController() {
         this.footballClubs = new ArrayList<>(64);
+        this.groups = new ArrayList<>(16);
     }
 
     public ArrayList<FootballClub> getFootballClubs() {
@@ -39,13 +41,14 @@ public class GroupController {
             //randomizes both lists
             Collections.shuffle(norwegianClubs);
             Collections.shuffle(internationalClubs);
-            for(int i = 0; i < internationalClubs.size(); i++){
-                for(int j = 0; j < norwegianClubs.size(); j++){
-                    //TODO: write code here
-                }
+
+            for(int i = 0; i < 16; i++){
+                this.groups.add(new Group());
+                groups.get(i).addTeam(internationalClubs.get(i));
+                    for (int k = 0; k < 3; k++){
+                        groups.get(i).addTeam(norwegianClubs.get(k +(3*i)));
+                    }
             }
-
-
         }
         return true;
         }
