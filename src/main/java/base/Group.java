@@ -35,6 +35,14 @@ public class Group {
         this.groupTeams = new ArrayList<FootballClub>();
     }
 
+    public ArrayList<FootballClub> getGroupTeams() {
+        return groupTeams;
+    }
+
+    public ArrayList<Match> getGroupMatches() {
+        return groupMatches;
+    }
+
     /**
      * adds team to group
      * @param teamToAdd team to add to group
