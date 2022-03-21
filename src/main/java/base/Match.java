@@ -1,4 +1,4 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package base;
 
 /**
  * Creates an instance of a match between two football clubs.

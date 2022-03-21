@@ -65,7 +65,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                no.ntnu.idatt1002.k0208.footballtournamentapplication/no.ntnu.idatt1002.k0208.footballtournamentapplication.HelloApplication
+                                no.ntnu.idatt1002.k0208.footballtournamentapplication/view.HelloApplication
                             </mainClass>
                         </configuration>
                     </execution>

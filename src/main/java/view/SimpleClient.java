@@ -1,4 +1,7 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package view;
+
+import base.FootballClub;
+import controller.GroupController;
 
 import java.util.*;
 import java.lang.System;
@@ -8,7 +11,7 @@ import java.lang.System;
  */
 public class SimpleClient {
     Scanner input = new Scanner(System.in);
-    GroupController GroupController = new GroupController();
+    controller.GroupController GroupController = new GroupController();
     //TournamentManager TournamentManager = new TournamentManager();
 
     boolean hasStarted = false;
