@@ -4,15 +4,13 @@ import controller.GroupController;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class TournamentManager {
-    //- contains all matches?
-    //-
     private final GroupController groupController = new GroupController();
     private ArrayList<Match> roundOf16A = new ArrayList<>();
     private ArrayList<Match> roundOf16B = new ArrayList<>();
-    private ArrayList<Match> quarterFinals = new ArrayList<>();
+    private ArrayList<Match> quarterFinalsA = new ArrayList<>();
+    private ArrayList<Match> quarterFinalsB = new ArrayList<>();
 
     public TournamentManager(){
 
@@ -69,5 +67,8 @@ public class TournamentManager {
         }
         return !roundOf16A.isEmpty() && !roundOf16B.isEmpty();
     }
+
+
+
 
 }
