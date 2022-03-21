@@ -44,10 +44,19 @@ public class FootballClub {
         this.goalsLetIn = goalsLetIn;
     }
 
-    public void saveFootballClub() {
+    /*
+    saveFootballClub original placement
+
+
+    public void saveFootballClubs() {
         String data = this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
-        Path path = Paths.get("src/main/resources/"+this.name+".csv");
+        Path path = Paths.get("src/main/resources/data/"+this.name+".csv");
         DataHandler.saveToFile(data, path);
+    }
+    */
+
+    public String getCsvFormat() {
+        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
     }
 
     @Override

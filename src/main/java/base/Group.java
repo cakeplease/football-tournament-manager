@@ -1,5 +1,9 @@
 package base;
 
+import model.DataHandler;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -78,4 +82,14 @@ public class Group {
             }
         }
     }
+
+    // TODO: Check placement
+    public String getCsvFormatTeams() {
+        return this.groupTeams + "\n";
+    }
+
+    public String getCsvFormatMatches() {
+        return this.groupMatches + "\n";
+    }
+
 }
