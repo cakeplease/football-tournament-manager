@@ -23,6 +23,10 @@ public class GroupController {
         return footballClubs;
     }
 
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
     public void addFootballClub(String name, String nationality) {
         FootballClub team = new FootballClub(name, nationality);
         this.footballClubs.add(team);
