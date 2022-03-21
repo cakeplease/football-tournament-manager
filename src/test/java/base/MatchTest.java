@@ -1,4 +1,4 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package base;
 
 import base.FootballClub;
 import base.Match;

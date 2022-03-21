@@ -46,7 +46,7 @@ public class FootballClub {
 
     public void saveFootballClub() {
         String data = this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
-        Path path = Paths.get("src/main/resources");
+        Path path = Paths.get("src/main/resources/"+this.name+".csv");
         DataHandler.saveToFile(data, path);
     }
 
