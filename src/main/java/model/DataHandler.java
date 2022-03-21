@@ -1,4 +1,4 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package model;
 
 import java.io.BufferedReader;
 import java.io.IOException;

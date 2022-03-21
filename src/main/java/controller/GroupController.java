@@ -1,8 +1,10 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package controller;
+
+import base.FootballClub;
+import base.Group;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * GroupController class that stores football clubs and generates groups.

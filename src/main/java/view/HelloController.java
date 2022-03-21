@@ -1,4 +1,4 @@
-package no.ntnu.idatt1002.k0208.footballtournamentapplication;
+package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

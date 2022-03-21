@@ -1,8 +1,9 @@
 package no.ntnu.idatt1002.k0208.footballtournamentapplication;
 
+import base.FootballClub;
+import base.Match;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
