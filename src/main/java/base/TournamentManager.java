@@ -52,10 +52,10 @@ public class TournamentManager {
             secondPlace.add(groupController.getGroups().get(j).getGroupTeams().get(1));
         }
         for (int k = 0; k < groupController.getGroups().size(); k++){
-            secondPlace.add(groupController.getGroups().get(k).getGroupTeams().get(2));
+            thirdPlace.add(groupController.getGroups().get(k).getGroupTeams().get(2));
         }
         for (int l = 0; l < groupController.getGroups().size(); l++){
-            secondPlace.add(groupController.getGroups().get(l).getGroupTeams().get(3));
+            fourthPlace.add(groupController.getGroups().get(l).getGroupTeams().get(3));
         }
         Collections.shuffle(groupWinners);
         Collections.shuffle(secondPlace);
