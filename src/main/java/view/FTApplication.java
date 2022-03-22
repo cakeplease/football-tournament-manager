@@ -29,6 +29,9 @@ public class FTApplication extends Application {
         screenController.addScreen("Groups", GroupsView.groupsPane);
         screenController.addScreen("AddTeam", AddTeamView.addTeamPane);
 
+        Image icon = new Image ("logo1.png");
+        primaryStage.getIcons().add(icon);
+
         primaryStage.setTitle("Scandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
 
