@@ -13,6 +13,8 @@ public class TournamentManager {
     private final ArrayList<Match> roundOf16B = new ArrayList<>();
     private final ArrayList<Match> quarterFinalsA = new ArrayList<>();
     private final ArrayList<Match> quarterFinalsB = new ArrayList<>();
+    private final ArrayList<Match> semifinalsA = new ArrayList<>();
+    private final ArrayList<Match> semifinalsB = new ArrayList<>();
 
     public TournamentManager(){
 
@@ -111,5 +113,23 @@ public class TournamentManager {
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
 
-
+    public boolean generateSemifinals(){
+        ArrayList<FootballClub> winnersA = new ArrayList<>();
+        ArrayList<FootballClub> winnersB = new ArrayList<>();
+        for (int i = 0; i < 4; i++){
+            winnersA.add(quarterFinalsA.get(i).getWinner());
+        }
+        for (int i = 0; i < 4; i++){
+            winnersB.add(quarterFinalsB.get(i).getWinner());
+        }
+        Collections.shuffle(winnersA);
+        Collections.shuffle(winnersB);
+        for (int i = 0; i < 2; i++){
+            this.semifinalsA.add(new Match(winnersA.get(i), winnersA.get(3-i)));
+        }
+        for (int i = 0; i < 2; i++){
+            this.semifinalsB.add(new Match(winnersB.get(i), winnersB.get(3-i)));
+        }
+        return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
+    }
 }
