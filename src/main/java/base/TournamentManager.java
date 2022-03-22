@@ -117,8 +117,8 @@ public class TournamentManager {
     }
 
     /**
-     * Generates the round of 32 for both the A finals and B finals.
-     * @return
+     * Generates the round of 32 for both the A finals and B finals and adds them to a list of matches.
+     * @return true if they were generated and false if they are empty.
      */
     public boolean generateRoundOf32(){
         //Creates four lists, which separates the winners, second-places, third-places and fourth-places
@@ -157,7 +157,10 @@ public class TournamentManager {
         return !roundOf32A.isEmpty() && !roundOf32B.isEmpty();
     }
 
-
+    /**
+     * Generates the round of 16 for both A finals and B finals. Is very similar to the generateRoundOf32 method.
+     * @return true if the lists contain matches and false if they are empty.
+     */
     public boolean generateRoundOf16(){
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
@@ -178,7 +181,10 @@ public class TournamentManager {
         return !roundOf16A.isEmpty() && !roundOf16B.isEmpty();
     }
 
-
+    /**
+     * Generates the quarterfinals for both A finals and B finals.
+     * @return true if the lists contain matches and false if they are empty.
+     */
     public boolean generateQuarterFinals(){
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
@@ -199,6 +205,10 @@ public class TournamentManager {
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
 
+    /**
+     * Generates the semifinals for both the A finals and B finals.
+     * @return true if the lists contain matches and false if they are empty.
+     */
     public boolean generateSemifinals(){
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
@@ -219,6 +229,11 @@ public class TournamentManager {
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
 
+    /**
+     * Generate the final for the A finals.
+     *
+     * @return the A final Match between two teams.
+     */
     public Match generateFinalA(){
         ArrayList<FootballClub> finalistsA = new ArrayList<>();
         for (int i = 0; i < 2; i++){
@@ -227,6 +242,11 @@ public class TournamentManager {
         return new Match(finalistsA.get(0), finalistsA.get(1));
     }
 
+    /**
+     * Generate the final for the B finals
+     *
+     * @return the B final between two teams.
+     */
     public Match generateFinalB(){
         ArrayList<FootballClub> BFinalists = new ArrayList<>();
         for (int i = 0; i < 2; i++){
