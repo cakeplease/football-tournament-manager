@@ -132,4 +132,20 @@ public class TournamentManager {
         }
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
+
+    public Match generateFinalA(){
+        ArrayList<FootballClub> finalistsA = new ArrayList<>();
+        for (int i = 0; i < 2; i++){
+            finalistsA.add(semifinalsA.get(i).getWinner());
+        }
+        return new Match(finalistsA.get(0), finalistsA.get(1));
+    }
+
+    public Match generateFinalB(){
+        ArrayList<FootballClub> finalistsB = new ArrayList<>();
+        for (int i = 0; i < 2; i++){
+            finalistsB.add(semifinalsB.get(i).getWinner());
+        }
+        return new Match(finalistsB.get(0), finalistsB.get(1));
+    }
 }
