@@ -12,6 +12,12 @@ import java.nio.file.Path;
 
 public class DataHandler {
 
+    /**
+     * Method to save to file
+     *
+     * @param data String of data to save
+     * @param path path, where to save it
+     */
     public static void saveToFile(String data, Path path) {
         try {
             Files.writeString(path, data, StandardCharsets.UTF_8);
@@ -20,6 +26,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     * Method to read from a file
+     *
+     * @param path path, where to read from
+     */
     public static void readFromFile(Path path) {
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             String line;
