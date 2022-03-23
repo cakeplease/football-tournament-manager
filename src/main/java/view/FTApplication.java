@@ -36,6 +36,8 @@ public class FTApplication extends Application {
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
 
+        primaryStage.setFullScreen(true);
+
         primaryStage.setTitle("Scandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
 
