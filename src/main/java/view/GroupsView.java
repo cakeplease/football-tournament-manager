@@ -109,9 +109,9 @@ public class GroupsView {
         ArrayList<Group> groups = new ArrayList<>();//putt inn her
         ArrayList<String> strings = new ArrayList<>();
 
-        for(int i = 0; groups.size() > i; i++){
+        /*for(int i = 0; groups.size() > i; i++){
             strings.add()groups.get(i);
-        }
+        }*/
     }
 
 
