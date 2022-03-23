@@ -1,11 +1,14 @@
 package view;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -35,11 +38,13 @@ public class GroupsView {
         //t.setLayoutX(25);
         //t.setLayoutY(100);
 
-
         groupsPane.add(backButton, 0, 0);
         groupsPane.add(t, 0, 1);
 
 
+        groupsPane.setHgap(250);
+        groupsPane.setVgap(10);
+        groupsPane.setPadding(new Insets(25,25,25,25));
 
 
         Text t1 = new Text("a\nb\nc\nd");
@@ -63,6 +68,7 @@ public class GroupsView {
 
 
 
+
         groupsPane.add(t1,0,2);
         groupsPane.add(t2,0,3);
         groupsPane.add(t3,0,4);
@@ -78,7 +84,13 @@ public class GroupsView {
         groupsPane.add(t13,3,2);
         groupsPane.add(t14,3,3);
         groupsPane.add(t15,3,4);
-        groupsPane.add(t16,9,5);
+        groupsPane.add(t16,3,5);
+
+
+
+
+        //groupsPane.setMaxSize(10,10);
+
 
     }
 
