@@ -98,7 +98,7 @@ public class FootballClub {
         Path path = Paths.get("src/main/resources/data/"+this.name+".csv");
         DataHandler.saveToFile(data, path);
     }
-    */
+
 
     public String getCsvFormat() {
         return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
