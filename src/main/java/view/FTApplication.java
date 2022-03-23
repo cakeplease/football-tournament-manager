@@ -20,6 +20,7 @@ public class FTApplication extends Application {
 
     private AddTeamView addTeamView = new AddTeamView(screenController);
     private GroupsView groupsView = new GroupsView(screenController);
+    private NoGroupsView noGroupsView = new NoGroupsView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
 
 
@@ -33,6 +34,7 @@ public class FTApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         screenController.addScreen("FrontPage", frontPage);
         screenController.addScreen("Groups", groupsView.groupsPane);
+        screenController.addScreen("NoGroups", noGroupsView.noGroupsPane);
         screenController.addScreen("AddTeam", addTeamView.addTeamPane);
         screenController.addScreen("TournamentBracket", tournamentBracketView.tournamentBracketPane);
 
