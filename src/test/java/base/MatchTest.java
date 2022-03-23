@@ -40,28 +40,15 @@ class MatchTest {
         }
     }
 
-    @Nested
-    class GetWinnerTests {
-        @Test
-        void getWinnerTestFirstConstructor() {
-            FootballClub footballClub1 = new FootballClub("Daniels lag", "Norway");
-            FootballClub footballClub2 = new FootballClub("Nessis lag", "Ghana");
-            Match match = new Match(footballClub1, footballClub2, 2, 1);
-            Match match2 = new Match(footballClub1, footballClub2, 0, 1);
-            Match match3 = new Match(footballClub1, footballClub2, 0, 0);
-            assertEquals(footballClub1, match.getWinner());
-            assertEquals(footballClub2, match.getFootballClub2());
-            assertNull(match3.getWinner());
-        }
-
-        @Test
-        void getWinnerTestSecondConstructor() {
-            FootballClub footballClub1 = new FootballClub("Daniels lag", "Norway");
-            FootballClub footballClub2 = new FootballClub("Daniels lag2", "Norway");
-            Match match = new Match(footballClub1, footballClub2);
-            match.setScore1(2);
-            match.setScore2(0);
-            assertEquals(footballClub1, match.getWinner());
-        }
+    @Test
+    void getWinnerTest() {
+        FootballClub footballClub1 = new FootballClub("Daniels lag", "Norway");
+        FootballClub footballClub2 = new FootballClub("Nessis lag", "Ghana");
+        Match match = new Match(footballClub1, footballClub2, 2, 1);
+        Match match2 = new Match(footballClub1, footballClub2, 0, 1);
+        Match match3 = new Match(footballClub1, footballClub2, 0, 0);
+        assertEquals(footballClub1, match.getWinner());
+        assertEquals(footballClub2, match.getFootballClub2());
+        assertNull(match3.getWinner());
     }
 }
