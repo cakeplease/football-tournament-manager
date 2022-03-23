@@ -41,5 +41,7 @@ class GroupControllerTest {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         GroupController groupController = new GroupController();
         groupController.addAll(footballClubs);
+        assertEquals(64, groupController.getFootballClubs().size());
+        assertTrue(groupController.generateGroups());
     }
 }

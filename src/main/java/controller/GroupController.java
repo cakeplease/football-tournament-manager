@@ -47,9 +47,15 @@ public class GroupController {
             throw new IllegalArgumentException("The name and nationality of the football club can not be blank!!");
         }
         FootballClub team = new FootballClub(name, nationality);
-        this.footballClubs.add(team);
+        if (!this.footballClubs.contains(team)){
+            this.footballClubs.add(team);
+        }
     }
 
+    /**
+     * Method for adding a list of football clubs to the groupcontroller
+     * @param footballClubsToAdd a list of football clubs
+     */
     public void addAll(ArrayList<FootballClub> footballClubsToAdd){
         if (footballClubsToAdd == null){
             throw new NullPointerException("The footballclubs can not be null!");
@@ -78,16 +84,15 @@ public class GroupController {
             } else {
                 internationalClubs.add(f);
             }
-            //randomizes both lists
-            Collections.shuffle(norwegianClubs);
-            Collections.shuffle(internationalClubs);
-
-            for(int i = 0; i < 16; i++){
-                this.groups.add(new Group());
-                groups.get(i).addTeam(internationalClubs.get(i));
-                    for (int k = 0; k < 3; k++){
-                        groups.get(i).addTeam(norwegianClubs.get(k +(3*i)));
-                    }
+        }
+        //randomizes both lists
+        Collections.shuffle(norwegianClubs);
+        Collections.shuffle(internationalClubs);
+        for(int i = 0; i < 16; i++){
+            this.groups.add(new Group());
+            this.groups.get(i).addTeam(internationalClubs.get(i));
+            for (int k = 0; k < 3; k++){
+                this.groups.get(i).addTeam(norwegianClubs.get(k +(3*i)));
             }
         }
         return true;
