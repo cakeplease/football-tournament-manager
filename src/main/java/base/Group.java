@@ -13,9 +13,9 @@ public class Group {
     private ArrayList<Match> groupMatches = null;
 
     /**
-     * constructor for getting predetermined group
-     * assigns groupTeams to existing arraylist
-     * @param groupTeams existing arraylist of type fotbalclub
+     * Constructor for getting predetermined group
+     * Assigns groupTeams to existing arraylist
+     * @param groupTeams existing arraylist of type FootballClub
      * @throws IllegalArgumentException if arraylist size larger then 4 or if array is null
      */
     public Group(ArrayList<FootballClub> groupTeams) throws IllegalArgumentException{
@@ -29,7 +29,7 @@ public class Group {
     }
 
     /**
-     * overload constructer if group is not determined beforhand
+     * Overload constructor if group is not determined beforehand
      */
     public Group(){
         this.groupTeams = new ArrayList<FootballClub>();
@@ -44,7 +44,7 @@ public class Group {
     }
 
     /**
-     * adds team to group
+     * Adds team to group
      * @param teamToAdd team to add to group
      * @return boolean if team is added or not
      * @throws IndexOutOfBoundsException if arraysize >= 4
@@ -60,8 +60,9 @@ public class Group {
     }
 
     /**
-     * generates the matches
-     * and adds to matches array
+     * Generates the matches
+     * Then adds to matches-array
+     * Sets the starting score of a match to 0-0
      * @throws Exception if group size != 4
      */
     public void generateMatches() throws Exception {
