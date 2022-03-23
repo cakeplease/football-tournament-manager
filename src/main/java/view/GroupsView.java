@@ -1,5 +1,7 @@
 package view;
 
+import base.FootballClub;
+import base.Group;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 public class GroupsView {
     protected GridPane groupsPane;
@@ -45,6 +49,7 @@ public class GroupsView {
         groupsPane.setHgap(250);
         groupsPane.setVgap(10);
         groupsPane.setPadding(new Insets(25,25,25,25));
+
 
 
         Text t1 = new Text("a\nb\nc\nd");
@@ -94,5 +99,20 @@ public class GroupsView {
 
     }
 
-    //TODO hent arraylist
+
+    public void getAllGroups(){
+        //TODO fetch arraylist of the groups
+        //group controller.getinstance
+        //getgroups
+        //.getFootBallClubs
+
+        ArrayList<Group> groups = new ArrayList<>();//putt inn her
+        ArrayList<String> strings = new ArrayList<>();
+
+        for(int i = 0; groups.size() > i; i++){
+            strings.add()groups.get(i);
+        }
+    }
+
+
 }
