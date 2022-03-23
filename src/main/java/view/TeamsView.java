@@ -7,15 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.text.*;
 
 /**
- * Template for [name]View classes
- * Things that aren't commented stays the same
+ * TeamsView class
  */
 public class TeamsView {
-    //Change variable name to [viewname]Pane
     protected GridPane teamsViewPane;
     private ScreenController screenController;
     //TODO: bytt ut denne med singleton
-    GroupController groupController = new GroupController();
+    GroupController groupController = GroupController.getInstance();
+
 
     public TeamsView(ScreenController screenController) {
         this.teamsViewPane = new GridPane();
@@ -45,6 +44,5 @@ public class TeamsView {
             }
         }
 
-        //your code goes here...
     }
 }

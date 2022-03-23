@@ -20,6 +20,8 @@ public class FTApplication extends Application {
 
     private AddTeamView addTeamView = new AddTeamView(screenController);
     private GroupsView groupsView = new GroupsView(screenController);
+    private NoGroupsView noGroupsView = new NoGroupsView(screenController);
+    private TeamsView teamsView = new TeamsView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
 
 
