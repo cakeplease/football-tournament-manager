@@ -27,7 +27,7 @@ public class FTApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        screenController.addScreen("Frontpage", FrontPage);
         screenController.addScreen("Groups", GroupsView.groupsPane);
         screenController.addScreen("AddTeam", AddTeamView.addTeamPane);
         screenController.addScreen("TournamentBracket", TournamentBracketView.tournamentBracketPane);
