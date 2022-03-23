@@ -160,14 +160,4 @@ public class Match {
             return null;
         }
     }
-
-    @Override
-    public String toString() {
-        return "[" +
-                 footballClub1.getName() +
-                " - " + footballClub2.getName() +
-                " score=" + score1 +
-                "-" + score2 +
-                ']';
-    }
 }
