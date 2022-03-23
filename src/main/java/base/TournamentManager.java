@@ -24,8 +24,8 @@ public class TournamentManager {
 
 
     /**
-     * getter for groupController
-     * might be usfull when referencing methods for gui
+     * Returns the group controller
+     *
      * @return groupController reference
      */
     public GroupController getGroupController(){
