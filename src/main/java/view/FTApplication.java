@@ -105,8 +105,6 @@ public class FTApplication extends Application {
         vBoxImg.setSpacing(20);
 
 
-
-
         frontPage.getChildren().add(vBoxImg);
 
     }
