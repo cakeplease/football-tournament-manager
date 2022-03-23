@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @version 1.01 23.03.2022
  */
 public class FootballClubsFromFile {
-    private static final Path path = Path.of("src\\main\\resources\\footballclubs.csv");
+    private static final Path path = Paths.get("src/main/resources/footballclubs.csv");
     private static final String COMMA_DELIMITER = ";";
 
     /**

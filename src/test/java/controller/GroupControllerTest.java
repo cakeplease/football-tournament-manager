@@ -1,7 +1,12 @@
 package controller;
 
 import base.FootballClub;
+import base.Group;
+import model.FootballClubsFromFile;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +20,14 @@ class GroupControllerTest {
     }
 
     @Test
+    void addAllTest() {
+        GroupController groupController = new GroupController();
+        ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
+        groupController.addAll(footballClubs);
+        assertEquals(footballClubs, groupController.getFootballClubs());
+    }
+
+    @Test
     void illegalArgumentTest() {
         GroupController groupController = new GroupController();
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("", "Norge");});
@@ -23,4 +36,10 @@ class GroupControllerTest {
     }
 
 
+    @Test
+    void generateGroupsTest() {
+        ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
+        GroupController groupController = new GroupController();
+        groupController.addAll(footballClubs);
+    }
 }

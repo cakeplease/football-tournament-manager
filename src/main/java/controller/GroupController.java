@@ -50,6 +50,17 @@ public class GroupController {
         this.footballClubs.add(team);
     }
 
+    public void addAll(ArrayList<FootballClub> footballClubsToAdd){
+        if (footballClubsToAdd == null){
+            throw new NullPointerException("The footballclubs can not be null!");
+        }
+        for (FootballClub footballClub: footballClubsToAdd){
+            if (!this.footballClubs.contains(footballClub)){
+                this.footballClubs.add(footballClub);
+            }
+        }
+    }
+
     /**
      * Method for generating groups
      * Iterates through the clubs that have been added to the tournament and divides them into two list according to their nationality
