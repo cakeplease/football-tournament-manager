@@ -1,16 +1,20 @@
 package view;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FTApplication extends Application {
-    private Pane frontPage = new Pane();
+    private StackPane frontPage = new StackPane();
     private Scene frontPageScene = new Scene(frontPage);
     protected ScreenController screenController = new ScreenController(frontPageScene);
 
@@ -39,6 +43,8 @@ public class FTApplication extends Application {
 
         primaryStage.setTitle("Scandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
+        frontPage.getStyleClass().add("front-page");
+
 
         this.setup();
 
@@ -48,10 +54,11 @@ public class FTApplication extends Application {
     
     private void setup() {
 
+
+
         Button addTeam = new Button();
         addTeam.setText("Add team");
-        addTeam.setLayoutX(100);
-        addTeam.setLayoutY(500);
+        addTeam.setAlignment(Pos.BOTTOM_LEFT);
         addTeam.setOnAction(e -> screenController.activate("AddTeam"));
 
         Button showAllTeams = new Button();
@@ -80,22 +87,28 @@ public class FTApplication extends Application {
         showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracket"));
 
         Text welcome = new Text("Scandia Cup 2022");
-        welcome.setLayoutX(400);
-        welcome.setLayoutY(400);
         welcome.setFont(new Font("Verdana", 40));
+
+        HBox buttons = new HBox();
+        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket);
+        buttons.setSpacing(20);
+        buttons.setAlignment(Pos.CENTER);
 
         Image image = new Image("/frontPage.jpg");
         ImageView imageView = new ImageView(image);
         imageView.setX(400);
         imageView.setY(50);
+        imageView.getStyleClass().add("image");
+        VBox vBoxImg = new VBox();
+        vBoxImg.getChildren().addAll(imageView, welcome, buttons);
+        vBoxImg.setAlignment(Pos.TOP_CENTER);
+        vBoxImg.setSpacing(20);
 
-        frontPage.getChildren().add(imageView);
-        frontPage.getChildren().add(addTeam);
-        frontPage.getChildren().add(showAllTeams);
-        frontPage.getChildren().add(showMatches);
-        frontPage.getChildren().add(showGroups);
-        frontPage.getChildren().add(showTournamentBracket);
-        frontPage.getChildren().add(welcome);
+
+
+
+        frontPage.getChildren().add(vBoxImg);
+
     }
 
     /**
