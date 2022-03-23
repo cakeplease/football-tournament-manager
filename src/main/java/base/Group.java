@@ -51,11 +51,11 @@ public class Group {
      * Adds team to group
      * @param teamToAdd team to add to group
      * @return boolean if team is added or not
-     * @throws IndexOutOfBoundsException if arraysize >= 4
+     * @throws RuntimeException if arraysize >= 4
      */
-    public boolean addTeam(FootballClub teamToAdd) throws IndexOutOfBoundsException{
+    public boolean addTeam(FootballClub teamToAdd) throws RuntimeException{
         if (groupTeams.size() >= 4)
-            throw new IndexOutOfBoundsException("Groups cant have more then 4 teams");
+            throw new RuntimeException("Groups cant have more then 4 teams");
         if(this.groupTeams.contains(teamToAdd))
             return false;
 
@@ -67,11 +67,11 @@ public class Group {
      * Generates the matches
      * Then adds to matches-array
      * Sets the starting score of a match to 0-0
-     * @throws Exception if group size != 4
+     * @throws RuntimeException if group size != 4
      */
-    public void generateMatches() throws Exception {
+    public void generateMatches() throws RuntimeException {
         if (this.groupTeams.size() != 4){
-            throw new Exception("There needs to be 4 teams in the group");
+            throw new RuntimeException("There needs to be 4 teams in the group");
         }else if(this.groupMatches == null){
             this.groupMatches = new ArrayList<Match>();
 
@@ -102,13 +102,10 @@ public class Group {
                 e.getFootballClub1().setGroupScore(e.getFootballClub1().getGroupScore() + 1);
                 e.getFootballClub2().setGroupScore(e.getFootballClub2().getGroupScore() + 1);
             }else
-                e.getWinner().setGroupScore(e.getWinner().getGroupScore() + 2);
-
-            e.getFootballClub1().setGroupScore(e.getFootballClub1().getGroupScore() + 1);
-            e.getFootballClub2().setGroupScore(e.getFootballClub2().getGroupScore() + 1);
+                e.getWinner().setGroupScore(e.getWinner().getGroupScore() + 3);
 
             e.getFootballClub1().setGoalsScored(e.getFootballClub1().getGoalsScored() + e.getScore1());
-            e.getFootballClub2().setGroupScore(e.getFootballClub2().getGroupScore() + e.getScore2());
+            e.getFootballClub2().setGoalsScored(e.getFootballClub2().getGoalsScored() + e.getScore2());
 
             e.getFootballClub1().setGoalsLetIn(e.getFootballClub1().getGoalsLetIn() + e.getScore2());
             e.getFootballClub2().setGoalsLetIn(e.getFootballClub2().getGoalsLetIn() + e.getScore1());
@@ -117,9 +114,9 @@ public class Group {
         //sorts the teams after score and goal diff
         groupTeams.sort((o1, o2) -> {
             int sortScore = o1.getGroupScore() - o2.getGroupScore();
-            if (sortScore == 0 & o1.getGroupScore() - o1.getGoalsLetIn() != o2.getGroupScore() - o2.getGoalsLetIn())
-                sortScore = (o1.getGroupScore() - o1.getGoalsLetIn() > o2.getGroupScore() - o2.getGoalsLetIn()) ? 1 : -1;
-            if (o1.getGroupScore() - o1.getGoalsLetIn() == o2.getGroupScore() - o2.getGoalsLetIn())
+            if (sortScore == 0 & o1.getGoalsScored() - o1.getGoalsLetIn() != o2.getGoalsScored() - o2.getGoalsLetIn())
+                sortScore = (o1.getGoalsScored() - o1.getGoalsLetIn() > o2.getGoalsScored() - o2.getGoalsLetIn()) ? 1 : -1;
+            else if(sortScore == 0)
                 sortScore = (rand.nextInt() >= 0.5) ? 1 : -1;
             return sortScore;
         });
