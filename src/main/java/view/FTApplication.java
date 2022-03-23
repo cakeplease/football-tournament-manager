@@ -43,42 +43,32 @@ public class FTApplication extends Application {
         addTeam.setText("Add team");
         addTeam.setLayoutX(100);
         addTeam.setLayoutY(500);
-        addTeam.setOnAction(e -> {
-            screenController.activate("AddTeam");
-        });
+        addTeam.setOnAction(e -> screenController.activate("AddTeam"));
 
         Button showAllTeams = new Button();
         showAllTeams.getStyleClass().add("button");
         showAllTeams.setText("Show all teams");
         showAllTeams.setLayoutX(200);
         showAllTeams.setLayoutY(500);
-        showAllTeams.setOnAction(e -> {
-            screenController.activate("Teams");
-        });
+        showAllTeams.setOnAction(e -> screenController.activate("Teams"));
 
         Button showMatches = new Button();
         showMatches.setText("Show matches");
         showMatches.setLayoutX(300);
         showMatches.setLayoutY(500);
-        showMatches.setOnAction(e -> {
-            screenController.activate("Matches");
-        });
+        showMatches.setOnAction(e -> screenController.activate("Matches"));
 
         Button showGroups = new Button();
         showGroups.setText("Show groups");
         showGroups.setLayoutX(400);
         showGroups.setLayoutY(500);
-        showGroups.setOnAction(e -> {
-            screenController.activate("Groups");
-        });
+        showGroups.setOnAction(e -> screenController.activate("Groups"));
 
         Button showTournamentBracket = new Button();
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
         showTournamentBracket.setLayoutY(700);
-        showTournamentBracket.setOnAction(e -> {
-            screenController.activate("TournamentBracket");
-        });
+        showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracket"));
 
         Text welcome = new Text("Scandia Cup 2022");
         welcome.setLayoutX(400);
