@@ -6,7 +6,6 @@ import model.FootballClubsFromFile;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,6 +24,7 @@ class GroupControllerTest {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         groupController.addAll(footballClubs);
         assertEquals(footballClubs, groupController.getFootballClubs());
+        assertThrows(NullPointerException.class, () -> {groupController.addAll(null);});
     }
 
     @Test
