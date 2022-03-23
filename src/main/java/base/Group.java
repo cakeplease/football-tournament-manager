@@ -117,10 +117,12 @@ public class Group {
         //sorts the teams after score and goal diff
         groupTeams.sort((o1, o2) -> {
             int sortScore = o1.getGroupScore() - o2.getGroupScore();
-            if (sortScore == 0 & o1.getGroupScore() - o1.getGoalsLetIn() != o2.getGroupScore() - o2.getGoalsLetIn())
-                sortScore = (o1.getGroupScore() - o1.getGoalsLetIn() > o2.getGroupScore() - o2.getGoalsLetIn()) ? 1 : -1;
-            if (o1.getGroupScore() - o1.getGoalsLetIn() == o2.getGroupScore() - o2.getGoalsLetIn())
+
+            if (sortScore == 0 && ((o1.getGroupScore() - o1.getGoalsLetIn()) != (o2.getGroupScore() - o2.getGoalsLetIn())))
+                sortScore = (o1.getGroupScore() - o1.getGoalsLetIn() >= o2.getGroupScore() - o2.getGoalsLetIn()) ? 1 : -1;
+            else if (sortScore == 0)
                 sortScore = (rand.nextInt() >= 0.5) ? 1 : -1;
+
             return sortScore;
         });
     }

@@ -13,7 +13,7 @@ class TournamentManagerTest {
     TournamentManager tr;
     @BeforeEach
     void setUp() {
-        tr = new TournamentManager();
+        tr = new TournamentManager(new GroupController());
         GroupController gc = tr.getGroupController();
         gc.addAll(FootballClubsFromFile.readFromFile());
         gc.generateGroups();
