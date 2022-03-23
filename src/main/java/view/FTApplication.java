@@ -10,13 +10,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FTApplication extends Application {
-    private Pane FrontPage = new Pane();
-    private Scene frontPageScene = new Scene(FrontPage);
+    private Pane frontPage = new Pane();
+    private Scene frontPageScene = new Scene(frontPage);
     protected ScreenController screenController = new ScreenController(frontPageScene);
 
-    private AddTeamView AddTeamView = new AddTeamView(screenController);
-    private GroupsView GroupsView = new GroupsView(screenController);
-    private TournamentBracketView TournamentBracketView = new TournamentBracketView(screenController);
+    private AddTeamView addTeamView = new AddTeamView(screenController);
+    private GroupsView groupsView = new GroupsView(screenController);
+    private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
 
 
     /**
@@ -27,10 +27,10 @@ public class FTApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        screenController.addScreen("Frontpage", FrontPage);
-        screenController.addScreen("Groups", GroupsView.groupsPane);
-        screenController.addScreen("AddTeam", AddTeamView.addTeamPane);
-        screenController.addScreen("TournamentBracket", TournamentBracketView.tournamentBracketPane);
+        screenController.addScreen("FrontPage", frontPage);
+        screenController.addScreen("Groups", groupsView.groupsPane);
+        screenController.addScreen("AddTeam", addTeamView.addTeamPane);
+        screenController.addScreen("TournamentBracket", tournamentBracketView.tournamentBracketPane);
 
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
@@ -89,13 +89,13 @@ public class FTApplication extends Application {
         imageView.setX(400);
         imageView.setY(50);
 
-        FrontPage.getChildren().add(imageView);
-        FrontPage.getChildren().add(addTeam);
-        FrontPage.getChildren().add(showAllTeams);
-        FrontPage.getChildren().add(showMatches);
-        FrontPage.getChildren().add(showGroups);
-        FrontPage.getChildren().add(showTournamentBracket);
-        FrontPage.getChildren().add(welcome);
+        frontPage.getChildren().add(imageView);
+        frontPage.getChildren().add(addTeam);
+        frontPage.getChildren().add(showAllTeams);
+        frontPage.getChildren().add(showMatches);
+        frontPage.getChildren().add(showGroups);
+        frontPage.getChildren().add(showTournamentBracket);
+        frontPage.getChildren().add(welcome);
     }
 
     /**
