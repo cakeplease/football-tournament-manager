@@ -65,7 +65,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                footballtournamentapplication/view.HelloApplication
+                                footballtournamentapplication/view.FTApplication
                             </mainClass>
                         </configuration>
                     </execution>
