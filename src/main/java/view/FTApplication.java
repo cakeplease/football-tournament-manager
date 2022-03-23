@@ -16,6 +16,8 @@ public class FTApplication extends Application {
 
     private AddTeamView AddTeamView = new AddTeamView(screenController);
     private GroupsView GroupsView = new GroupsView(screenController);
+    private TournamentBracketView TournamentBracketView = new TournamentBracketView(screenController);
+
 
     /**
      * Overrides the start() method which takes a single parameter stage.
@@ -28,6 +30,8 @@ public class FTApplication extends Application {
 
         screenController.addScreen("Groups", GroupsView.groupsPane);
         screenController.addScreen("AddTeam", AddTeamView.addTeamPane);
+        screenController.addScreen("TournamentBracket", TournamentBracketView.tournamentBracketPane);
+
 
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
