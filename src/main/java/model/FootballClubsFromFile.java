@@ -7,9 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class fotballclubsFromFile {
-    private static final Path path = Path.of("./resources/fotballclubs.csv")
-    private static final String COMMA_DELIMITER = ",";
+/**
+ * class to read football clubs to an array
+ *
+ * @author birkn
+ * @version 1.01 23.03.2022
+ */
+public class FootballClubsFromFile {
+    private static final Path path = Path.of("src\\main\\resources\\footballclubs.csv");
+    private static final String COMMA_DELIMITER = ";";
 
     /**
      * read from csv file and return a footballclub array
@@ -17,7 +23,6 @@ public class fotballclubsFromFile {
      */
     public static FootballClub[] readFromFile() {
         ArrayList<FootballClub> resultClubs = new ArrayList<FootballClub>();
-
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
