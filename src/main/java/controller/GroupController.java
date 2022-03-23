@@ -30,6 +30,9 @@ public class GroupController {
     }
 
     public void addFootballClub(String name, String nationality) {
+        if (name.isBlank() || nationality.isBlank()){
+            throw new IllegalArgumentException("The name and nationality of the football club can not be blank!!");
+        }
         FootballClub team = new FootballClub(name, nationality);
         this.footballClubs.add(team);
     }
