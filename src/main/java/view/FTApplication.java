@@ -32,12 +32,19 @@ public class FTApplication extends Application {
         screenController.addScreen("AddTeam", AddTeamView.addTeamPane);
         screenController.addScreen("TournamentBracket", TournamentBracketView.tournamentBracketPane);
 
-
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
 
         primaryStage.setTitle("Scandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
+
+        this.setup();
+
+        primaryStage.setScene(frontPageScene);
+        primaryStage.show();
+    }
+    
+    private void setup() {
 
         Button addTeam = new Button();
         addTeam.setText("Add team");
@@ -97,9 +104,6 @@ public class FTApplication extends Application {
         FrontPage.getChildren().add(showGroups);
         FrontPage.getChildren().add(showTournamentBracket);
         FrontPage.getChildren().add(welcome);
-
-        primaryStage.setScene(frontPageScene);
-        primaryStage.show();
     }
 
     /**
