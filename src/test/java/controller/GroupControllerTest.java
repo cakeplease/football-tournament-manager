@@ -21,4 +21,6 @@ class GroupControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("Daniels lag", "");});
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("", "");});
     }
+
+
 }
