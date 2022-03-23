@@ -22,8 +22,14 @@ public class TournamentManager {
     private final ArrayList<Match> semifinalsA = new ArrayList<>(); //a list of the semifinals matches in the A finals
     private final ArrayList<Match> semifinalsB = new ArrayList<>(); //a list of the semifinals matches in the B finals
 
-    public TournamentManager(){
 
+    /**
+     * getter for groupController
+     * might be usfull when referencing methods for gui
+     * @return groupController reference
+     */
+    public GroupController getGroupController(){
+        return groupController;
     }
 
     /**

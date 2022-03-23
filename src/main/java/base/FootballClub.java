@@ -14,6 +14,7 @@ public class FootballClub {
     private String nationality;
     private int goalsScored;
     private int goalsLetIn;
+    private int groupScore;
 
     /**
      * Constructor for FootballClub
@@ -71,6 +72,22 @@ public class FootballClub {
      */
     public void setGoalsLetIn(int goalsLetIn) {
         this.goalsLetIn = goalsLetIn;
+    }
+
+    /**
+     * setter for groupe score
+     * @param score
+     */
+    public void setGroupScore(int score){
+        this.groupScore = score;
+    }
+
+    /**
+     * getter for grupe score
+     * @return group score
+     */
+    public int getGroupScore() {
+        return this.groupScore;
     }
 
     /**
