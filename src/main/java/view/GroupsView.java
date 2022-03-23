@@ -18,6 +18,15 @@ public class GroupsView {
     }
 
     public void setup() {
+        //knapper
+        //tekst
+        Button backButton = new Button();
+        backButton.setText("Back");
+        backButton.setLayoutX(100);
+        backButton.setLayoutY(500);
+        backButton.setOnAction(e -> screenController.activate("FrontPage"));
+
+        groupsPane.getChildren().add(backButton);
 
     }
 }
