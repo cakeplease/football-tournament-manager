@@ -67,6 +67,15 @@ public class Group {
         return true;
     }
 
+    public String getCsvFormatTeams() {
+        return this.groupTeams + "\n";
+    }
+
+    public String getCsvFormatMatches() {
+        return this.groupMatches + "\n";
+    }
+
+
     /**
      * Generates the matches
      * Then adds to matches-array
@@ -91,7 +100,7 @@ public class Group {
     /**
      * sorts the arraylist, and adds score and gols to footballclubs
      */
-    public void endGrupe(){
+    public void endGroup(){
 
         if (hasEnded)
             return;

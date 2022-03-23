@@ -22,7 +22,7 @@ class TournamentManagerTest {
             try{
                 e.generateMatches();
                 e.testSimulateAllMatches();
-                e.endGrupe();
+                e.endGroup();
             }catch (Exception e1){
                 System.out.println(e1.getMessage());
             }
