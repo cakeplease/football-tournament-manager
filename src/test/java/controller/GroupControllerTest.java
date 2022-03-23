@@ -22,8 +22,7 @@ class GroupControllerTest {
     void addAllTest() {
         GroupController groupController = GroupController.getInstance();
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
-        groupController.addAll(footballClubs);
-        assertEquals(footballClubs, groupController.getFootballClubs());
+        assertThrows(RuntimeException.class, () -> groupController.addAll(footballClubs));
         assertThrows(NullPointerException.class, () -> {groupController.addAll(null);});
     }
 
@@ -40,8 +39,8 @@ class GroupControllerTest {
     void generateGroupsTest() {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         GroupController groupController = GroupController.getInstance();
+        groupController.resetList();
         groupController.addAll(footballClubs);
-        assertEquals(64, groupController.getFootballClubs().size());
         assertTrue(groupController.generateGroups());
     }
 }

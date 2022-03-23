@@ -50,13 +50,16 @@ public class GroupController {
      * Method for adding a football club
      * @param name Name of the football club
      * @param nationality Nationality of the football club (Either norwegian or foreign)
+     * @throws RuntimeException if more then 64 teams, or no name or nationality is given
      */
-    public void addFootballClub(String name, String nationality) {
+    public void addFootballClub(String name, String nationality) throws RuntimeException{
         if (name.isBlank() || nationality.isBlank()){
             throw new IllegalArgumentException("The name and nationality of the football club can not be blank!!");
         }
         FootballClub team = new FootballClub(name, nationality);
         if (!this.footballClubs.contains(team)){
+            if (footballClubs.size() >= 64)
+                throw new RuntimeException("more then 64 teams cant be added");
             this.footballClubs.add(team);
         }
     }
@@ -65,15 +68,21 @@ public class GroupController {
      * Method for adding a list of football clubs to the groupcontroller
      * @param footballClubsToAdd a list of football clubs
      */
-    public void addAll(ArrayList<FootballClub> footballClubsToAdd){
+    public void addAll(ArrayList<FootballClub> footballClubsToAdd) throws RuntimeException{
         if (footballClubsToAdd == null){
             throw new NullPointerException("The footballclubs can not be null!");
         }
         for (FootballClub footballClub: footballClubsToAdd){
             if (!this.footballClubs.contains(footballClub)){
+                if (footballClubs.size() >= 64)
+                    throw new RuntimeException("more then 64 teams cant be added");
                 this.footballClubs.add(footballClub);
             }
         }
+    }
+
+    public void resetList(){
+        footballClubs = new ArrayList<FootballClub>();
     }
 
     /**
@@ -106,6 +115,8 @@ public class GroupController {
         }
         return true;
         }
+
+
 
     /**
      * Method for saving football clubs to csv-file
