@@ -13,14 +13,14 @@ class GroupControllerTest {
 
     @Test
     void addFootballClubTest() {
-        GroupController groupController = new GroupController();
+        GroupController groupController = GroupController.getInstance();
         groupController.addFootballClub("Daniels lag", "Norge");
         assertEquals(new FootballClub("Daniels lag", "Norge"), groupController.getFootballClubs().get(0));
     }
 
     @Test
     void addAllTest() {
-        GroupController groupController = new GroupController();
+        GroupController groupController = GroupController.getInstance();
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         groupController.addAll(footballClubs);
         assertEquals(footballClubs, groupController.getFootballClubs());
@@ -29,7 +29,7 @@ class GroupControllerTest {
 
     @Test
     void illegalArgumentTest() {
-        GroupController groupController = new GroupController();
+        GroupController groupController = GroupController.getInstance();
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("", "Norge");});
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("Daniels lag", "");});
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("", "");});
@@ -39,7 +39,7 @@ class GroupControllerTest {
     @Test
     void generateGroupsTest() {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
-        GroupController groupController = new GroupController();
+        GroupController groupController = GroupController.getInstance();
         groupController.addAll(footballClubs);
         assertEquals(64, groupController.getFootballClubs().size());
         assertTrue(groupController.generateGroups());

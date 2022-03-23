@@ -13,12 +13,18 @@ public class GroupController {
     private ArrayList<FootballClub> footballClubs;
     private ArrayList<Group> groups;
 
+    private static GroupController groupController = new GroupController();
+
     /**
      * GroupController constructor
      */
-    public GroupController() {
+    private GroupController() {
         this.footballClubs = new ArrayList<>(64);
         this.groups = new ArrayList<>(16);
+    }
+
+    public static GroupController getInstance() {
+        return groupController;
     }
 
     /**

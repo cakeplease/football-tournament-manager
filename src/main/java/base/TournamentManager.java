@@ -12,7 +12,7 @@ import java.util.Collections;
  * @version 22.03.2022
  */
 public class TournamentManager {
-    private final GroupController groupController = new GroupController();
+    private GroupController groupController = getGroupController();
     private final ArrayList<Match> roundOf32A = new ArrayList<>(); //a list of the round of 32 matches in the A finals
     private final ArrayList<Match> roundOf32B = new ArrayList<>(); //a list of the round of 32 matches in the B finals
     private final ArrayList<Match> roundOf16A = new ArrayList<>(); //a list of the round of 16 matches in the A finals
@@ -29,7 +29,7 @@ public class TournamentManager {
      * @return groupController reference
      */
     public GroupController getGroupController(){
-        return groupController;
+        return GroupController.getInstance();
     }
 
     /**
