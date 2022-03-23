@@ -21,7 +21,7 @@ public class FootballClubsFromFile {
      * read from csv file and return a footballclub array
      * @return footballclub array
      */
-    public static FootballClub[] readFromFile() {
+    public static ArrayList<FootballClub> readFromFile() {
         ArrayList<FootballClub> resultClubs = new ArrayList<FootballClub>();
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             String line;
@@ -29,7 +29,7 @@ public class FootballClubsFromFile {
                 String[] values = line.split(COMMA_DELIMITER);
                 resultClubs.add(new FootballClub(values[0], values[1]));
             }
-            return resultClubs.toArray(FootballClub[]::new);
+            return resultClubs;
         } catch (IOException e) {
             e.printStackTrace();
         }
