@@ -83,6 +83,7 @@ public class GroupController {
 
     public void resetList(){
         footballClubs = new ArrayList<FootballClub>();
+        groups = new ArrayList<Group>();
     }
 
     /**
