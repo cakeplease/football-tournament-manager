@@ -38,7 +38,7 @@ public class TeamsView {
         for (int i = 0; i < groupController.getFootballClubs().size(); i++){
             for (int j = 0; j < groupController.getFootballClubs().size()/3; j++){
                 for (int k = 0; k < 3; k++){
-                    teamsViewPane.add(new Text(groupController.getFootballClubs().get(i).getName()), k, j);
+                    teamsViewPane.add(new Text(groupController.getFootballClubs().get(i).getName()), j, k);
 
                 }
             }

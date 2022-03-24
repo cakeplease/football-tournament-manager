@@ -14,6 +14,7 @@ class GroupControllerTest {
     @Test
     void addFootballClubTest() {
         GroupController groupController = GroupController.getInstance();
+        groupController.resetList();
         groupController.addFootballClub("Daniels lag", "Norge");
         assertEquals(new FootballClub("Daniels lag", "Norge"), groupController.getFootballClubs().get(0));
     }
