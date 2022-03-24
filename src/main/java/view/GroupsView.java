@@ -75,6 +75,7 @@ public class GroupsView {
         GroupController groupController = GroupController.getInstance();
 
         ArrayList<Group> groups = groupController.getGroups();
+        System.out.println(groups);
         ArrayList<String> strings = new ArrayList<>();
 
 
