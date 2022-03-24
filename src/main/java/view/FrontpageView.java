@@ -1,63 +1,31 @@
 package view;
+
 import controller.GroupController;
-import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-public class FTApplication extends Application {
-    GroupController groupController = GroupController.getInstance();
-    private StackPane frontPage = new StackPane();
-    private Scene frontPageScene = new Scene(frontPage);
-    protected ScreenController screenController = new ScreenController(frontPageScene);
+public class FrontpageView extends View {
+    protected StackPane pane;
+    private ScreenController screenController;
 
-    private FrontpageView frontpage = new FrontpageView(screenController);
-    private AddTeamView addTeamView = new AddTeamView(screenController);
-    private GroupsView groupsView = new GroupsView(screenController);
-    private NoGroupsView noGroupsView = new NoGroupsView(screenController);
-    private TeamsView teamsView = new TeamsView(screenController);
-    private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
-
-    /**
-     * Overrides the start() method which takes a single parameter stage.
-     * Uses the show() method to display the stage.
-     * @param primaryStage
-     * @throws Exception
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        screenController.addScreen("FrontPage", frontpage);
-        screenController.addScreen("Groups", groupsView);
-        screenController.addScreen("NoGroups", noGroupsView);
-        screenController.addScreen("AddTeam", addTeamView);
-        //screenController.addScreen("TournamentBracket", tournamentBracketView);
-        screenController.addScreen("Teams", teamsView);
-
-        Image icon = new Image ("logo1.png");
-        primaryStage.getIcons().add(icon);
-
-        primaryStage.setFullScreen(true);
-
-        primaryStage.setTitle("Scandia Cup Manager");
-        frontPageScene.getStylesheets().add("/styles.css");
-        frontPage.getStyleClass().add("front-page");
-        primaryStage.setScene(frontPageScene);
-        primaryStage.show();
+    public FrontpageView(ScreenController ScreenController) {
+        this.pane = new StackPane();
+        this.screenController = ScreenController;
 
         this.setup();
-
     }
-    
-    private void setup() {
+
+    public Pane getPane() {
+        return this.pane;
+    }
+
+    public void setup() {
+        GroupController groupController = GroupController.getInstance();
         Button addTeam = new Button();
         addTeam.setText("Add team");
         addTeam.setAlignment(Pos.BOTTOM_LEFT);
@@ -86,6 +54,7 @@ public class FTApplication extends Application {
             showGroups.setOnAction(e -> screenController.activate("Groups"));
         }
 
+
         Button showTournamentBracket = new Button();
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
@@ -109,16 +78,8 @@ public class FTApplication extends Application {
         vBoxImg.getChildren().addAll(imageView, welcome, buttons);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
-        frontPage.getChildren().add(vBoxImg);
+
+        pane.getChildren().add(vBoxImg);
 
     }
-
-    /**
-     * Uses the static launch() method to launch the stage.
-     * @param args
-     */
-    public static void main(String[] args) {
-        FTApplication.launch(args);
-    }
-
 }

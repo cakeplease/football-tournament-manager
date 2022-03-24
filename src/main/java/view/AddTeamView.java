@@ -5,42 +5,48 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
-public class AddTeamView {
-    protected GridPane addTeamPane;
+public class AddTeamView extends View{
+    protected GridPane pane;
     private ScreenController screenController;
 
     public AddTeamView(ScreenController screenController) {
-        this.addTeamPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
+    }
+
+
+    public Pane getPane() {
+        return this.pane;
     }
 
     public void setup() {
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        addTeamPane.add(backButton, 0,1);
+        pane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Add team");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        addTeamPane.add(sceneTitle, 1, 2);
+        pane.add(sceneTitle, 1, 2);
 
         Label teamName = new Label("Team name:");
-        addTeamPane.add(teamName, 1, 3);
+        pane.add(teamName, 1, 3);
 
         TextField teamNameField = new TextField();
-        addTeamPane.add(teamNameField, 2, 3);
+        pane.add(teamNameField, 2, 3);
 
         Label nationalityLabel = new Label("Nationality:");
-        addTeamPane.add(nationalityLabel, 1, 4);
+        pane.add(nationalityLabel, 1, 4);
 
         TextField nationalityField = new TextField();
-        addTeamPane.add(nationalityField, 2, 4);
+        pane.add(nationalityField, 2, 4);
 
         Text actionTarget = new Text();
-        addTeamPane.add(actionTarget, 1, 15);
+        pane.add(actionTarget, 1, 15);
 
         Button addTeamButton = new Button("Add team");
         addTeamButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,6 +57,6 @@ public class AddTeamView {
             }
         });
 
-        addTeamPane.add(addTeamButton, 1, 6);
+        pane.add(addTeamButton, 1, 6);
     }
 }

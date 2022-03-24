@@ -24,5 +24,6 @@ public class GUIController {
         groupController.addAll(footballClubs);
         groupController.generateGroups();
         System.out.println(groupController.getGroups());
+
     }
 }

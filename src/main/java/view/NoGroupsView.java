@@ -5,27 +5,30 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
 /**
  * View for situation when no groups exists.
  */
-public class NoGroupsView {
-    //Change variable name to [viewname]Pane
-    protected GridPane noGroupsPane;
+public class NoGroupsView extends View{
+    protected GridPane pane;
     private ScreenController screenController;
 
     public NoGroupsView(ScreenController screenController) {
-        this.noGroupsPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
 
+    public Pane getPane() {
+        return this.pane;
+    }
     public void setup() {
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        noGroupsPane.add(backButton, 0,1);
+        pane.add(backButton, 0,1);
 
         Button generateGroups = new Button();
         generateGroups.setText("Generate groups");
@@ -37,15 +40,14 @@ public class NoGroupsView {
 
             }
         });
-        noGroupsPane.add(generateGroups, 20,1);
+        pane.add(generateGroups, 20,1);
 
         Text sceneTitle = new Text("Groups");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        noGroupsPane.add(sceneTitle, 1, 2);
+        pane.add(sceneTitle, 1, 2);
 
         Text noGroupsText = new Text("No groups available. Press the button in the right corner to generate groups.");
-        noGroupsPane.add(noGroupsText, 1, 4);
-
+        pane.add(noGroupsText, 1, 4);
 
     }
 }

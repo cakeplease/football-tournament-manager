@@ -9,12 +9,11 @@ import javafx.scene.text.*;
  * Things that aren't commented stays the same
  */
 public class ViewTemplate {
-    //Change variable name to [viewname]Pane
-    protected GridPane viewNamePane;
+    protected GridPane pane;
     private ScreenController screenController;
 
     public ViewTemplate(ScreenController screenController) {
-        this.viewNamePane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
@@ -23,11 +22,11 @@ public class ViewTemplate {
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        viewNamePane.add(backButton, 0,1);
+        pane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Scene title");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
-        viewNamePane.add(sceneTitle, 1, 2);
+        pane.add(sceneTitle, 1, 2);
 
         //your code goes here...
     }

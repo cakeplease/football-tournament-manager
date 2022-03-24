@@ -5,51 +5,50 @@ import controller.GroupController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 
-public class GroupsView {
-    protected GridPane groupsPane;
+public class GroupsView extends View {
+    protected GridPane pane;
     private ScreenController screenController;
 
     public GroupsView(ScreenController ScreenController) {
-        this.groupsPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = ScreenController;
+
         this.setup();
     }
 
+    public Pane getPane() {
+        return this.pane;
+    }
+
     public void setup() {
+        System.out.println("Setup i groupsView kjøres");
+        GroupController groupController = GroupController.getInstance();
+
         Button backButton = new Button();
         backButton.setText("Back");
-        //backButton.setLayoutX(25);
-        //backButton.setLayoutY(25);
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
 
         Text t = new Text();
         t.setText("Show groups");
         t.setFont(Font.font ("Verdana", 30));
-        //t.setFont(Font.font(30));
-        //t.setFill(Color.RED);
-        //t.setLayoutX(25);
-        //t.setLayoutY(100);
-
-        groupsPane.add(backButton, 0, 0);
-        groupsPane.add(t, 0, 1);
-
-        groupsPane.setHgap(250);
-        groupsPane.setVgap(10);
-        groupsPane.setPadding(new Insets(25,25,25,25));
+        pane.add(backButton, 0, 0);
+        pane.add(t, 0, 1);
+        pane.setHgap(250);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(25,25,25,25));
 
 
-        for (int i = 0; i < getAllGroups().size(); i++) {
+        for (int i = 0; i < groupController.getGroups().size(); i++) {
             for (int j = 0; j < 4; j++) {
                 for (int l = 3; l < 8; l++) {
                     Text text = new Text(getAllGroups().get(i));
                     text.setFont(Font.font ("Verdana", 20));
-                    groupsPane.add(text, j, l);
-                    //groupsPane.add(new Text(getAllGroups().get(i)), j, l);
+                    pane.add(text, j, l);
                 }
             }
         }
@@ -65,7 +64,6 @@ public class GroupsView {
             }
         }*/
     }
-
 
     /**
      * Takes the list of the groups and puts them in a list of strings
