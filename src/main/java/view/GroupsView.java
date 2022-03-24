@@ -46,59 +46,27 @@ public class GroupsView {
         groupsPane.add(backButton, 0, 0);
         groupsPane.add(t, 0, 1);
 
-
         groupsPane.setHgap(250);
         groupsPane.setVgap(10);
         groupsPane.setPadding(new Insets(25,25,25,25));
 
 
-        /*
-        Text t1 = new Text("a\nb\nc\nd");
-        Text t2 = new Text("a\nb\nc\nd");
-        Text t3 = new Text("a\nb\nc\nd");
-        Text t4 = new Text("a\nb\nc\nd");
-        Text t5 = new Text("a\nb\nc\nd");
-        Text t6 = new Text("a\nb\nc\nd");
-        Text t7 = new Text("a\nb\nc\nd");
-        Text t8 = new Text("a\nb\nc\nd");
-        Text t9 = new Text("a\nb\nc\nd");
-        Text t10 = new Text("a\nb\nc\nd");
-        Text t11 = new Text("a\nb\nc\nd");
-        Text t12 = new Text("a\nb\nc\nd");
-        Text t13 = new Text("a\nb\nc\nd");
-        Text t14 = new Text("a\nb\nc\nd");
-        Text t15 = new Text("a\nb\nc\nd");
-        Text t16 = new Text("a\nb\nc\nd");
-
-
-        groupsPane.add(t1,0,2);
-        groupsPane.add(t2,0,3);
-        groupsPane.add(t3,0,4);
-        groupsPane.add(t4,0,5);
-        groupsPane.add(t5,1,2);
-        groupsPane.add(t6,1,3);
-        groupsPane.add(t7,1,4);
-        groupsPane.add(t8,1,5);
-        groupsPane.add(t9,2,2);
-        groupsPane.add(t10,2,3);
-        groupsPane.add(t11,2,4);
-        groupsPane.add(t12,2,5);
-        groupsPane.add(t13,3,2);
-        groupsPane.add(t14,3,3);
-        groupsPane.add(t15,3,4);
-        groupsPane.add(t16,3,5);
-*/
-
-
-
         for (int i = 0; i < getAllGroups().size(); i++) {
             for (int j = 0; j < 4; j++) {
-                for (int l = 0; l < 4; l++) {
+                for (int l = 3; l < 8; l++) {
                     groupsPane.add(new Text(getAllGroups().get(i)), j, l);
-                    System.out.println("elo");
                 }
             }
         }
+
+/*
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int l = 3; l < 8; l++) {
+                    groupsPane.add(new Text("yeee"), j, l);
+                }
+            }
+        }*/
     }
 
 
@@ -122,9 +90,4 @@ public class GroupsView {
         }
         return strings;
     }
-
-
-
-
-
 }
