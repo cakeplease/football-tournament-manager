@@ -1,5 +1,6 @@
 package view;
 
+import base.FootballClub;
 import base.Group;
 import controller.GroupController;
 import javafx.geometry.Insets;
@@ -38,20 +39,9 @@ public class GroupsView extends View {
         t.setFont(Font.font ("Verdana", 30));
         pane.add(backButton, 0, 0);
         pane.add(t, 0, 1);
-        pane.setHgap(250);
+        pane.setHgap(150);
         pane.setVgap(10);
         pane.setPadding(new Insets(25,25,25,25));
-
-
-        for (int i = 0; i < groupController.getGroups().size(); i++) {
-            for (int j = 0; j < 4; j++) {
-                for (int l = 3; l < 8; l++) {
-                    Text text = new Text(getAllGroups().get(i));
-                    text.setFont(Font.font ("Verdana", 20));
-                    pane.add(text, j, l);
-                }
-            }
-        }
 
 /*
         for (int i = 0; i < 16; i++) {
@@ -62,8 +52,26 @@ public class GroupsView extends View {
                     groupsPane.add(text, j, l);
                 }
             }
-        }*/
+        }
+
+
+
+        //TODO fix the numbers
+        for (int i = 0; i < groupController.getGroups().size(); i++) {
+            for (int columns = 0; columns < 4; columns++) {
+                for (int rows = 4; rows < 8; rows++) {
+                    Text text = new Text(getAllGroups().get(1));//TODO fix the correct number
+                    text.setFont(Font.font ("Verdana", 20));
+                    pane.add(text, columns, rows);
+                }
+            }
+        }
+        */
+
+
+
     }
+
 
     /**
      * Takes the list of the groups and puts them in a list of strings
@@ -80,7 +88,7 @@ public class GroupsView extends View {
         for (Group group : groups) {
             String singleGroupString = "";
             for (int j = 0; j < 4; j++) {
-                singleGroupString += group.getGroupTeams().get(j) + "\n";
+                singleGroupString += group.getGroupTeams().get(j).getName() + "\n";
             }
             strings.add(singleGroupString);
         }
