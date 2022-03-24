@@ -26,7 +26,7 @@ public class ViewTemplate {
         viewNamePane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Scene title");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         viewNamePane.add(sceneTitle, 1, 2);
 
         //your code goes here...
