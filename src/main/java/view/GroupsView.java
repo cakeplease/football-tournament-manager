@@ -54,7 +54,10 @@ public class GroupsView {
         for (int i = 0; i < getAllGroups().size(); i++) {
             for (int j = 0; j < 4; j++) {
                 for (int l = 3; l < 8; l++) {
-                    groupsPane.add(new Text(getAllGroups().get(i)), j, l);
+                    Text text = new Text(getAllGroups().get(i));
+                    text.setFont(Font.font ("Verdana", 20));
+                    groupsPane.add(text, j, l);
+                    //groupsPane.add(new Text(getAllGroups().get(i)), j, l);
                 }
             }
         }
@@ -63,7 +66,9 @@ public class GroupsView {
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int l = 3; l < 8; l++) {
-                    groupsPane.add(new Text("yeee"), j, l);
+                    Text text = new Text("yeee\nyeee\nyeee\nyeee");
+                    text.setFont(Font.font ("Verdana", 20));
+                    groupsPane.add(text, j, l);
                 }
             }
         }*/
