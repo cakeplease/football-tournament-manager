@@ -27,6 +27,7 @@ public class GroupsView extends View {
     }
 
     public void setup() {
+        this.pane = new GridPane();
         System.out.println("Setup i groupsView kjøres");
         GroupController groupController = GroupController.getInstance();
 
