@@ -29,7 +29,7 @@ public class TeamsView {
         teamsViewPane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Teams");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         teamsViewPane.add(sceneTitle, 1, 2);
 
         //22, 22, 16
