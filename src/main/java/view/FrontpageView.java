@@ -25,6 +25,8 @@ public class FrontpageView extends View {
     }
 
     public void setup() {
+        this.pane = new StackPane();
+
         GroupController groupController = GroupController.getInstance();
         Button addTeam = new Button();
         addTeam.setText("Add team");

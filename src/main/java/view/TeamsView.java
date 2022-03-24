@@ -29,6 +29,7 @@ public class TeamsView extends View {
     }
 
     public void setup() {
+        this.pane = new GridPane();
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
