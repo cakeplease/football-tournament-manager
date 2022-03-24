@@ -1,5 +1,10 @@
 package controller;
 
+import base.FootballClub;
+import model.FootballClubsFromFile;
+
+import java.util.ArrayList;
+
 public class GUIController {
 
     /**
@@ -11,5 +16,13 @@ public class GUIController {
     public static void addTeam(String name, String nationality) {
         //TODO add team handler
         System.out.println("Team added");
+    }
+
+    public static void generateGroups() {
+        GroupController groupController = GroupController.getInstance();
+        ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
+        groupController.addAll(footballClubs);
+        groupController.generateGroups();
+        System.out.println(groupController.getGroups());
     }
 }
