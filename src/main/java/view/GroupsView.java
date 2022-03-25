@@ -35,11 +35,11 @@ public class GroupsView extends View {
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
 
-        Text t = new Text();
-        t.setText("Show groups");
-        t.setFont(Font.font ("Verdana", 30));
+        Text title = new Text();
+        title.setText("Show groups");
+        title.setFont(Font.font ("Verdana", 30));
         pane.add(backButton, 0, 0);
-        pane.add(t, 0, 1);
+        pane.add(title, 0, 1);
         pane.setHgap(150);
         pane.setVgap(10);
         pane.setPadding(new Insets(25,25,25,25));
