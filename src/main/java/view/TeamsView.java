@@ -29,7 +29,7 @@ public class TeamsView extends View {
     }
 
     public void setup() {
-        this.pane = new GridPane();
+        //this.pane = new GridPane();
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -49,19 +49,18 @@ public class TeamsView extends View {
 
 
         //22, 22, 16
-
-
-        for (int i = 0; i < groupController.getFootballClubs().size(); i++) {
+        int i = 0;
+        for (int k = 0; k < 3; k++) {
             for (int j = 0; j < groupController.getFootballClubs().size() / 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    Text text = new Text(groupController.getFootballClubs().get(i).getName());
-                    text.setFont(Font.font("Verdana", 20));
-                    pane.add(text, k, j + 5);
-                }
+                Text text = new Text(groupController.getFootballClubs().get(i).getName());
+                text.setFont(Font.font("Verdana", 20));
+                pane.add(text, k, j + 5);
+                i++;
             }
         }
     }
 }
+
 
 
         //for testing layout without any teams

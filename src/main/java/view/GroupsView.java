@@ -27,7 +27,7 @@ public class GroupsView extends View {
     }
 
     public void setup() {
-        this.pane = new GridPane();
+        //this.pane = new GridPane();
         System.out.println("Setup i groupsView kjøres");
         GroupController groupController = GroupController.getInstance();
 
@@ -44,8 +44,8 @@ public class GroupsView extends View {
         pane.setVgap(10);
         pane.setPadding(new Insets(25,25,25,25));
 
-/*
-        for (int i = 0; i < 16; i++) {
+
+/*        for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int l = 3; l < 8; l++) {
                     Text text = new Text("yeee\nyeee\nyeee\nyeee");
@@ -53,11 +53,11 @@ public class GroupsView extends View {
                     groupsPane.add(text, j, l);
                 }
             }
-        }
+        }*/
 
 
 
-        //TODO fix the numbers
+/*        //TODO fix the numbers
         for (int i = 0; i < groupController.getGroups().size(); i++) {
             for (int columns = 0; columns < 4; columns++) {
                 for (int rows = 4; rows < 8; rows++) {
@@ -66,8 +66,17 @@ public class GroupsView extends View {
                     pane.add(text, columns, rows);
                 }
             }
+        }*/
+
+        int i = 0;
+        for (int k = 0; k < 4; k++) {
+            for (int j = 0; j < groupController.getGroups().size() / 4; j++) {
+                Text text = new Text(getAllGroups().get(i));
+                text.setFont(Font.font("Verdana", 20));
+                pane.add(text, k, j + 5);
+                i++;
+            }
         }
-        */
 
 
 
