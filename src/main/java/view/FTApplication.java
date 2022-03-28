@@ -41,7 +41,7 @@ public class FTApplication extends Application {
         screenController.addScreen("Groups", groupsView);
         screenController.addScreen("NoGroups", noGroupsView);
         screenController.addScreen("AddTeam", addTeamView);
-        //screenController.addScreen("TournamentBracket", tournamentBracketView);
+        screenController.addScreen("TournamentBracket", tournamentBracketView);
         screenController.addScreen("Teams", teamsView);
 
         Image icon = new Image ("logo1.png");
