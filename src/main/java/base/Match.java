@@ -62,7 +62,8 @@ public class Match {
      * @param date
      * @param fieldNr
      */
-    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2, int time, int date, int fieldNr){
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1,
+                 int score2, String time, String date, int fieldNr){
         this.footballClub1 = footballClub1;
         this.footballClub2 = footballClub2;
         this.score1 = score1;
