@@ -134,33 +134,6 @@ public class GroupController {
         DataHandler.saveToFile(data.toString(), path);
     }
 
-    /**
-     * Method for saving groups to csv-file
-     * Loops through groups and adds each groups data to the cvs-file (path)
-     * //TODO: check format of info
-     */
-    public void saveGroups() {
-        StringBuilder data = new StringBuilder();
-        for (Group group : groups) {
-            data.append(group.getCsvFormatTeams());
-        }
-            Path path = Paths.get("src/main/resources/data/GeneratedGroups.csv");
-            DataHandler.saveToFile(data.toString(), path);
-    }
-
-    /**
-     * Method for saving matches to csv-file
-     * Loops through groups and adds the match history to a cvs-file
-     * //TODO: check format of info
-     */
-    public void saveMatches() {
-        StringBuilder data = new StringBuilder();
-        for (Group group : groups) {
-            data.append(group.getCsvFormatMatches());
-        }
-        Path path = Paths.get("src/main/resources/data/Matches.csv");
-        DataHandler.saveToFile(data.toString(), path);
-    }
 
     @Override
     public String toString() {
