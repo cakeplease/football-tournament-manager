@@ -110,6 +110,7 @@ public class GroupController {
         Collections.shuffle(internationalClubs);
         for(int i = 0; i < 16; i++){
             this.groups.add(new Group());
+            this.groups.get(i).setGroupNumber(i);
             this.groups.get(i).addTeam(internationalClubs.get(i));
             for (int k = 0; k < 3; k++){
                 this.groups.get(i).addTeam(norwegianClubs.get(k +(3*i)));

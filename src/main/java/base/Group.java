@@ -19,6 +19,11 @@ public class Group {
     private ArrayList<Match> groupMatches = null;
     private final Random rand = new Random();
     private boolean hasEnded = false;
+    private int groupNumber;
+
+
+
+
 
     /**
      * Constructor for getting predetermined group
@@ -73,6 +78,14 @@ public class Group {
 
     public String getCsvFormatMatches() {
         return this.groupMatches + "\n";
+    }
+
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
     }
 
 
