@@ -21,7 +21,13 @@ public class TournamentManager {
     private final ArrayList<Match> quarterFinalsB = new ArrayList<>(); //a list of the quarterfinals matches in the B finals
     private final ArrayList<Match> semifinalsA = new ArrayList<>(); //a list of the semifinals matches in the A finals
     private final ArrayList<Match> semifinalsB = new ArrayList<>(); //a list of the semifinals matches in the B finals
+    private final ArrayList<Match> groupMatches = new ArrayList<>(); //list of group matches
 
+    private static TournamentManager tournamentManager = new TournamentManager();
+
+    public static TournamentManager getInstance() {
+        return tournamentManager;
+    }
 
     /**
      * Returns the group controller
@@ -110,7 +116,6 @@ public class TournamentManager {
      * @return the list of group matches or null if the list is empty.
      */
     public ArrayList<Match> listGroupMatches(){
-        ArrayList<Match> groupMatches = new ArrayList<>();
         for (int i = 0; i < groupController.getGroups().size(); i++){
             for (int j = 0; j < 6; j++)
             groupMatches.add(groupController.getGroups().get(i).getGroupMatches().get(j));
