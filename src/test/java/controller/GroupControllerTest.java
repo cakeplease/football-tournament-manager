@@ -42,6 +42,8 @@ class GroupControllerTest {
         GroupController groupController = GroupController.getInstance();
         groupController.resetList();
         groupController.addAll(footballClubs);
+        groupController.addAll(footballClubs);
+        assertThrows(RuntimeException.class, ()-> groupController.addFootballClub("test1", "test2"));
         assertTrue(groupController.generateGroups());
     }
 }

@@ -114,7 +114,7 @@ public class FootballClub {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FootballClub that = (FootballClub) o;
-        return goalsScored == that.goalsScored && goalsLetIn == that.goalsLetIn && Objects.equals(name, that.name) && Objects.equals(nationality, that.nationality);
+        return goalsScored == that.goalsScored && goalsLetIn == that.goalsLetIn && name.equalsIgnoreCase(that.getName()) && nationality.equalsIgnoreCase(that.nationality);
     }
 
     /**
