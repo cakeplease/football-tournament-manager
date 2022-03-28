@@ -27,6 +27,23 @@ public class FootballClub {
     }
 
     /**
+     * overload constructor for creation of Footballclub objects from file in DataStorage class
+     * @see model.DataStorage
+     * @param name
+     * @param nationality
+     * @param goalsScored
+     * @param goalsLetIn
+     * @param groupScore
+     */
+    public FootballClub(String name, String nationality, int goalsScored, int goalsLetIn, int groupScore){
+        this.name = name;
+        this.nationality = nationality;
+        this.goalsScored = goalsScored;
+        this.goalsLetIn = goalsLetIn;
+        this.groupScore = groupScore;
+    }
+
+    /**
      * Method to get the name of the club
      * @return the name of the club
      */
@@ -101,7 +118,7 @@ public class FootballClub {
 
 
     public String getCsvFormat() {
-        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
+        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn +  "," + this.groupScore;
     }
 
     /**

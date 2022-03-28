@@ -53,6 +53,26 @@ public class Match {
     }
 
     /**
+     * overload constructor to create copy for loading save files
+     * @param footballClub1
+     * @param footballClub2
+     * @param score1
+     * @param score2
+     * @param time
+     * @param date
+     * @param fieldNr
+     */
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2, int time, int date, int fieldNr){
+        this.footballClub1 = footballClub1;
+        this.footballClub2 = footballClub2;
+        this.score1 = score1;
+        this.score2 = score2;
+        this.time = time;
+        this.date = date;
+        this.fieldNr = fieldNr;
+    }
+
+    /**
      * Return the first football club
      *
      * @return footballClub1
@@ -174,6 +194,15 @@ public class Match {
         }else{
             return null;
         }
+    }
+
+    /**
+     * generates the csv format for the match
+     * @return csv string
+     */
+    public String getCsv(){
+        return footballClub1.getCsvFormat() + ";" + footballClub2.getCsvFormat()
+                + ";" + score1 + ";" + score2 + ";" + time + ";" + date + ";" + fieldNr;
     }
 
     @Override
