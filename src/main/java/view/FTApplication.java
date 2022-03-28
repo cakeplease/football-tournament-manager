@@ -1,6 +1,8 @@
 package view;
 import controller.GroupController;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -80,11 +82,17 @@ public class FTApplication extends Application {
         showGroups.setText("Show groups");
         showGroups.setLayoutX(400);
         showGroups.setLayoutY(500);
-        if (groupController.getGroups().isEmpty()) {
-            showGroups.setOnAction(e -> screenController.activate("NoGroups"));
-        } else {
-            showGroups.setOnAction(e -> screenController.activate("Groups"));
-        }
+
+        showGroups.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if (groupController.getGroups().isEmpty()) {
+                    screenController.activate("NoGroups");
+                } else {
+                    screenController.activate("Groups");
+                }
+            }
+        });
 
         Button showTournamentBracket = new Button();
         showTournamentBracket.setText("Show tournament bracket");
