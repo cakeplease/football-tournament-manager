@@ -1,12 +1,17 @@
 package view;
 
+import base.Match;
+import base.TournamentManager;
 import controller.GroupController;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
+
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -33,6 +38,8 @@ public class MatchesView extends View {
     }
 
     public void setup() {
+        pane.getChildren().clear();
+
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -42,8 +49,31 @@ public class MatchesView extends View {
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         pane.add(sceneTitle, 1, 2);
 
-
         GroupController groupController = GroupController.getInstance();
+        TournamentManager tournamentManager = TournamentManager.getInstance();
+
+        TableView<ArrayList<Match>> table = new TableView<>();
+        ArrayList<String> columnNames = new ArrayList<String>();
+        columnNames.add("Football Club");
+        columnNames.add("Football Club");
+        columnNames.add("Time and date");
+        columnNames.add("Field nr");
+        columnNames.add("Score");
+
+        if (!groupController.getGroups().isEmpty() && !tournamentManager.listGroupMatches().isEmpty()) {
+            for (int i = 0; i < columnNames.size(); i++) {
+                final int index = i;
+                TableColumn<ArrayList<Match>, String> column = new TableColumn<>(columnNames.get(i));
+                //column.setCellValueFactory(cd -> new PropertyValueFactory());
+
+                table.getColumns().add(column);
+            }
+            String[] userInputs = new String[5];
+            table.getItems().add(tournamentManager.listGroupMatches());
+
+        }
+        pane.getChildren().add(table);
+
 
 
         dialog = new Dialog();
@@ -109,12 +139,6 @@ public class MatchesView extends View {
                 fieldNrResult = fieldNr.getText();
                 score1Result = score1.getText();
                 score2Result = score2.getText();
-                System.out.println(timeResult);
-                System.out.println(dateResult);
-                System.out.println(fieldNrResult);
-                System.out.println(score1Result);
-                System.out.println(score2Result);
-
             }
         });
 
