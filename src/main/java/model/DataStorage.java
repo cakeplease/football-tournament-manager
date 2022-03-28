@@ -146,7 +146,7 @@ public class DataStorage {
                     if (Objects.equals(y, f1)) {
                         x.addMatchOnLoad(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
                                 Integer.parseInt(data[2]), Integer.parseInt(data[3]),
-                                Integer.parseInt(data[4]), Integer.parseInt(data[5]), Integer.parseInt(data[6])));
+                                data[4], data[5], Integer.parseInt(data[6])));
                         break;
                     }
                 }
