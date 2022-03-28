@@ -118,7 +118,7 @@ public class FootballClub {
 
 
     public String getCsvFormat() {
-        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn +  "," + this.groupScore + "\n";
+        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn +  "," + this.groupScore;
     }
 
     /**
