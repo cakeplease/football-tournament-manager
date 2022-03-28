@@ -91,13 +91,21 @@ public class Group {
     }
 
     /**
+     * set if grupe can change after load in case we no longe are in grupe stage
+     * @param hasEnded
+     */
+    public void setHasEnded(boolean hasEnded) {
+        this.hasEnded = hasEnded;
+    }
+
+    /**
      * gives the csv format for the grupe
      * @return csv string
      */
     public String generateCsv(){
         return groupNumber + ";" + groupTeams.stream()
                 .map(FootballClub::getCsvFormat)
-                .collect(Collectors.joining(";")) + "\n";
+                .collect(Collectors.joining(";")) + ";" + hasEnded + "\n";
     }
 
 
@@ -120,6 +128,20 @@ public class Group {
                 }
             }
         }
+    }
+
+    /**
+     * adds match to matches array
+     * creates array if array dose not exist
+     * used when loading matches
+     * @param m match to add
+     */
+    public void addMatchOnLoad(Match m){
+        if(this.groupMatches == null)
+            this.groupMatches = new ArrayList<Match>();
+
+        this.groupMatches.add(m);
+
     }
 
     /**

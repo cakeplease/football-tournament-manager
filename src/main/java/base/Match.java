@@ -12,8 +12,8 @@ public class Match {
     private int score1 = 0; //the score of the first team
     private int score2 = 0; //the score of the second team
     private FootballClub winner = null; //the winner of the match
-    private int time; //the time of when the match is played, in format (hhmm)
-    private int date; //the date of when the match is played, in format (ddmmyyyy)
+    private String time; //the time of when the match is played, in format (hh:mm)
+    private String date; //the date of when the match is played, in format (dd.mm.yyyy)
     private int fieldNr; //the field where the match is played
 
     /**
@@ -53,6 +53,26 @@ public class Match {
     }
 
     /**
+     * overload constructor to create copy for loading save files
+     * @param footballClub1
+     * @param footballClub2
+     * @param score1
+     * @param score2
+     * @param time
+     * @param date
+     * @param fieldNr
+     */
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2, int time, int date, int fieldNr){
+        this.footballClub1 = footballClub1;
+        this.footballClub2 = footballClub2;
+        this.score1 = score1;
+        this.score2 = score2;
+        this.time = time;
+        this.date = date;
+        this.fieldNr = fieldNr;
+    }
+
+    /**
      * Return the first football club
      *
      * @return footballClub1
@@ -89,6 +109,21 @@ public class Match {
     }
 
     /**
+     * Return time
+     * @return
+     */
+    public String getTime() {
+        return time;
+    }
+    /**
+     * Return date
+     * @return
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
      * Sets the first score
      *
      * @param score1 the first score
@@ -111,7 +146,7 @@ public class Match {
      *
      * @param time when the match is played
      */
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -120,7 +155,7 @@ public class Match {
      *
      * @param date what date the match is played
      */
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -159,6 +194,15 @@ public class Match {
         }else{
             return null;
         }
+    }
+
+    /**
+     * generates the csv format for the match
+     * @return csv string
+     */
+    public String getCsv(){
+        return footballClub1.getCsvFormat() + ";" + footballClub2.getCsvFormat()
+                + ";" + score1 + ";" + score2 + ";" + time + ";" + date + ";" + fieldNr;
     }
 
     @Override
