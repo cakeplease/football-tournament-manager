@@ -102,6 +102,8 @@ public class Group {
      */
     public void endGroup(){
 
+
+        //force the endGroup to only run once
         if (hasEnded)
             return;
 
