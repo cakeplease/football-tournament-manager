@@ -47,40 +47,19 @@ public class TournamentBracketView extends View{
         title.setFont(Font.font ("Verdana", 30));
         tournamentBracketPane.add(title, 0, 1);*/
         tournamentBracketPane.add(backButton, 0, 0);
-        tournamentBracketPane.setHgap(50);
+        tournamentBracketPane.setHgap(60);
         tournamentBracketPane.setVgap(8);
         tournamentBracketPane.setPadding(new Insets(25,25,25,25));
 
 
-        PhongMaterial redMaterial = new PhongMaterial();
+        /*PhongMaterial redMaterial = new PhongMaterial();
         redMaterial.setDiffuseColor(Color.DARKRED);
-        redMaterial.setSpecularColor(Color.RED);
-        /*PhongMaterial greenMaterial = new PhongMaterial();
-        greenMaterial.setDiffuseColor(Color.DARKGREEN);
-        greenMaterial.setSpecularColor(Color.GREEN);
-        PhongMaterial blueMaterial = new PhongMaterial();
-        blueMaterial.setDiffuseColor(Color.DARKBLUE);
-        blueMaterial.setSpecularColor(Color.BLUE);
+        redMaterial.setSpecularColor(Color.RED);*/
 
-        for(int column = 0; column < 7; column++){
-            for(int row = 2; row < 17; row++){ //(int row = 2; row < 10; row++)
-                Box box = new Box(100.0, 50.0,0.0);
-                box.setMaterial(redMaterial);
-                tournamentBracketPane.add(box, column, row);
-                row++;
-            }
-            column += 5;
-        }
 
-        for(int column = 1; column < 6; column++){
-            for(int row = 3; row < 16; row++){
-                Box box = new Box(100.0, 50.0,0.0);
-                box.setMaterial(redMaterial);
-                tournamentBracketPane.add(box, column, row);
-                row+=3;
-            }
-            column += 3;
-        }*/
+        PhongMaterial grey = new PhongMaterial();
+        grey.setDiffuseColor(Color.DARKGREY);
+        grey.setSpecularColor(Color.DARKGREEN);
 
 
         /**
@@ -89,7 +68,6 @@ public class TournamentBracketView extends View{
          * column number.
          */
 
-        //ArrayList<Integer> columnNumbers = new ArrayList<>();
         int[] columnNumbers = new int[]{ 0,8,1,7,2,6,3,5,4};
 
         for(int i = 0; columnNumbers.length > i; i++){
@@ -97,7 +75,7 @@ public class TournamentBracketView extends View{
             if(column == 0 || column == 8){
                 for(int row = 2; row < 17; row++){ //(int row = 2; row < 10; row++)
                     Box box = new Box(100.0, 50.0,0.0);
-                    box.setMaterial(redMaterial);
+                    box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     //tournamentBracketPane.add(new Box(100.0, 50.0,0.0), column, row);
                     row++;
@@ -105,31 +83,24 @@ public class TournamentBracketView extends View{
             }else if (column == 1 || column == 7){
                 for(int row = 3; row < 16; row++){
                     Box box = new Box(100.0, 50.0,0.0);
-                    box.setMaterial(redMaterial);
+                    box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     row+=3;
                 }
             } else if(column == 2 || column == 6){
                 for(int row = 5; row < 14; row++){
                     Box box = new Box(100.0, 50.0,0.0);
-                    box.setMaterial(redMaterial);
+                    box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     row+=7;
                 }
             } else{
                 int row = 9;
                 Box box = new Box(100.0, 50.0,0.0);
-                box.setMaterial(redMaterial);
+                box.setMaterial(grey);
                 tournamentBracketPane.add(box, column, row);
             }
         }
-
-
-        /*Box box = new Box(100.0, 50.0,0.0);
-        box.setMaterial(redMaterial);
-        tournamentBracketPane.add(box, 0, 2);*/
-
-
 
 
         //box.setTranslateX(100);
