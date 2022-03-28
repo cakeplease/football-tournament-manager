@@ -9,14 +9,11 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DataStorageTest {
-
     @BeforeAll
-    static void beforeAllSetup(){
-        try {
-            FileWriter fw = new FileWriter(String.valueOf(DataStorage.getFootballClubsPath(true)), true);
-        }catch (IOException e){
-            assert false;
-        }
+    static void beforeSetup(){
+        GroupController.getInstance().addAll(FootballClubsFromFile.readFromFile());
+        GroupController.getInstance().generateGroups();
+        DataStorage.save(true);
     }
 
     @BeforeEach
@@ -29,16 +26,26 @@ class DataStorageTest {
     void saveFootballClubs() {
         GroupController.getInstance().addAll(FootballClubsFromFile.readFromFile());
         DataStorage.saveFootballClubs(true);
-        assertNotNull(DataHandler.readFromFile(DataStorage.getFootballClubsPath(true)));
     }
+    @Test
+    @Order(3)
+    void save(){
+        DataStorage.load(true);
+        DataStorage.save(true);
+        DataStorage.load(true);
+        assertNotEquals(GroupController.getInstance().getGroups().size(), 0);
+
+    }
+
 
     @Test
     @Order(2)
-    void loadFootballClubsFromFile(){
-        assertEquals(GroupController.getInstance().getFootballClubs().size(), 0);
-        DataStorage.loadFootballClubsFromFile(true);
-        assertEquals(GroupController.getInstance().getFootballClubs().size(), 64);
+    void load(){
+        DataStorage.load(true);
+        assertNotEquals(GroupController.getInstance().getGroups().size(), 0);
     }
+
+
     @AfterAll
     static void tearDown(){
         GroupController.getInstance().resetList();
