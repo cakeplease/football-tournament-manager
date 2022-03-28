@@ -58,7 +58,7 @@ public class GroupController {
         }
         FootballClub team = new FootballClub(name, nationality);
         if (!this.footballClubs.contains(team)){
-            if (footballClubs.size() >= 64)
+            if (this.footballClubs.size() >= 64)
                 throw new RuntimeException("more then 64 teams cant be added");
             this.footballClubs.add(team);
         }
@@ -67,6 +67,7 @@ public class GroupController {
     /**
      * Method for adding a list of football clubs to the groupcontroller
      * @param footballClubsToAdd a list of football clubs
+     * @throws RuntimeException if trying to add more then 64 teams total
      */
     public void addAll(ArrayList<FootballClub> footballClubsToAdd) throws RuntimeException{
         if (footballClubsToAdd == null){
