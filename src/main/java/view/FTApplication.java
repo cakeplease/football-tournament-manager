@@ -28,6 +28,7 @@ public class FTApplication extends Application {
     private NoGroupsView noGroupsView = new NoGroupsView(screenController);
     private TeamsView teamsView = new TeamsView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
+    private EmptyTournamentBracketView emptyTournamentBracketView = new EmptyTournamentBracketView(screenController);
 
     /**
      * Overrides the start() method which takes a single parameter stage.
@@ -43,6 +44,7 @@ public class FTApplication extends Application {
         screenController.addScreen("AddTeam", addTeamView);
         screenController.addScreen("TournamentBracket", tournamentBracketView);
         screenController.addScreen("Teams", teamsView);
+        screenController.addScreen("EmptyTournamentBracketView", emptyTournamentBracketView);
 
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
@@ -98,7 +100,18 @@ public class FTApplication extends Application {
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
         showTournamentBracket.setLayoutY(700);
-        showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracket"));
+        /*showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracket"));*/
+        showTournamentBracket.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(groupController.getGroups().isEmpty()){
+                    screenController.activate("EmptyTournamentBracketView");
+                } else{
+                    screenController.activate("TournamentBracketView");
+                }
+            }
+        });
+
 
         Text welcome = new Text("Scandia Cup 2022");
         welcome.setFont(new Font("Verdana", 40));

@@ -1,5 +1,6 @@
 package view;
 
+import base.Group;
 import controller.GroupController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.DataStorage;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,8 +29,7 @@ public class TournamentBracketView extends View{
         this.setup();
     }
 
-    @Override
-    Pane getPane() {
+    public Pane getPane() {
         return this.tournamentBracketPane;
     }
 
@@ -47,19 +48,13 @@ public class TournamentBracketView extends View{
         title.setFont(Font.font ("Verdana", 30));
         tournamentBracketPane.add(title, 0, 1);*/
         tournamentBracketPane.add(backButton, 0, 0);
-        tournamentBracketPane.setHgap(60);
+        tournamentBracketPane.setHgap(30);
         tournamentBracketPane.setVgap(8);
         tournamentBracketPane.setPadding(new Insets(25,25,25,25));
 
-
-        /*PhongMaterial redMaterial = new PhongMaterial();
-        redMaterial.setDiffuseColor(Color.DARKRED);
-        redMaterial.setSpecularColor(Color.RED);*/
-
-
         PhongMaterial grey = new PhongMaterial();
         grey.setDiffuseColor(Color.DARKGREY);
-        grey.setSpecularColor(Color.DARKGREEN);
+        grey.setSpecularColor(Color.BLACK);
 
 
         /**
@@ -74,7 +69,7 @@ public class TournamentBracketView extends View{
             int column = columnNumbers[i];
             if(column == 0 || column == 8){
                 for(int row = 2; row < 17; row++){ //(int row = 2; row < 10; row++)
-                    Box box = new Box(100.0, 50.0,0.0);
+                    Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     //tournamentBracketPane.add(new Box(100.0, 50.0,0.0), column, row);
@@ -82,30 +77,81 @@ public class TournamentBracketView extends View{
                 }
             }else if (column == 1 || column == 7){
                 for(int row = 3; row < 16; row++){
-                    Box box = new Box(100.0, 50.0,0.0);
+                    Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     row+=3;
                 }
             } else if(column == 2 || column == 6){
                 for(int row = 5; row < 14; row++){
-                    Box box = new Box(100.0, 50.0,0.0);
+                    Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
                     tournamentBracketPane.add(box, column, row);
                     row+=7;
                 }
             } else{
                 int row = 9;
-                Box box = new Box(100.0, 50.0,0.0);
+                Box box = new Box(125.0, 50.0,0.0);
                 box.setMaterial(grey);
                 tournamentBracketPane.add(box, column, row);
             }
         }
-
+        //DET VAR TIDLIGERE Hgap(60) OG HORISONTAL LENGDE PÅ BOKSEN 100.0
 
         //box.setTranslateX(100);
         //box.setTranslateY(100);
 
+        /**
+         * GROUPS
+         */
 
+        int teams = 0;
+        if(getStartingTeams().size() == 32){
+            for(int column = 0; 9 > column; column++){
+                for(int row = 2; row < 17; row++){
+                    Text text = new Text(getStartingTeams().get(teams));
+                    System.out.println(text);
+                    text.setFont(Font.font ("Verdana", 11));
+                    text.setFill(Color.DARKGREEN);
+                    tournamentBracketPane.add(text, column, row);
+                    row++;
+                    teams++;
+                }
+                column += 7;
+            }
+        }
+/*
+        int teams = 0;
+        for(int column = 0; 9 > column; column++){
+            for(int row = 2; row < 17; row++){
+                Text text = new Text(getStartingTeams().get(teams));
+                System.out.println(text);
+                text.setFont(Font.font ("Verdana", 11));
+                text.setFill(Color.DARKGREEN);
+                tournamentBracketPane.add(text, column, row);
+                row++;
+                teams++;
+            }
+            column += 7;
+        }*/
+
+
+    }
+
+    public ArrayList<String> getStartingTeams(){
+        //DataStorage.load(true);//TODO dette er bare en test
+        GroupController groupController = GroupController.getInstance();
+
+        ArrayList<Group> groups = groupController.getGroups();
+        System.out.println(groups);
+        ArrayList<String> strings = new ArrayList<>();
+
+
+        for (Group group : groups) {
+            strings.add(group.getGroupTeams().get(0).getName() + "\n" + group.getGroupTeams().get(1).getName());
+            strings.add(group.getGroupTeams().get(2).getName() + "\n" + group.getGroupTeams().get(3).getName());
+        }
+        System.out.println(strings);
+        return strings;
     }
 }
