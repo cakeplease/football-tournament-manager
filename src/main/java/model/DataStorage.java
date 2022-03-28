@@ -2,6 +2,8 @@ package model;
 
 import base.FootballClub;
 import base.Group;
+import base.Match;
+import base.TournamentManager;
 import controller.GroupController;
 
 import java.nio.file.Path;
@@ -20,6 +22,8 @@ public class DataStorage {
     private static final String footballClubsTestPath = "src/main/resources/data/FootballClubsTest.csv";
     private static final String groupPath = "src/main/resources/data/GroupData.csv";
     private static final String groupPathTest = "src/main/resources/data/GroupDataTest.csv";
+    private static final String groupMatchespath = "src/main/resources/data/groupMatches.csv";
+    private static final String groupMatchespathtest = "src/main/resources/data/groupMatchesTest.csv";
     private static final String COMMA_DELIMITER = ",";
 
 
@@ -80,18 +84,15 @@ public class DataStorage {
      */
     private static void loadGrupes(boolean test) throws RuntimeException{
         try {
-            ArrayList<FootballClub> footballClubs = GroupController.getInstance().getFootballClubs();
             Objects.requireNonNull(DataHandler.readFromFile(getGroupPath(test))).forEach(e -> {
                 String[] data = e.split(";");
                 Group tempGroup = new Group();
                 tempGroup.setGroupNumber(Integer.parseInt(data[0]));
-                for (int i = 1; i < data.length; i++) {
+                for (int i = 1; i < data.length - 1; i++) {
 
-                    //this is to get the references right, and not just deep copy
-                    int index = footballClubs.indexOf(parseFootballClub(data[i]));
-                    if (index != -1)
-                        tempGroup.addTeam(footballClubs.get(index));
+                    tempGroup.addTeam(getFootballClubReference(parseFootballClub(data[i])));
                 }
+                tempGroup.setHasEnded(Boolean.parseBoolean(data[data.length-1]));
                 GroupController.getInstance().getGroups().add(tempGroup);
             });
         }catch (NullPointerException e){
@@ -112,12 +113,79 @@ public class DataStorage {
 
 
     /**
+     * saves groupMatches to file
+     * @param test if test uses different path
+     */
+    private static void saveGroupMatches(boolean test){
+        try {
+            DataHandler.saveToFile("", getGroupMatchesPath(test));
+
+            DataHandler.saveToFile(TournamentManager.getInstance().listGroupMatches()
+                            .stream().map(Match::getCsv)
+                            .collect(Collectors.joining("\n"))
+                    , getGroupMatchesPath(test));
+        } catch (NullPointerException e){
+            DataHandler.saveToFile("", getGroupMatchesPath(test));
+        }
+    }
+
+    /**
+     * load matches from file, and find grupe they exist inn
+     * then add the match to the grupe
+     * @param test if test
+     */
+    private static void loadGroupMatches(boolean test){
+        ArrayList<Group> groups = GroupController.getInstance().getGroups();
+
+        DataHandler.readFromFile(getGroupMatchesPath(test)).forEach(e->{
+            String[] data = e.split(";");
+            FootballClub f1 = parseFootballClub(data[0]);
+            FootballClub f2 = parseFootballClub(data[1]);
+            groups.forEach(x-> {
+                for (FootballClub y : x.getGroupTeams()) {
+                    if (Objects.equals(y, f1)) {
+                        x.addMatchOnLoad(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
+                                Integer.parseInt(data[2]), Integer.parseInt(data[3]),
+                                Integer.parseInt(data[4]), Integer.parseInt(data[5]), Integer.parseInt(data[6])));
+                        break;
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * group matches path for the save file
+     * @param test if test
+     * @return path to file
+     */
+    private static Path getGroupMatchesPath(boolean test){
+        return Paths.get((test) ? groupMatchespathtest : groupMatchespath);
+    }
+
+    /**
+     * finds reference to footballclub in Grupecontroller instead of copy
+     * @param f footballclub to find
+     * @return found club null if not found
+     */
+    private static FootballClub getFootballClubReference(FootballClub f){
+        ArrayList<FootballClub> footballClubs = GroupController.getInstance().getFootballClubs();
+        int index = footballClubs.indexOf(f);
+        if (index != -1)
+            return footballClubs.get(index);
+        else return null;
+    }
+
+
+
+    /**
      * saves all data
      * @param test if test
      */
     public static void save(boolean test){
         saveFootballClubs(test);
         saveGroupToFile(test);
+        saveGroupMatches(test);
     }
 
     /**
@@ -128,6 +196,7 @@ public class DataStorage {
         GroupController.getInstance().resetList();
         loadFootballClubsFromFile(test);
         loadGrupes(test);
+        loadGroupMatches(test);
     }
 
 
