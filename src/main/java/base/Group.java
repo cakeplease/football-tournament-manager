@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Class for controlling group play
@@ -72,20 +73,31 @@ public class Group {
         return true;
     }
 
-    public String getCsvFormatTeams() {
-        return this.groupTeams + "\n";
-    }
 
-    public String getCsvFormatMatches() {
-        return this.groupMatches + "\n";
-    }
-
+    /**
+     * get index of grupe
+     * @return grupeNumber
+     */
     public int getGroupNumber() {
         return groupNumber;
     }
 
+    /**
+     * set index of grupe
+     * @param groupNumber grupe number
+     */
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
+    }
+
+    /**
+     * gives the csv format for the grupe
+     * @return csv string
+     */
+    public String generateCsv(){
+        return groupNumber + ";" + groupTeams.stream()
+                .map(FootballClub::getCsvFormat)
+                .collect(Collectors.joining(";")) + "\n";
     }
 
 
