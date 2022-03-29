@@ -4,11 +4,13 @@ import base.Match;
 import base.TournamentManager;
 import controller.GroupController;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 
 public class MatchesView extends View {
-    protected GridPane pane;
+    protected VBox pane;
     private ScreenController screenController;
     private Dialog dialog;
     private String timeResult;
@@ -27,7 +29,7 @@ public class MatchesView extends View {
     private String score2Result;
 
     public MatchesView(ScreenController screenController) {
-        this.pane = new GridPane();
+        this.pane = new VBox();
         this.screenController = screenController;
         this.setup();
     }
@@ -43,37 +45,16 @@ public class MatchesView extends View {
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        pane.add(backButton, 0,1);
+        pane.getChildren().add(backButton);
 
         Text sceneTitle = new Text("Matches");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
-        pane.add(sceneTitle, 1, 2);
+        //pane.add(sceneTitle, 1, 2);
+        pane.getChildren().add(sceneTitle);
+
 
         GroupController groupController = GroupController.getInstance();
         TournamentManager tournamentManager = TournamentManager.getInstance();
-
-        TableView<ArrayList<Match>> table = new TableView<>();
-        ArrayList<String> columnNames = new ArrayList<String>();
-        columnNames.add("Football Club");
-        columnNames.add("Football Club");
-        columnNames.add("Time and date");
-        columnNames.add("Field nr");
-        columnNames.add("Score");
-
-        if (!groupController.getGroups().isEmpty() && !tournamentManager.listGroupMatches().isEmpty()) {
-            for (int i = 0; i < columnNames.size(); i++) {
-                final int index = i;
-                TableColumn<ArrayList<Match>, String> column = new TableColumn<>(columnNames.get(i));
-                //column.setCellValueFactory(cd -> new PropertyValueFactory());
-
-                table.getColumns().add(column);
-            }
-            String[] userInputs = new String[5];
-            table.getItems().add(tournamentManager.listGroupMatches());
-
-        }
-        pane.getChildren().add(table);
-
 
 
         dialog = new Dialog();
@@ -143,5 +124,29 @@ public class MatchesView extends View {
         });
 
         pane.getChildren().add(editButton);
+
+        TableView<String[]> table = new TableView<>();
+        ArrayList<String> columnNames = new ArrayList<String>();
+        columnNames.add("Football Club");
+        columnNames.add("Football Club");
+        columnNames.add("Time and date");
+        columnNames.add("Field nr");
+        columnNames.add("Score");
+
+        if (!groupController.getGroups().isEmpty() && !tournamentManager.listGroupMatches().isEmpty()) {
+            for (int i = 0; i < columnNames.size(); i++) {
+                final int index = i;
+                TableColumn<String[], String> column = new TableColumn<>(columnNames.get(i));
+                //column.setCellValueFactory(cd -> new PropertyValueFactory());
+                column.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue()[index]));
+
+
+                table.getColumns().add(column);
+            }
+            String[] userInputs = new String[5];
+            table.getItems().add(userInputs);
+
+        }
+        pane.getChildren().add(table);
     }
 }
