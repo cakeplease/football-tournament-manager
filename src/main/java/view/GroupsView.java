@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class GroupsView extends View {
 
         Text title = new Text();
         title.setText("Show groups");
-        title.setFont(Font.font ("Verdana", 30));
+        title.setFont(Font.font ("Comic Sans MS", 30));
         pane.add(backButton, 0, 0);
         pane.add(title, 0, 1);
         pane.setHgap(150);

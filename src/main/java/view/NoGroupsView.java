@@ -3,6 +3,7 @@ package view;
 import controller.GUIController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,7 @@ public class NoGroupsView extends View{
     }
     public void setup() {
         this.pane = new GridPane();
+        pane.setPadding(new Insets(25,25,25,25));
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));

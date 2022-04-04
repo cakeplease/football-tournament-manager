@@ -41,6 +41,7 @@ public class MatchesView extends View {
 
     public void setup() {
         pane.getChildren().clear();
+        pane.setPadding(new Insets(25,25,25,25));
 
         Button backButton = new Button();
         backButton.setText("Back");
