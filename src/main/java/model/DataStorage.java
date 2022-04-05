@@ -15,15 +15,20 @@ import java.util.stream.Collectors;
 /**
  * class to save and load to and from file
  * @author birkn, vebjørn
- * @version 28.03.2022
+ * @version 05.04.2022
  */
 public class DataStorage {
     private static final String footballClubsPath = "src/main/resources/data/FootballClubs.csv";
     private static final String footballClubsTestPath = "src/main/resources/data/FootballClubsTest.csv";
+
     private static final String groupPath = "src/main/resources/data/GroupData.csv";
     private static final String groupPathTest = "src/main/resources/data/GroupDataTest.csv";
+
     private static final String groupMatchespath = "src/main/resources/data/groupMatches.csv";
     private static final String groupMatchespathtest = "src/main/resources/data/groupMatchesTest.csv";
+
+    private static final String tournementFinalsPath = "src/main/resources/data/tournementFinals.csv";
+
     private static final String COMMA_DELIMITER = ",";
 
 
@@ -155,6 +160,86 @@ public class DataStorage {
     }
 
     /**
+     * generates csv for all finals matches.
+     * if no matches in bracket no matches will be written to file
+     * separates the matches with bracket names ("roundOf32A") as named in TournamentManger class
+     */
+    public static void saveTournamentFinals(){
+
+        DataHandler.saveToFile("", Paths.get(tournementFinalsPath));
+        TournamentManager tr = TournamentManager.getInstance();
+        ArrayList<String> dataToSave = new ArrayList<String>();
+
+
+        dataToSave.add("roundOf32A");
+        dataToSave.add(tr.getRoundOf32A().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+        dataToSave.add("roundOf32B");
+        dataToSave.add(tr.getRoundOf32B().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        dataToSave.add("roundOf16A");
+        dataToSave.add(tr.getRoundOf16A().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+        dataToSave.add("roundOf16B");
+        dataToSave.add(tr.getRoundOf16B().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        dataToSave.add("quarterFinalsA");
+        dataToSave.add(tr.getQuarterFinalsA().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+        dataToSave.add("quarterFinalsB");
+        dataToSave.add(tr.getQuarterFinalsB().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        dataToSave.add("semifinalsA");
+        dataToSave.add(tr.getSemifinalsA().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+        dataToSave.add("semifinalsB");
+        dataToSave.add(tr.getSemifinalsB().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        dataToSave.add("FinalsMatches");
+        dataToSave.add(tr.getFinalsMatches().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        DataHandler.saveToFile(String.join("\n", dataToSave), Paths.get(tournementFinalsPath));
+    }
+
+    /**
+     * Loads all tournament finals matches to correct arrays
+     */
+    public static boolean loadFinalsMatches(){
+        TournamentManager tr = TournamentManager.getInstance();
+        ArrayList<String> dataRead = DataHandler.readFromFile(Paths.get(tournementFinalsPath));
+
+        if (dataRead == null)
+            return false;
+
+        ArrayList<Match> currentWritingTo = null;
+
+
+        for(String e : dataRead){
+            switch (e) {
+                case "roundOf32A" -> currentWritingTo = tr.getRoundOf32A();
+                case "roundOf32B" -> currentWritingTo = tr.getRoundOf32B();
+                case "roundOf16A" -> currentWritingTo = tr.getRoundOf16A();
+                case "roundOf16B" -> currentWritingTo = tr.getRoundOf16B();
+                case "quarterFinalsA" -> currentWritingTo = tr.getQuarterFinalsA();
+                case "quarterFinalsB" -> currentWritingTo = tr.getQuarterFinalsB();
+                case "semifinalsA" -> currentWritingTo = tr.getSemifinalsA();
+                case "semifinalsB" -> currentWritingTo = tr.getSemifinalsB();
+                case "FinalsMatches" -> currentWritingTo = tr.getFinalsMatches();
+                case "", "\n" -> {}
+                default -> {
+                    if(currentWritingTo == null)
+                        break;
+                    String[] data = e.split(";");
+                    FootballClub f1 = parseFootballClub(data[0]);
+                    FootballClub f2 = parseFootballClub(data[1]);
+
+                    currentWritingTo.add(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
+                        Integer.parseInt(data[2]), Integer.parseInt(data[3]),
+                        data[4], data[5], Integer.parseInt(data[6])));
+                }
+            }
+        }
+        return true;
+
+    }
+
+    /**
      * group matches path for the save file
      * @param test if test
      * @return path to file
@@ -166,15 +251,19 @@ public class DataStorage {
     /**
      * finds reference to footballclub in Grupecontroller instead of copy
      * @param f footballclub to find
-     * @return found club null if not found
+     * @return found club
+     * @throws RuntimeException if reference was not found
      */
-    private static FootballClub getFootballClubReference(FootballClub f){
+    private static FootballClub getFootballClubReference(FootballClub f) throws RuntimeException{
         ArrayList<FootballClub> footballClubs = GroupController.getInstance().getFootballClubs();
         int index = footballClubs.indexOf(f);
         if (index != -1)
             return footballClubs.get(index);
-        else return null;
+        else throw new RuntimeException("cant find reference for club:" + f.toString());
     }
+
+
+
 
 
 
@@ -183,9 +272,11 @@ public class DataStorage {
      * @param test if test
      */
     public static void save(boolean test){
+        saveTournamentFinals();
         saveFootballClubs(test);
         saveGroupToFile(test);
         saveGroupMatches(test);
+
     }
 
     /**
@@ -194,9 +285,12 @@ public class DataStorage {
      */
     public static void load(boolean test){
         GroupController.getInstance().resetList();
+        TournamentManager.getInstance().resetAllLists();
+
         loadFootballClubsFromFile(test);
         loadGrupes(test);
         loadGroupMatches(test);
+        loadFinalsMatches();
     }
 
 
