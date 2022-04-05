@@ -25,7 +25,7 @@ public class AddTeamView extends View{
     }
 
     public void setup() {
-        this.pane = new GridPane();
+        this.resetPane();
         pane.setPadding(new Insets(25,25,25,25));
         Button backButton = new Button();
         backButton.setText("Back");
@@ -61,5 +61,13 @@ public class AddTeamView extends View{
         });
 
         pane.add(addTeamButton, 1, 6);
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

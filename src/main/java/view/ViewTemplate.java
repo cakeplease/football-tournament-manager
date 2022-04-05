@@ -19,6 +19,8 @@ public class ViewTemplate {
     }
 
     public void setup() {
+        this.resetPane();
+
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -29,5 +31,13 @@ public class ViewTemplate {
         pane.add(sceneTitle, 1, 2);
 
         //your code goes here...
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

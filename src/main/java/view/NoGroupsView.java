@@ -26,7 +26,8 @@ public class NoGroupsView extends View{
         return this.pane;
     }
     public void setup() {
-        this.pane = new GridPane();
+        this.resetPane();
+
         pane.setPadding(new Insets(25,25,25,25));
         Button backButton = new Button();
         backButton.setText("Back");
@@ -52,5 +53,13 @@ public class NoGroupsView extends View{
         Text noGroupsText = new Text("No groups available. Press the button in the right corner to generate groups.");
         pane.add(noGroupsText, 1, 4);
 
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

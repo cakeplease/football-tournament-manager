@@ -1,6 +1,5 @@
 package view;
 
-import base.Match;
 import base.TournamentManager;
 import controller.GroupController;
 import javafx.beans.binding.Bindings;
@@ -40,7 +39,7 @@ public class MatchesView extends View {
     }
 
     public void setup() {
-        pane.getChildren().clear();
+        this.resetPane();
         pane.setPadding(new Insets(25,25,25,25));
 
         Button backButton = new Button();
@@ -149,5 +148,13 @@ public class MatchesView extends View {
 
         }
         pane.getChildren().add(table);
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

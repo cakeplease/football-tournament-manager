@@ -29,7 +29,8 @@ public class TeamsView extends View {
     }
 
     public void setup() {
-        //this.pane = new GridPane();
+        this.resetPane();
+
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -58,6 +59,14 @@ public class TeamsView extends View {
                 i++;
             }
         }
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }
 

@@ -6,38 +6,29 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.DataStorage;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TournamentBracketView extends View{
-    protected GridPane tournamentBracketPane;
+    protected GridPane pane;
     private ScreenController screenController;
 
     public TournamentBracketView(ScreenController ScreenController) {
-        this.tournamentBracketPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = ScreenController;
         this.setup();
     }
 
     public Pane getPane() {
-        return this.tournamentBracketPane;
+        return this.pane;
     }
 
     public void setup() {
-        /*Text text = new Text("test");
-        Region rect = new Region();
-        rect.setStyle("-fx-background-color: red; -fx-border-style: solid; -fx-border-width: 5; -fx-border-color: black; -fx-min-width: 20; -fx-min-height:50; -fx-max-width:50; -fx-max-height: 50;");
-        this.tournamentBracketPane.getChildren().addAll(rect, text);*/
+        this.resetPane();
 
         Button backButton = new Button();
         backButton.setText("Back");
@@ -46,11 +37,11 @@ public class TournamentBracketView extends View{
         /*Text title = new Text();
         title.setText("Tournament Bracket");
         title.setFont(Font.font ("Verdana", 30));
-        tournamentBracketPane.add(title, 0, 1);*/
-        tournamentBracketPane.add(backButton, 0, 0);
-        tournamentBracketPane.setHgap(30);
-        tournamentBracketPane.setVgap(8);
-        tournamentBracketPane.setPadding(new Insets(25,25,25,25));
+        pane.add(title, 0, 1);*/
+        pane.add(backButton, 0, 0);
+        pane.setHgap(30);
+        pane.setVgap(8);
+        pane.setPadding(new Insets(25,25,25,25));
 
         PhongMaterial grey = new PhongMaterial();
         grey.setDiffuseColor(Color.DARKGREY);
@@ -71,29 +62,29 @@ public class TournamentBracketView extends View{
                 for(int row = 2; row < 17; row++){ //(int row = 2; row < 10; row++)
                     Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
-                    tournamentBracketPane.add(box, column, row);
-                    //tournamentBracketPane.add(new Box(100.0, 50.0,0.0), column, row);
+                    pane.add(box, column, row);
+                    //pane.add(new Box(100.0, 50.0,0.0), column, row);
                     row++;
                 }
             }else if (column == 1 || column == 7){
                 for(int row = 3; row < 16; row++){
                     Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
-                    tournamentBracketPane.add(box, column, row);
+                    pane.add(box, column, row);
                     row+=3;
                 }
             } else if(column == 2 || column == 6){
                 for(int row = 5; row < 14; row++){
                     Box box = new Box(125.0, 50.0,0.0);
                     box.setMaterial(grey);
-                    tournamentBracketPane.add(box, column, row);
+                    pane.add(box, column, row);
                     row+=7;
                 }
             } else{
                 int row = 9;
                 Box box = new Box(125.0, 50.0,0.0);
                 box.setMaterial(grey);
-                tournamentBracketPane.add(box, column, row);
+                pane.add(box, column, row);
             }
         }
         //DET VAR TIDLIGERE Hgap(60) OG HORISONTAL LENGDE PÅ BOKSEN 100.0
@@ -113,7 +104,7 @@ public class TournamentBracketView extends View{
                     System.out.println(text);
                     text.setFont(Font.font ("Verdana", 11));
                     text.setFill(Color.DARKGREEN);
-                    tournamentBracketPane.add(text, column, row);
+                    pane.add(text, column, row);
                     row++;
                     teams++;
                 }
@@ -128,7 +119,7 @@ public class TournamentBracketView extends View{
                 System.out.println(text);
                 text.setFont(Font.font ("Verdana", 11));
                 text.setFill(Color.DARKGREEN);
-                tournamentBracketPane.add(text, column, row);
+                pane.add(text, column, row);
                 row++;
                 teams++;
             }
@@ -153,5 +144,13 @@ public class TournamentBracketView extends View{
         }
         System.out.println(strings);
         return strings;
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

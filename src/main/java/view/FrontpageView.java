@@ -28,7 +28,7 @@ public class FrontpageView extends View {
     }
 
     public void setup() {
-        this.pane = new StackPane();
+        this.resetPane();
 
         GroupController groupController = GroupController.getInstance();
         Button addTeam = new Button();
@@ -90,6 +90,12 @@ public class FrontpageView extends View {
         vBoxImg.setSpacing(20);
 
         pane.getChildren().add(vBoxImg);
-
+    }
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

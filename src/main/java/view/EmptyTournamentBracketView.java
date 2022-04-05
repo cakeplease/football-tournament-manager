@@ -27,6 +27,8 @@ public class EmptyTournamentBracketView extends View{
     }
 
     public void setup() {
+        this.resetPane();
+
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -96,6 +98,13 @@ public class EmptyTournamentBracketView extends View{
                 pane.add(box, column, row);
             }
         }
+    }
 
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }
