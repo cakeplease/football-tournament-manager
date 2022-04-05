@@ -131,7 +131,7 @@ public class FootballClub {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FootballClub that = (FootballClub) o;
-        return goalsScored == that.goalsScored && goalsLetIn == that.goalsLetIn && name.equalsIgnoreCase(that.getName()) && nationality.equalsIgnoreCase(that.nationality);
+        return  name.equalsIgnoreCase(that.getName()) && nationality.equalsIgnoreCase(that.nationality);
     }
 
     /**
@@ -140,7 +140,7 @@ public class FootballClub {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, nationality, goalsScored, goalsLetIn);
+        return Objects.hash(name, nationality);
     }
 
     /**
