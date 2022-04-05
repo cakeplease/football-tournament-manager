@@ -4,6 +4,7 @@ import controller.GroupController;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Represents the tournament manager, has methods to generate the knockout matches and list the group matches.
@@ -21,12 +22,32 @@ public class TournamentManager {
     private final ArrayList<Match> quarterFinalsB = new ArrayList<>(); //a list of the quarterfinals matches in the B finals
     private final ArrayList<Match> semifinalsA = new ArrayList<>(); //a list of the semifinals matches in the A finals
     private final ArrayList<Match> semifinalsB = new ArrayList<>(); //a list of the semifinals matches in the B finals
+    private final ArrayList<Match> finalsMatches = new ArrayList<>(); //a list of the finals matches
+
+    private final Random rand = new Random();
+
     private ArrayList<Match> groupMatches = new ArrayList<>(); //list of group matches
 
     private static TournamentManager tournamentManager = new TournamentManager();
 
     public static TournamentManager getInstance() {
         return tournamentManager;
+    }
+
+    /**
+     * resets all Arraylist
+     * used when loading tournamentMatches, and in testing
+     */
+    public void resetAllLists(){
+         roundOf32A.clear();
+         roundOf32B.clear();
+         roundOf16A.clear();
+         roundOf16B.clear();
+         quarterFinalsA.clear();
+         quarterFinalsB.clear();
+         semifinalsA.clear();
+         semifinalsB.clear();
+         finalsMatches.clear();
     }
 
     /**
@@ -111,6 +132,14 @@ public class TournamentManager {
     }
 
     /**
+     * getter for finalsMatches array list
+     * @return finalsMatches array list size 0 if no matches
+     */
+    public ArrayList<Match> getFinalsMatches() {
+        return finalsMatches;
+    }
+
+    /**
      * Lists the group matches in the tournament. The group matches is created in the Groupcontroller.
      * The method puts the matches in a list.
      * @return the list of group matches or null if the list is empty.
@@ -133,6 +162,8 @@ public class TournamentManager {
      * @return true if they were generated and false if they are empty.
      */
     public boolean generateRoundOf32(){
+        if (roundOf32A.size() > 0 | roundOf32B.size() > 0)
+            return false;
         //Creates four lists, which separates the winners, second-places, third-places and fourth-places
         ArrayList<FootballClub> groupWinners = new ArrayList<>();
         ArrayList<FootballClub> secondPlace = new ArrayList<>();
@@ -174,6 +205,8 @@ public class TournamentManager {
      * @return true if the lists contain matches and false if they are empty.
      */
     public boolean generateRoundOf16(){
+        if (roundOf16A.size() > 0 | roundOf16B.size() > 0)
+            return false;
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
         for (int i = 0; i < 16; i++){
@@ -198,6 +231,8 @@ public class TournamentManager {
      * @return true if the lists contain matches and false if they are empty.
      */
     public boolean generateQuarterFinals(){
+        if (quarterFinalsB.size() > 0 | quarterFinalsA.size() > 0)
+            return false;
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
         for (int i = 0; i < 8; i++){
@@ -222,6 +257,8 @@ public class TournamentManager {
      * @return true if the lists contain matches and false if they are empty.
      */
     public boolean generateSemifinals(){
+        if (semifinalsA.size() > 0 | semifinalsB.size() > 0)
+            return false;
         ArrayList<FootballClub> winnersA = new ArrayList<>();
         ArrayList<FootballClub> winnersB = new ArrayList<>();
         for (int i = 0; i < 4; i++){
@@ -247,11 +284,15 @@ public class TournamentManager {
      * @return the A final Match between two teams.
      */
     public Match generateFinalA(){
+        if (finalsMatches.size() > 1)
+            return null;
         ArrayList<FootballClub> finalistsA = new ArrayList<>();
         for (int i = 0; i < 2; i++){
             finalistsA.add(semifinalsA.get(i).getWinner());
         }
-        return new Match(finalistsA.get(0), finalistsA.get(1));
+        Match m = new Match(finalistsA.get(0), finalistsA.get(1));
+        finalsMatches.add(0,m);
+        return m;
     }
 
     /**
@@ -260,10 +301,59 @@ public class TournamentManager {
      * @return the B final between two teams.
      */
     public Match generateFinalB(){
+        if (finalsMatches.size() > 1)
+            return null;
         ArrayList<FootballClub> BFinalists = new ArrayList<>();
         for (int i = 0; i < 2; i++){
             BFinalists.add(semifinalsB.get(i).getWinner());
         }
-        return new Match(BFinalists.get(0), BFinalists.get(1));
+        Match m = new Match(BFinalists.get(0), BFinalists.get(1));
+        finalsMatches.add(m);
+        return m;
     }
+
+    /**
+     * sims matches matches
+     * if matches exist
+     * @param matchesToSim Arraylist of matches to sim
+     */
+    public void simMatches(ArrayList<Match> matchesToSim){
+        if (matchesToSim.size() != 0){
+            matchesToSim.forEach(e->{
+                FootballClub winner = (rand.nextDouble() >= 0.5) ? e.getFootballClub1() : e.getFootballClub2();
+                e.setWinner(winner);
+                if(e.getWinner() == e.getFootballClub1())
+                    e.setScore1(10);
+                else
+                    e.setScore2(0);
+            });
+        }
+    }
+
+
+
+    /**
+     * calls all sim and generate methods
+     * migth be wanted to change siming methods to private
+     * but they are public in pre release for testing
+     */
+    public void simAll(){
+
+        generateRoundOf32();
+        simMatches(getRoundOf32A());
+        simMatches(getRoundOf32B());
+        generateRoundOf16();
+        simMatches(getRoundOf16A());
+        simMatches(getRoundOf16B());
+        generateQuarterFinals();
+        simMatches(getQuarterFinalsA());
+        simMatches(getQuarterFinalsB());
+        generateSemifinals();
+        simMatches(getSemifinalsA());
+        simMatches(getSemifinalsB());
+        generateFinalA();
+        generateFinalB();
+    }
+
+
 }
