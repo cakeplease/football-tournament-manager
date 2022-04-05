@@ -148,8 +148,6 @@ public class Group {
      * sorts the arraylist, and adds score and gols to footballclubs
      */
     public void endGroup(){
-
-
         //force the endGroup to only run once
         if (hasEnded)
             return;
@@ -191,6 +189,8 @@ public class Group {
     public void testSimulateAllMatches(){
         if (groupMatches != null){
             groupMatches.forEach(e->{
+                if(e.getScore2() > 0 | e.getScore1() > 0)
+                    return;
                 e.setScore1((int)(rand.nextDouble()*4));
                 e.setScore2((int)(rand.nextDouble()*4));
             });
