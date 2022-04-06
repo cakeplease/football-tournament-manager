@@ -40,7 +40,7 @@ public class TeamsView extends View {
 
         Text sceneTitle = new Text("Teams");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
-        pane.add(sceneTitle, 1, 2);
+        pane.add(sceneTitle, 0, 2);
 
 
         pane.setHgap(250);
@@ -51,8 +51,8 @@ public class TeamsView extends View {
 
         //22, 22, 16
         int i = 0;
-        for (int k = 0; k < 3; k++) {
-            for (int j = 0; j < groupController.getFootballClubs().size() / 3; j++) {
+        for (int k = 0; k < 4; k++) {
+            for (int j = 0; j < (groupController.getFootballClubs().size() / 4); j++) {
                 Text text = new Text(groupController.getFootballClubs().get(i).getName());
                 text.setFont(Font.font("Verdana", 20));
                 pane.add(text, k, j + 5);

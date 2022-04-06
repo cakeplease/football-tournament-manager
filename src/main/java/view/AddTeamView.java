@@ -40,7 +40,7 @@ public class AddTeamView extends View{
         pane.add(teamName, 0, 3);
 
         TextField teamNameField = new TextField();
-        pane.add(teamNameField, 2, 3);
+        pane.add(teamNameField, 1, 3);
 
         Label nationalityLabel = new Label("Nationality:");
         pane.add(nationalityLabel, 0, 4);

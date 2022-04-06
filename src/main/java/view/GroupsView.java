@@ -34,8 +34,8 @@ public class GroupsView extends View {
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
 
         Text title = new Text();
-        title.setText("Show groups");
-        title.setFont(Font.font ("Comic Sans MS", 30));
+        title.setText("Groups");
+        title.setFont(Font.font ("Verdana", 30));
         pane.add(backButton, 0, 0);
         pane.add(title, 0, 1);
         pane.setHgap(150);
