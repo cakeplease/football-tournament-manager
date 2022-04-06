@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -16,6 +18,9 @@ public class EmptyTournamentBracketView extends View{
     protected GridPane pane;
     private ScreenController screenController;
 
+    private ScrollPane scrollPane;
+    private StackPane stack;
+
     public EmptyTournamentBracketView(ScreenController ScreenController) {
         this.pane = new GridPane();
         this.screenController = ScreenController;
@@ -23,11 +28,20 @@ public class EmptyTournamentBracketView extends View{
     }
 
     public Pane getPane() {
-        return this.pane;
+        //return this.pane;
+        return this.stack;
     }
 
     public void setup() {
         this.resetPane();
+
+        stack = new StackPane();
+
+        scrollPane = new ScrollPane();
+        scrollPane.setContent(pane);
+        scrollPane.setPannable(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         Button backButton = new Button();
         backButton.setText("Back");
@@ -55,39 +69,41 @@ public class EmptyTournamentBracketView extends View{
             int column = columnNumbers[i];
             if(column == 0 || column == 10){
                 for(int row = 2; row < 33; row++){ //(int row = 2; row < 10; row++)
-                    Box box = new Box(75.0, 10.0,0.0);
+                    Box box = new Box(75.0, 50.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row++;
                 }
             }else if (column == 1 || column == 9){
                 for(int row = 3; row < 32; row++){
-                    Box box = new Box(75.0, 10.0,0.0);
+                    Box box = new Box(75.0, 50.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row+=3;
                 }
             } else if(column == 2 || column == 8){
                 for(int row = 5; row < 30; row++){
-                    Box box = new Box(75.0, 10.0,0.0);
+                    Box box = new Box(75.0, 50.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row+=7;
                 }
             } else if(column == 3 || column == 7) {
                 for (int row = 9; row < 26; row++) {
-                    Box box = new Box(75.0, 10.0, 0.0);
+                    Box box = new Box(75.0, 50.0, 0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row += 15;
                 }
             }else{
                 int row = 17;
-                Box box = new Box(75.0, 10.0,0.0);
+                Box box = new Box(75.0, 50.0,0.0);
                 box.setMaterial(grey);
                 pane.add(box, column, row);
             }
         }
+        stack.getChildren().addAll(scrollPane, pane);
+
     }
 
     /**
