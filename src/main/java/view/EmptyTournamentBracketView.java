@@ -33,23 +33,6 @@ public class EmptyTournamentBracketView extends View{
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
 
-        /*Button generateGroups = new Button();
-        generateGroups.setText("Generate groups");
-        generateGroups.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                DataStorage.load(true);
-                //GUIController.generateGroups();
-                screenController.activate("TournamentBracketView");
-
-            }
-        });
-        pane.add(generateGroups, 1,0);*/
-
-        /*Text title = new Text();
-        title.setText("Tournament Bracket");
-        title.setFont(Font.font ("Verdana", 30));
-        tournamentBracketPane.add(title, 0, 1);*/
         pane.add(backButton, 0, 0);
         pane.setHgap(30);
         pane.setVgap(8);
@@ -66,34 +49,41 @@ public class EmptyTournamentBracketView extends View{
          * column number.
          */
 
-        int[] columnNumbers = new int[]{ 0,8,1,7,2,6,3,5,4};
+        int[] columnNumbers = new int[]{ 0,8,1,7,2,6,3,5,4,9,10};
 
         for(int i = 0; columnNumbers.length > i; i++){
             int column = columnNumbers[i];
-            if(column == 0 || column == 8){
-                for(int row = 2; row < 17; row++){ //(int row = 2; row < 10; row++)
-                    Box box = new Box(125.0, 50.0,0.0);
+            if(column == 0 || column == 10){
+                for(int row = 2; row < 33; row++){ //(int row = 2; row < 10; row++)
+                    Box box = new Box(75.0, 10.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row++;
                 }
-            }else if (column == 1 || column == 7){
-                for(int row = 3; row < 16; row++){
-                    Box box = new Box(125.0, 50.0,0.0);
+            }else if (column == 1 || column == 9){
+                for(int row = 3; row < 32; row++){
+                    Box box = new Box(75.0, 10.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row+=3;
                 }
-            } else if(column == 2 || column == 6){
-                for(int row = 5; row < 14; row++){
-                    Box box = new Box(125.0, 50.0,0.0);
+            } else if(column == 2 || column == 8){
+                for(int row = 5; row < 30; row++){
+                    Box box = new Box(75.0, 10.0,0.0);
                     box.setMaterial(grey);
                     pane.add(box, column, row);
                     row+=7;
                 }
-            } else{
-                int row = 9;
-                Box box = new Box(125.0, 50.0,0.0);
+            } else if(column == 3 || column == 7) {
+                for (int row = 9; row < 26; row++) {
+                    Box box = new Box(75.0, 10.0, 0.0);
+                    box.setMaterial(grey);
+                    pane.add(box, column, row);
+                    row += 15;
+                }
+            }else{
+                int row = 17;
+                Box box = new Box(75.0, 10.0,0.0);
                 box.setMaterial(grey);
                 pane.add(box, column, row);
             }
