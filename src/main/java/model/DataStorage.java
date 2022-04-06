@@ -84,10 +84,10 @@ public class DataStorage {
     }
 
     /**
-     * loades grupes from file
+     * loades groupes from file
      * @throws RuntimeException if gupeSaveFile coud not be read
      */
-    private static void loadGrupes(boolean test) throws RuntimeException{
+    private static void loadGroupes(boolean test) throws RuntimeException{
         try {
             Objects.requireNonNull(DataHandler.readFromFile(getGroupPath(test))).forEach(e -> {
                 String[] data = e.split(";");
@@ -288,7 +288,7 @@ public class DataStorage {
         TournamentManager.getInstance().resetAllLists();
 
         loadFootballClubsFromFile(test);
-        loadGrupes(test);
+        loadGroupes(test);
         loadGroupMatches(test);
         loadFinalsMatches();
     }
