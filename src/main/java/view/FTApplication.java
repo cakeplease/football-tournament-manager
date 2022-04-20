@@ -12,7 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -31,6 +34,11 @@ public class FTApplication extends Application {
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
     private EmptyTournamentBracketView emptyTournamentBracketView = new EmptyTournamentBracketView(screenController);
 
+    private static double windowSizeX;
+    private static double windowSizeY;
+
+    public static Stage primaryStage;
+
     /**
      * Overrides the start() method which takes a single parameter stage.
      * Uses the show() method to display the stage.
@@ -39,6 +47,8 @@ public class FTApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FTApplication.primaryStage = primaryStage;
+
         screenController.addScreen("FrontPage", frontpage);
         screenController.addScreen("Groups", groupsView);
         screenController.addScreen("NoGroups", noGroupsView);
@@ -55,9 +65,12 @@ public class FTApplication extends Application {
 
         primaryStage.setTitle("Scandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
-        frontPage.getStyleClass().add("front-page");
+        frontPage.getStyleClass().add("#front-page");
         primaryStage.setScene(frontPageScene);
         primaryStage.show();
+
+        windowSizeX = primaryStage.getX();
+        windowSizeY = primaryStage.getY();
 
         this.setup();
 
@@ -119,8 +132,15 @@ public class FTApplication extends Application {
         exit.setAlignment(Pos.BOTTOM_LEFT);
         exit.setOnAction(e -> System.exit(0));
 
-        Text welcome = new Text("Scandia Cup 2022");
+        Text welcome = new Text("SCANDIA CUP 2022");
         welcome.setFont(new Font("Verdana", 40));
+
+
+/*        welcome.setId("title-text");
+        welcome.setFill(Color.WHITE);
+        welcome.setStroke(Color.BLACK);
+
+        welcome.setFont(Font.font("Roboto", FontWeight.BOLD, FontPosture.REGULAR, 70));*/
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit);
@@ -134,6 +154,7 @@ public class FTApplication extends Application {
         imageView.getStyleClass().add("image");
         VBox vBoxImg = new VBox();
         vBoxImg.getChildren().addAll(imageView, welcome, buttons);
+        //vBoxImg.getChildren().addAll(welcome, buttons);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         frontPage.getChildren().add(vBoxImg);
@@ -146,6 +167,14 @@ public class FTApplication extends Application {
      */
     public static void main(String[] args) {
         FTApplication.launch(args);
+    }
+
+    public static double getWindowSizeX(){
+        return windowSizeX;
+    }
+
+    public static double getWindowSizeY(){
+        return windowSizeY;
     }
 
 }

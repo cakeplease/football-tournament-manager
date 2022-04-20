@@ -4,3 +4,26 @@
 .front-page {
     -fx-padding: 50;
 }
+/*#front-page{
+
+    -fx-background-image: url("frontPage.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 3000 3000;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
+}*/
+/*#title-text{
+    -fx-font: Roboto;
+
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}*/
+
+/*.root {
+
+    -fx-background-color: black;
+    -fx-background-image: url("frontPageTest.jpg");
+    -fx-background-size: cover;
+
+}*/

@@ -208,11 +208,7 @@ public class Match {
 
     @Override
     public String toString() {
-        return "[" +
-                 footballClub1.getName() +
-                " - " + footballClub2.getName() +
-                " score=" + score1 +
-                "-" + score2 +
-                ']';
+        return footballClub1.getName() +
+                "\n" + footballClub2.getName();
     }
 }

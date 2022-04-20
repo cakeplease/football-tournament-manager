@@ -87,6 +87,8 @@ public class FrontpageView extends View {
 
         Image image = new Image("/frontPage.jpg");
         ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+
         imageView.setX(400);
         imageView.setY(50);
         imageView.getStyleClass().add("image");

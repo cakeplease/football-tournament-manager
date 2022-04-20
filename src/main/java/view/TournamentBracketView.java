@@ -1,9 +1,14 @@
 package view;
 
 import base.Group;
+import base.Match;
+import base.TournamentManager;
 import controller.GroupController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 
@@ -11,21 +16,23 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
+
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Stack;
 
 
 public class TournamentBracketView extends View {
-    protected GridPane tournamentBracketPane;
+    protected static GridPane tournamentBracketPane;
     private ScreenController screenController;
     private Dialog dialog;
     private Optional result;
     private String team1String;
     private String team2String;
-    private StackPane stackPane;
+    private static StackPane stackPane;
     private ScrollPane scrollPane;
+    private TournamentManager tournamentManager;
 
 
     public TournamentBracketView(ScreenController ScreenController) {
@@ -42,10 +49,9 @@ public class TournamentBracketView extends View {
     public void setup() {
         this.resetPane();
         //this.stackPane = new StackPane();
-        tournamentBracketPane.setMinSize(3000, 3000);
+        //tournamentBracketPane.setMinSize(3000, 3000);
         this.scrollPane = new ScrollPane();
-
-        tournamentBracketPane.add(new Text("TEST"), 0, 1);
+        this.tournamentManager = TournamentManager.getInstance();
 
         scrollPane.setContent(tournamentBracketPane);
         scrollPane.setPannable(true);
@@ -91,7 +97,7 @@ public class TournamentBracketView extends View {
                         team1String = teamsList[0];
                         team2String = teamsList[1];
 
-                        result = createWinnerSelectDialog(team1String, team2String).showAndWait();
+                        result = createWinnerSelectDialog(team1String, team2String, finalRow, column).showAndWait();
                         //if (team1.isPressed() || team2.isPressed()) dialog.getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
 
 
@@ -137,10 +143,27 @@ public class TournamentBracketView extends View {
          */
 
         int teams = 0;
-        if (getStartingTeams().size() == 32) {
+/*        if (getStartingTeams().size() == 32) {
             for (int column = 0; 9 > column; column++) {
                 for (int row = 2; row < 17; row++) {
                     Text text = new Text(getStartingTeams().get(teams));
+                    text.setFont(Font.font("Verdana", 11));
+                    text.setFill(Color.BLACK);
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(text);
+                    row++;
+                    teams++;
+                }
+                column += 7;
+            }
+        }*/
+        if (getStartingTeams().size() != 0) tournamentManager.generateRoundOf32();
+
+        if (tournamentManager.getRoundOf32A().size() == 16) {
+            for (int column = 0; 9 > column; column++) {
+                for (int row = 2; row < 17; row++) {
+                    Text text = new Text(tournamentManager.getRoundOf32A().get(teams).toString());
+                    System.out.println(text);
                     text.setFont(Font.font("Verdana", 11));
                     text.setFill(Color.BLACK);
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
@@ -178,10 +201,13 @@ public class TournamentBracketView extends View {
         return strings;
     }
 
-    static Dialog createWinnerSelectDialog(String team1String, String team2String) {
+    static Dialog createWinnerSelectDialog(String team1String, String team2String, int row, int column) {
+
+        TournamentManager tournamentManager = TournamentManager.getInstance();
 
         Dialog dialog = new Dialog();
         dialog.getDialogPane().setMinSize(400, 200);
+        dialog.initOwner(FTApplication.primaryStage);
 
         GridPane dialogGrid = new GridPane();
         dialogGrid.setMinSize(200, 200);
@@ -202,19 +228,77 @@ public class TournamentBracketView extends View {
         team1.setToggleGroup(buttonGroup);
         team2.setToggleGroup(buttonGroup);
 
+        buttonGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                                Toggle o, Toggle n)
+            {
+
+                RadioButton rb = (RadioButton)buttonGroup.getSelectedToggle();
+
+                if (rb != null) {
+                    StackPane thisStackPane = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    Text text = (Text) thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1);
+
+                    for (Match m : tournamentManager.getRoundOf32A()){
+                        if (rb.getText().equalsIgnoreCase(m.getFootballClub1().getName())){
+                            m.setWinner(m.getFootballClub1());
+
+                            String[] splitText = text.getText().split("\n");
+
+                            TextFlow flow = new TextFlow();
+
+                            Text text1 = new Text(splitText[0] + "\n");
+                            text1.setStyle("-fx-font-weight: bold");
+
+                            Text text2=new Text(splitText[1]);
+                            text2.setStyle("-fx-font-weight: regular");
+
+                            flow.getChildren().addAll(text1, text2);
+
+                            text.setText("");
+                            flow.setTextAlignment(TextAlignment.CENTER);
+                            flow.setPadding(new Insets(10, 10, 10, 10));
+                            thisStackPane.getChildren().add(flow);
+
+                        }
+
+                        else if (rb.getText().equalsIgnoreCase(m.getFootballClub2().getName())){
+                            m.setWinner(m.getFootballClub2());
+
+                            if (thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1) instanceof TextFlow){
+                                thisStackPane.getChildren().remove(thisStackPane.getChildren().size()-1);
+                            }
+
+                            String[] splitText = text.getText().split("\n");
+
+                            TextFlow flow = new TextFlow();
+
+                            Text text1 = new Text(splitText[0] + "\n");
+                            text1.setStyle("-fx-font-weight: regular");
+
+                            Text text2=new Text(splitText[1]);
+                            text2.setStyle("-fx-font-weight: bold");
+
+                            flow.getChildren().addAll(text1, text2);
+
+                            text.setText("");
+                            flow.setTextAlignment(TextAlignment.CENTER);
+                            flow.setPadding(new Insets(10, 10, 10, 10));
+                            thisStackPane.getChildren().add(flow);
+
+                        }
+
+                    }
+                }
+            }
+        });
+
         dialogGrid.add(team1, 0, 4);
         dialogGrid.add(team2, 0, 5);
 
 
         dialog.getDialogPane().getChildren().add(dialogGrid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        dialog.getDialogPane().lookupButton(ButtonType.OK).setOnMouseClicked(e -> {
-            if (team1.isPressed()){
-
-            }
-
-        });
-
         return dialog;
     }
 
