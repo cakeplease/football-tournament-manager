@@ -114,12 +114,16 @@ public class FTApplication extends Application {
             }
         });
 
+        Button exit = new Button();
+        exit.setText("Quit");
+        exit.setAlignment(Pos.BOTTOM_LEFT);
+        exit.setOnAction(e -> System.exit(0));
 
         Text welcome = new Text("Scandia Cup 2022");
         welcome.setFont(new Font("Verdana", 40));
 
         HBox buttons = new HBox();
-        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket);
+        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit);
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 

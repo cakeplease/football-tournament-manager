@@ -147,7 +147,6 @@ public class MatchesView extends View {
         allMatches.put("Finals matches", tournamentManager.getFinalsMatches());
 
         allMatches.forEach((heading, matches) -> {
-            System.out.println(heading);
 
             //Table title
             Text tableHeading = new Text(heading);
