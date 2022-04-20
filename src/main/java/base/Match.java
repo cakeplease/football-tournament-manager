@@ -12,9 +12,9 @@ public class Match {
     private int score1 = 0; //the score of the first team
     private int score2 = 0; //the score of the second team
     private FootballClub winner = null; //the winner of the match
-    private String time; //the time of when the match is played, in format (hh:mm)
-    private String date; //the date of when the match is played, in format (dd.mm.yyyy)
-    private int fieldNr; //the field where the match is played
+    private String time = null; //the time of when the match is played, in format (hh:mm)
+    private String date = null; //the date of when the match is played, in format (dd.mm.yyyy)
+    private int fieldNr = 0; //the field where the match is played
 
     /**
      * Creates an instance of a football match.

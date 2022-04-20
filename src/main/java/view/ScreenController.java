@@ -28,9 +28,6 @@ public class ScreenController {
 
     protected void activate(String name){
         viewMap.get(name).setup();
-        main.setRoot( screenMap.get(name) );
-    }
-    public void getTest() {
-        System.out.println("faen");
+        main.setRoot( screenMap.get(name));
     }
 }

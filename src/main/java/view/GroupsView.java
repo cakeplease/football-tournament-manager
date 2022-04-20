@@ -26,7 +26,6 @@ public class GroupsView extends View {
 
     public void setup() {
         this.resetPane();
-        System.out.println("Setup i groupsView kjøres");
         GroupController groupController = GroupController.getInstance();
 
         Button backButton = new Button();
@@ -58,11 +57,8 @@ public class GroupsView extends View {
      */
     public ArrayList<String> getAllGroups(){
         GroupController groupController = GroupController.getInstance();
-
         ArrayList<Group> groups = groupController.getGroups();
-        System.out.println(groups);
         ArrayList<String> strings = new ArrayList<>();
-
 
         for (Group group : groups) {
             String singleGroupString = "";

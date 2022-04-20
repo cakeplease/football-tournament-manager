@@ -1,9 +1,10 @@
 package view;
 
+import base.Group;
+import base.Match;
 import base.TournamentManager;
 import controller.GroupController;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -11,13 +12,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
-
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Optional;
-
 
 public class MatchesView extends View {
     protected VBox pane;
+    protected VBox container;
+    protected ScrollPane scrollPane;
     private ScreenController screenController;
     private Dialog dialog;
     private String timeResult;
@@ -29,6 +31,8 @@ public class MatchesView extends View {
 
     public MatchesView(ScreenController screenController) {
         this.pane = new VBox();
+        this.container = new VBox();
+        this.scrollPane = new ScrollPane();
         this.screenController = screenController;
         this.setup();
     }
@@ -40,22 +44,19 @@ public class MatchesView extends View {
 
     public void setup() {
         this.resetPane();
-        pane.setPadding(new Insets(25,25,25,25));
+        container.setPadding(new Insets(25,25,25,25));
 
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        pane.getChildren().add(backButton);
+        container.getChildren().add(backButton);
 
         Text sceneTitle = new Text("Matches");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
-        //pane.add(sceneTitle, 1, 2);
-        pane.getChildren().add(sceneTitle);
-
+        container.getChildren().add(sceneTitle);
 
         GroupController groupController = GroupController.getInstance();
         TournamentManager tournamentManager = TournamentManager.getInstance();
-
 
         dialog = new Dialog();
         dialog.getDialogPane().setMinSize(400, 200);
@@ -123,31 +124,70 @@ public class MatchesView extends View {
             }
         });
 
-        pane.getChildren().add(editButton);
+        container.getChildren().add(editButton);
 
-        TableView<String[]> table = new TableView<>();
-        ArrayList<String> columnNames = new ArrayList<String>();
-        columnNames.add("Football Club");
-        columnNames.add("Football Club");
-        columnNames.add("Time and date");
-        columnNames.add("Field nr");
-        columnNames.add("Score");
-
-        if (!groupController.getGroups().isEmpty() && !tournamentManager.listGroupMatches().isEmpty()) {
-            for (int i = 0; i < columnNames.size(); i++) {
-                final int index = i;
-                TableColumn<String[], String> column = new TableColumn<>(columnNames.get(i));
-                //column.setCellValueFactory(cd -> new PropertyValueFactory());
-                column.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue()[index]));
-
-
-                table.getColumns().add(column);
+        ArrayList<Match> groupMatches = new ArrayList<>();
+        for (Group group : groupController.getGroups()) {
+            for (Match groupMatch : group.getGroupMatches()) {
+                groupMatches.add(groupMatch);
             }
-            String[] userInputs = new String[5];
-            table.getItems().add(userInputs);
-
         }
-        pane.getChildren().add(table);
+
+        LinkedHashMap<String, ArrayList<Match>> allMatches = new LinkedHashMap();
+
+        allMatches.put("Group stages", groupMatches);
+        allMatches.put("Round of 32 A", tournamentManager.getRoundOf32A());
+        allMatches.put("Round of 32 B", tournamentManager.getRoundOf32B());
+        allMatches.put("Round of 16 A", tournamentManager.getRoundOf16A());
+        allMatches.put("Round of 16 B", tournamentManager.getRoundOf16B());
+        allMatches.put("Quarter finals A", tournamentManager.getQuarterFinalsA());
+        allMatches.put("Quarter finals B", tournamentManager.getQuarterFinalsB());
+        allMatches.put("Semi-finals A", tournamentManager.getSemifinalsA());
+        allMatches.put("Semi-finals B", tournamentManager.getSemifinalsB());
+        allMatches.put("Finals matches", tournamentManager.getFinalsMatches());
+
+        allMatches.forEach((heading, matches) -> {
+            System.out.println(heading);
+
+            //Table title
+            Text tableHeading = new Text(heading);
+            tableHeading.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+            container.getChildren().add(tableHeading);
+
+            //Table
+            TableView<Match> matchesTable = new TableView<Match>();
+
+            //Table columns
+            TableColumn<Match, String> team1 = new TableColumn<>("Team 1");
+            team1.setCellValueFactory(new PropertyValueFactory<>("footballClub1"));
+            TableColumn<Match, String> team2 = new TableColumn<>("Team 2");
+            team2.setCellValueFactory(new PropertyValueFactory<>("footballClub2"));
+            TableColumn<Match, String> scoreTeam1 = new TableColumn<>("Score team 1");
+            scoreTeam1.setCellValueFactory(new PropertyValueFactory<>("score1"));
+            TableColumn<Match, String> scoreTeam2 = new TableColumn<>("Score team 2");
+            scoreTeam2.setCellValueFactory(new PropertyValueFactory<>("score2"));
+            TableColumn<Match, String> winner = new TableColumn<>("Winner");
+            winner.setCellValueFactory(new PropertyValueFactory<>("winner"));
+            TableColumn<Match, String> matchTime = new TableColumn<>("Time");
+            matchTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            TableColumn<Match, String> matchDate = new TableColumn<>("Date");
+            matchDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+            TableColumn<Match, Integer> matchFieldNr = new TableColumn<>("Field nr");
+            matchFieldNr.setCellValueFactory(new PropertyValueFactory<>("fieldNr"));
+
+            matchesTable.getColumns().addAll(team1, team2, scoreTeam1, scoreTeam2, winner, matchTime, matchDate, matchFieldNr);
+
+            for (Match match : matches) {
+                matchesTable.getItems().add(match);
+            }
+
+            container.getChildren().add(matchesTable);
+
+        });
+
+        scrollPane.setFitToWidth(true);
+        scrollPane.setContent(container);
+        this.pane.getChildren().add(scrollPane);
     }
 
     /**
@@ -155,6 +195,8 @@ public class MatchesView extends View {
      * (Removes all children from the list)
      */
     protected void resetPane() {
+        this.container.getChildren().clear();
         this.pane.getChildren().clear();
+
     }
 }

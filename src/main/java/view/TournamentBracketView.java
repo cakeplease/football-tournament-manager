@@ -141,7 +141,6 @@ public class TournamentBracketView extends View {
             for (int column = 0; 9 > column; column++) {
                 for (int row = 2; row < 17; row++) {
                     Text text = new Text(getStartingTeams().get(teams));
-                    System.out.println(text);
                     text.setFont(Font.font("Verdana", 11));
                     text.setFill(Color.BLACK);
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
@@ -168,7 +167,6 @@ public class TournamentBracketView extends View {
         GroupController groupController = GroupController.getInstance();
 
         ArrayList<Group> groups = groupController.getGroups();
-        System.out.println(groups);
         ArrayList<String> strings = new ArrayList<>();
 
 
@@ -176,7 +174,7 @@ public class TournamentBracketView extends View {
             strings.add(group.getGroupTeams().get(0).getName() + "\n" + group.getGroupTeams().get(1).getName());
             strings.add(group.getGroupTeams().get(2).getName() + "\n" + group.getGroupTeams().get(3).getName());
         }
-        System.out.println(strings);
+
         return strings;
     }
 

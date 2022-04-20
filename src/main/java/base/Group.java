@@ -196,4 +196,15 @@ public class Group {
             });
         }
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupTeams=" + groupTeams +
+                ", groupMatches=" + groupMatches +
+                ", rand=" + rand +
+                ", hasEnded=" + hasEnded +
+                ", groupNumber=" + groupNumber +
+                '}';
+    }
 }

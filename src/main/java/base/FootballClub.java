@@ -149,11 +149,6 @@ public class FootballClub {
      */
     @Override
     public String toString() {
-        return "FootballClub{" +
-                "name='" + name + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", goalsScored=" + goalsScored +
-                ", goalsLetIn=" + goalsLetIn +
-                '}';
+        return name;
     }
 }

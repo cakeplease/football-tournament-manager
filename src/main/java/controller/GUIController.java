@@ -23,7 +23,5 @@ public class GUIController {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         groupController.addAll(footballClubs);
         groupController.generateGroups();
-        System.out.println(groupController.getGroups());
-
     }
 }
