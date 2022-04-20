@@ -111,6 +111,7 @@ public class MatchesView extends View {
 
         );
 
+        //TODO delete this button and replace with double click on the row + remember to add text above that explains that
         Button editButton = new Button();
         editButton.setText("Edit");
         editButton.setOnAction(e -> {
@@ -173,6 +174,18 @@ public class MatchesView extends View {
             matchDate.setCellValueFactory(new PropertyValueFactory<>("date"));
             TableColumn<Match, Integer> matchFieldNr = new TableColumn<>("Field nr");
             matchFieldNr.setCellValueFactory(new PropertyValueFactory<>("fieldNr"));
+
+            //Double click to edit match
+            matchesTable.setRowFactory(tv -> {
+                TableRow<Match> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                        //TODO show dialog pop-up with edit function + add winner
+                        System.out.println("Double click on row in table!");
+                    }
+                });
+                return row ;
+            });
 
             matchesTable.getColumns().addAll(team1, team2, scoreTeam1, scoreTeam2, winner, matchTime, matchDate, matchFieldNr);
 
