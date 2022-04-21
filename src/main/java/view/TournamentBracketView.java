@@ -48,9 +48,8 @@ public class TournamentBracketView extends View {
 
     public void setup() {
         this.resetPane();
-        //this.stackPane = new StackPane();
-        //tournamentBracketPane.setMinSize(3000, 3000);
         this.scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
         this.tournamentManager = TournamentManager.getInstance();
 
         scrollPane.setContent(tournamentBracketPane);
@@ -67,10 +66,6 @@ public class TournamentBracketView extends View {
         tournamentBracketPane.setHgap(30);
         tournamentBracketPane.setVgap(8);
         tournamentBracketPane.setPadding(new Insets(25, 25, 25, 25));
-
-        PhongMaterial grey = new PhongMaterial();
-        grey.setDiffuseColor(Color.DARKGREY);
-        grey.setSpecularColor(Color.BLACK);
 
 
         /*
@@ -135,15 +130,13 @@ public class TournamentBracketView extends View {
                 tournamentBracketPane.add(textBox, column, row);
             }
         }
-        //DET VAR TIDLIGERE Hgap(60) OG HORISONTAL LENGDE PÅ BOKSEN 100.0
-
 
         /**
          * GROUPS
          */
 
         int teams = 0;
-/*        if (getStartingTeams().size() == 32) {
+        /*  if (getStartingTeams().size() == 32) {
             for (int column = 0; 9 > column; column++) {
                 for (int row = 2; row < 17; row++) {
                     Text text = new Text(getStartingTeams().get(teams));
@@ -157,13 +150,13 @@ public class TournamentBracketView extends View {
                 column += 7;
             }
         }*/
+
         if (getStartingTeams().size() != 0) tournamentManager.generateRoundOf32();
 
         if (tournamentManager.getRoundOf32A().size() == 16) {
             for (int column = 0; 9 > column; column++) {
                 for (int row = 2; row < 17; row++) {
                     Text text = new Text(tournamentManager.getRoundOf32A().get(teams).toString());
-                    System.out.println(text);
                     text.setFont(Font.font("Verdana", 11));
                     text.setFill(Color.BLACK);
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
@@ -186,12 +179,10 @@ public class TournamentBracketView extends View {
     }
 
     public ArrayList<String> getStartingTeams() {
-        //DataStorage.load(true);//TODO dette er bare en test
         GroupController groupController = GroupController.getInstance();
 
         ArrayList<Group> groups = groupController.getGroups();
         ArrayList<String> strings = new ArrayList<>();
-
 
         for (Group group : groups) {
             strings.add(group.getGroupTeams().get(0).getName() + "\n" + group.getGroupTeams().get(1).getName());
@@ -228,67 +219,62 @@ public class TournamentBracketView extends View {
         team1.setToggleGroup(buttonGroup);
         team2.setToggleGroup(buttonGroup);
 
-        buttonGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            public void changed(ObservableValue<? extends Toggle> ob,
-                                Toggle o, Toggle n)
-            {
+        buttonGroup.selectedToggleProperty().addListener((ob, o, n) -> {
+          RadioButton rb = (RadioButton)buttonGroup.getSelectedToggle();
 
-                RadioButton rb = (RadioButton)buttonGroup.getSelectedToggle();
+            if (rb != null) {
+                StackPane thisStackPane = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                Text text = (Text) thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1);
 
-                if (rb != null) {
-                    StackPane thisStackPane = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
-                    Text text = (Text) thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1);
+                for (Match m : tournamentManager.getRoundOf32A()){
+                    if (rb.getText().equalsIgnoreCase(m.getFootballClub1().getName())){
+                        m.setWinner(m.getFootballClub1());
 
-                    for (Match m : tournamentManager.getRoundOf32A()){
-                        if (rb.getText().equalsIgnoreCase(m.getFootballClub1().getName())){
-                            m.setWinner(m.getFootballClub1());
+                        String[] splitText = text.getText().split("\n");
 
-                            String[] splitText = text.getText().split("\n");
+                        TextFlow flow = new TextFlow();
 
-                            TextFlow flow = new TextFlow();
+                        Text text1 = new Text(splitText[0] + "\n");
+                        text1.setStyle("-fx-font-weight: bold");
 
-                            Text text1 = new Text(splitText[0] + "\n");
-                            text1.setStyle("-fx-font-weight: bold");
+                        Text text2=new Text(splitText[1]);
+                        text2.setStyle("-fx-font-weight: regular");
 
-                            Text text2=new Text(splitText[1]);
-                            text2.setStyle("-fx-font-weight: regular");
+                        flow.getChildren().addAll(text1, text2);
 
-                            flow.getChildren().addAll(text1, text2);
-
-                            text.setText("");
-                            flow.setTextAlignment(TextAlignment.CENTER);
-                            flow.setPadding(new Insets(10, 10, 10, 10));
-                            thisStackPane.getChildren().add(flow);
-
-                        }
-
-                        else if (rb.getText().equalsIgnoreCase(m.getFootballClub2().getName())){
-                            m.setWinner(m.getFootballClub2());
-
-                            if (thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1) instanceof TextFlow){
-                                thisStackPane.getChildren().remove(thisStackPane.getChildren().size()-1);
-                            }
-
-                            String[] splitText = text.getText().split("\n");
-
-                            TextFlow flow = new TextFlow();
-
-                            Text text1 = new Text(splitText[0] + "\n");
-                            text1.setStyle("-fx-font-weight: regular");
-
-                            Text text2=new Text(splitText[1]);
-                            text2.setStyle("-fx-font-weight: bold");
-
-                            flow.getChildren().addAll(text1, text2);
-
-                            text.setText("");
-                            flow.setTextAlignment(TextAlignment.CENTER);
-                            flow.setPadding(new Insets(10, 10, 10, 10));
-                            thisStackPane.getChildren().add(flow);
-
-                        }
+                        text.setText("");
+                        flow.setTextAlignment(TextAlignment.CENTER);
+                        flow.setPadding(new Insets(10, 10, 10, 10));
+                        thisStackPane.getChildren().add(flow);
 
                     }
+
+                    else if (rb.getText().equalsIgnoreCase(m.getFootballClub2().getName())){
+                        m.setWinner(m.getFootballClub2());
+
+                        if (thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1) instanceof TextFlow){
+                            thisStackPane.getChildren().remove(thisStackPane.getChildren().size()-1);
+                        }
+
+                        String[] splitText = text.getText().split("\n");
+
+                        TextFlow flow = new TextFlow();
+
+                        Text text1 = new Text(splitText[0] + "\n");
+                        text1.setStyle("-fx-font-weight: regular");
+
+                        Text text2=new Text(splitText[1]);
+                        text2.setStyle("-fx-font-weight: bold");
+
+                        flow.getChildren().addAll(text1, text2);
+
+                        text.setText("");
+                        flow.setTextAlignment(TextAlignment.CENTER);
+                        flow.setPadding(new Insets(10, 10, 10, 10));
+                        thisStackPane.getChildren().add(flow);
+
+                    }
+
                 }
             }
         });

@@ -32,7 +32,7 @@ public class FTApplication extends Application {
     private TeamsView teamsView = new TeamsView(screenController);
     private MatchesView matchesView = new MatchesView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
-    private EmptyTournamentBracketView emptyTournamentBracketView = new EmptyTournamentBracketView(screenController);
+    private NewTournamentBracketView newTournamentBracketView = new NewTournamentBracketView(screenController);
 
     private static double windowSizeX;
     private static double windowSizeY;
@@ -56,7 +56,7 @@ public class FTApplication extends Application {
         screenController.addScreen("TournamentBracket", tournamentBracketView);
         screenController.addScreen("Teams", teamsView);
         screenController.addScreen("Matches", matchesView);
-        screenController.addScreen("EmptyTournamentBracketView", emptyTournamentBracketView);
+        screenController.addScreen("NewTournamentBracketView", newTournamentBracketView);
 
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);
@@ -115,17 +115,7 @@ public class FTApplication extends Application {
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
         showTournamentBracket.setLayoutY(700);
-        /*showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracket"));*/
-        showTournamentBracket.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if(groupController.getGroups().isEmpty()){
-                    screenController.activate("EmptyTournamentBracketView");
-                } else{
-                    screenController.activate("TournamentBracketView");
-                }
-            }
-        });
+        showTournamentBracket.setOnAction(e -> screenController.activate("NewTournamentBracketView"));
 
         Button exit = new Button();
         exit.setText("Quit");
@@ -134,13 +124,6 @@ public class FTApplication extends Application {
 
         Text welcome = new Text("SCANDIA CUP 2022");
         welcome.setFont(new Font("Verdana", 40));
-
-
-/*        welcome.setId("title-text");
-        welcome.setFill(Color.WHITE);
-        welcome.setStroke(Color.BLACK);
-
-        welcome.setFont(Font.font("Roboto", FontWeight.BOLD, FontPosture.REGULAR, 70));*/
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit);
