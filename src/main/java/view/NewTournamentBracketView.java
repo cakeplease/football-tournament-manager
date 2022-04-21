@@ -127,7 +127,7 @@ public class NewTournamentBracketView extends View {
             for (int column = 0; 9 > column; column++) {
                 for (int row = 2; row < 17; row++) {
                     FootballClub team1 = tournamentManager.getRoundOf32A().get(teamsIndex).getFootballClub1();
-                    FootballClub team2 = tournamentManager.getRoundOf32A().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getRoundOf32A().get(teamsIndex).getFootballClub2();
                     Match currentMatch = tournamentManager.getRoundOf32A().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
