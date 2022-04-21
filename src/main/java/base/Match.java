@@ -125,6 +125,14 @@ public class Match {
     }
 
     /**
+     * Return field number
+     * @return
+     */
+    public int getFieldNr() {
+        return fieldNr;
+    }
+
+    /**
      * Sets the first score
      *
      * @param score1 the first score

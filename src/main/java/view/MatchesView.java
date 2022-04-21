@@ -1,8 +1,10 @@
 package view;
 
+import base.FootballClub;
 import base.Group;
 import base.Match;
 import base.TournamentManager;
+import controller.GUIController;
 import controller.GroupController;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -51,7 +53,7 @@ public class MatchesView extends View {
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
         container.getChildren().add(backButton);
 
-        Text sceneTitle = new Text("Matches");
+        Text sceneTitle = new Text("Matches (double click a match to edit)");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         container.getChildren().add(sceneTitle);
 
@@ -100,6 +102,7 @@ public class MatchesView extends View {
         grid.add(score2, 3, 1);
 
         dialog.getDialogPane().getChildren().add(grid);
+        dialog.initOwner(FTApplication.primaryStage);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         dialog.getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
         dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
@@ -110,22 +113,6 @@ public class MatchesView extends View {
                         .and(Bindings.isEmpty(score2.textProperty()))
 
         );
-
-        //TODO delete this button and replace with double click on the row + remember to add text above that explains that
-        Button editButton = new Button();
-        editButton.setText("Edit");
-        editButton.setOnAction(e -> {
-            result = dialog.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                timeResult = time.getText();
-                dateResult = date.getText();
-                fieldNrResult = fieldNr.getText();
-                score1Result = score1.getText();
-                score2Result = score2.getText();
-            }
-        });
-
-        container.getChildren().add(editButton);
 
         ArrayList<Match> groupMatches = new ArrayList<>();
         for (Group group : groupController.getGroups()) {
@@ -180,11 +167,35 @@ public class MatchesView extends View {
                 TableRow<Match> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                        //TODO show dialog pop-up with edit function + add winner
-                        System.out.println("Double click on row in table!");
+                        time.clear();
+                        date.clear();
+                        fieldNr.clear();
+                        score1.clear();
+                        score2.clear();
+
+                        result = dialog.showAndWait();
+
+                        FootballClub footballClub1 = row.getItem().getFootballClub1();
+                        FootballClub footballClub2 = row.getItem().getFootballClub2();
+                        String editedTime = time.getText();
+                        String editedDate = date.getText();
+                        String editedFieldNr = fieldNr.getText();
+                        String editedScore1 = score1.getText();
+                        String editedScore2 = score2.getText();
+
+                        if (result.get() == ButtonType.OK) {
+                            for (Match m : matches) {
+                                if (m.getFootballClub1().equals(footballClub1) && m.getFootballClub2().equals(footballClub2)){
+                                    GUIController.editMatch(footballClub1, footballClub2, editedTime, editedDate, editedFieldNr, editedScore1, editedScore2);
+                                    matchesTable.refresh();
+                                    break;
+                                }
+                            }
+                        }
+
                     }
                 });
-                return row ;
+                return row;
             });
 
             matchesTable.getColumns().addAll(team1, team2, scoreTeam1, scoreTeam2, winner, matchTime, matchDate, matchFieldNr);
