@@ -139,16 +139,18 @@ public class NewTournamentBracketView extends View {
                             team2Label.setStyle("-fx-font-weight: bold");
                         }
                     }
-
+                    VBox teamLabelContainer = new VBox();
                     team1Label.setFont(Font.font("Verdana", 11));
                     team1Label.setFill(Color.BLACK);
 
                     team2Label.setFont(Font.font("Verdana", 11));
                     team2Label.setFill(Color.BLACK);
 
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
                     //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
-                    textBox.getChildren().addAll();
+                    textBox.getChildren().add(teamLabelContainer);
                     row++;
                     teamsIndex++;
                 }
