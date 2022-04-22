@@ -88,6 +88,10 @@ public class GUIController {
     }
 
     public static void loadResultsFromFile() {
+        DataStorage.loadFinalsMatches();
+    }
+
+    public static void saveResultsToFile() {
         DataStorage.saveTournamentFinals();
     }
 }
