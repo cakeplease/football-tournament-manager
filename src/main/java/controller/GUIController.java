@@ -4,6 +4,7 @@ import base.FootballClub;
 import base.Group;
 import base.Match;
 import base.TournamentManager;
+import model.DataStorage;
 import model.FootballClubsFromFile;
 
 import java.util.ArrayList;
@@ -78,5 +79,9 @@ public class GUIController {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         groupController.addAll(footballClubs);
         groupController.generateGroups();
+    }
+
+    public static void loadResultsFromFile() {
+        DataStorage.saveTournamentFinals();
     }
 }
