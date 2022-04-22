@@ -24,10 +24,10 @@ public class DataStorage {
     private static final String groupPath = "src/main/resources/data/GroupData.csv";
     private static final String groupPathTest = "src/main/resources/data/GroupDataTest.csv";
 
-    private static final String groupMatchespath = "src/main/resources/data/groupMatches.csv";
-    private static final String groupMatchespathtest = "src/main/resources/data/groupMatchesTest.csv";
+    private static final String groupMatchesPath = "src/main/resources/data/groupMatches.csv";
+    private static final String groupMatchesPathTest = "src/main/resources/data/groupMatchesTest.csv";
 
-    private static final String tournementFinalsPath = "src/main/resources/data/tournementFinals.csv";
+    private static final String tournamentFinalsPath = "src/main/resources/data/tournamentFinals.csv";
 
     private static final String COMMA_DELIMITER = ",";
 
@@ -87,7 +87,7 @@ public class DataStorage {
      * loades groupes from file
      * @throws RuntimeException if gupeSaveFile coud not be read
      */
-    private static void loadGroupes(boolean test) throws RuntimeException{
+    private static void loadGroups(boolean test) throws RuntimeException{
         try {
             Objects.requireNonNull(DataHandler.readFromFile(getGroupPath(test))).forEach(e -> {
                 String[] data = e.split(";");
@@ -135,8 +135,8 @@ public class DataStorage {
     }
 
     /**
-     * load matches from file, and find grupe they exist inn
-     * then add the match to the grupe
+     * Load matches from file, and find group they exist inn
+     * then add the match to the group
      * @param test if test
      */
     private static void loadGroupMatches(boolean test){
@@ -160,13 +160,13 @@ public class DataStorage {
     }
 
     /**
-     * generates csv for all finals matches.
-     * if no matches in bracket no matches will be written to file
-     * separates the matches with bracket names ("roundOf32A") as named in TournamentManger class
+     * Generates csv for all finals matches.
+     * If no matches in bracket no matches will be written to file
+     * Separates the matches with bracket names ("roundOf32A") as named in TournamentManger class
      */
     public static void saveTournamentFinals(){
 
-        DataHandler.saveToFile("", Paths.get(tournementFinalsPath));
+        DataHandler.saveToFile("", Paths.get(tournamentFinalsPath));
         TournamentManager tr = TournamentManager.getInstance();
         ArrayList<String> dataToSave = new ArrayList<String>();
 
@@ -194,7 +194,7 @@ public class DataStorage {
         dataToSave.add("FinalsMatches");
         dataToSave.add(tr.getFinalsMatches().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
 
-        DataHandler.saveToFile(String.join("\n", dataToSave), Paths.get(tournementFinalsPath));
+        DataHandler.saveToFile(String.join("\n", dataToSave), Paths.get(tournamentFinalsPath));
     }
 
     /**
@@ -202,13 +202,12 @@ public class DataStorage {
      */
     public static boolean loadFinalsMatches(){
         TournamentManager tr = TournamentManager.getInstance();
-        ArrayList<String> dataRead = DataHandler.readFromFile(Paths.get(tournementFinalsPath));
+        ArrayList<String> dataRead = DataHandler.readFromFile(Paths.get(tournamentFinalsPath));
 
         if (dataRead == null)
             return false;
 
         ArrayList<Match> currentWritingTo = null;
-
 
         for(String e : dataRead){
             switch (e) {
@@ -245,11 +244,11 @@ public class DataStorage {
      * @return path to file
      */
     private static Path getGroupMatchesPath(boolean test){
-        return Paths.get((test) ? groupMatchespathtest : groupMatchespath);
+        return Paths.get((test) ? groupMatchesPathTest : groupMatchesPath);
     }
 
     /**
-     * finds reference to footballclub in Grupecontroller instead of copy
+     * finds reference to footballclub in GroupController instead of copy
      * @param f footballclub to find
      * @return found club
      * @throws RuntimeException if reference was not found
@@ -261,11 +260,6 @@ public class DataStorage {
             return footballClubs.get(index);
         else throw new RuntimeException("cant find reference for club:" + f.toString());
     }
-
-
-
-
-
 
     /**
      * saves all data
@@ -280,7 +274,7 @@ public class DataStorage {
     }
 
     /**
-     * loades all data
+     * Loads all data
      * @param test if test
      */
     public static void load(boolean test){
@@ -288,7 +282,7 @@ public class DataStorage {
         TournamentManager.getInstance().resetAllLists();
 
         loadFootballClubsFromFile(test);
-        loadGroupes(test);
+        loadGroups(test);
         loadGroupMatches(test);
         loadFinalsMatches();
     }
