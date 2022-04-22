@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class FTApplication extends Application {
     GroupController groupController = GroupController.getInstance();
@@ -40,10 +41,9 @@ public class FTApplication extends Application {
      * Overrides the start() method which takes a single parameter stage.
      * Uses the show() method to display the stage.
      * @param primaryStage
-     * @throws Exception
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         FTApplication.primaryStage = primaryStage;
 
         screenController.addScreen("FrontPage", frontpage);
@@ -60,9 +60,11 @@ public class FTApplication extends Application {
 
         primaryStage.setFullScreen(true);
 
-        primaryStage.setTitle("Scandia Cup Manager");
+        primaryStage.setTitle("Skandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
         frontPage.getStyleClass().add("#front-page");
+        frontPageScene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+
         primaryStage.setScene(frontPageScene);
         primaryStage.show();
 
@@ -74,62 +76,19 @@ public class FTApplication extends Application {
     }
     
     private void setup() {
-        Button addTeam = new Button();
-        addTeam.setText("Add team");
-        addTeam.setAlignment(Pos.BOTTOM_LEFT);
-        addTeam.setOnAction(e -> screenController.activate("AddTeam"));
 
-        Button showAllTeams = new Button();
-        showAllTeams.getStyleClass().add("button");
-        showAllTeams.setText("Show all teams");
-        showAllTeams.setLayoutX(200);
-        showAllTeams.setLayoutY(500);
-        showAllTeams.setOnAction(e -> screenController.activate("Teams"));
+        Text welcome = new Text("SKANDIA CUP 2022");
+        welcome.setFont(new Font("Verdana", 40));
 
-        Button showMatches = new Button();
-        showMatches.setText("Show matches");
-        showMatches.setLayoutX(300);
-        showMatches.setLayoutY(500);
-        showMatches.setOnAction(e -> screenController.activate("Matches"));
-
-        Button showGroups = new Button();
-        showGroups.setText("Show groups");
-        showGroups.setLayoutX(400);
-        showGroups.setLayoutY(500);
-
-        showGroups.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if (groupController.getGroups().isEmpty()) {
-                    screenController.activate("NoGroups");
-                } else {
-                    screenController.activate("Groups");
-                }
-            }
-        });
-
-        Button showTournamentBracket = new Button();
-        showTournamentBracket.setText("Show tournament bracket");
-        showTournamentBracket.setLayoutX(250);
-        showTournamentBracket.setLayoutY(700);
-        showTournamentBracket.setOnAction(e -> screenController.activate("NewTournamentBracketView"));
+        Button start = new Button();
+        start.setText("Start");
+        start.setStyle("-fx-font-size:28");
+        start.setOnAction(e -> screenController.activate("FrontPage"));
 
         Button exit = new Button();
         exit.setText("Quit");
-        exit.setAlignment(Pos.BOTTOM_LEFT);
+        exit.setStyle("-fx-font-size:20");
         exit.setOnAction(e -> System.exit(0));
-
-        Button loadTestData = new Button();
-        loadTestData.setText("LOAD TEST DATA");
-        loadTestData.setOnAction(e -> GUIController.loadTestData());
-
-        Text welcome = new Text("SCANDIA CUP 2022");
-        welcome.setFont(new Font("Verdana", 40));
-
-        HBox buttons = new HBox();
-        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit, loadTestData);
-        buttons.setSpacing(20);
-        buttons.setAlignment(Pos.CENTER);
 
         Image image = new Image("/frontPage.jpg");
         ImageView imageView = new ImageView(image);
@@ -137,7 +96,8 @@ public class FTApplication extends Application {
         imageView.setY(50);
         imageView.getStyleClass().add("image");
         VBox vBoxImg = new VBox();
-        vBoxImg.getChildren().addAll(imageView, welcome, buttons);
+
+        vBoxImg.getChildren().addAll(imageView, welcome, start, exit);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         frontPage.getChildren().add(vBoxImg);
@@ -149,14 +109,6 @@ public class FTApplication extends Application {
      */
     public static void main(String[] args) {
         FTApplication.launch(args);
-    }
-
-    public static double getWindowSizeX(){
-        return windowSizeX;
-    }
-
-    public static double getWindowSizeY(){
-        return windowSizeY;
     }
 
 }
