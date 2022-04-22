@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class MatchesView extends View {
 
     public void setup() {
         this.resetPane();
-        container.setPadding(new Insets(25,25,25,25));
+        container.setPadding(new Insets(25, 25, 25, 25));
 
         Button backButton = new Button();
         backButton.setText("Back");
@@ -97,9 +98,9 @@ public class MatchesView extends View {
         grid.add(new Text("Field number:"), 0, 2);
         grid.add(fieldNr, 1, 2);
 
-        grid.add(new Text ("Score team 1: "), 2, 0);
+        grid.add(new Text("Score team 1: "), 2, 0);
         grid.add(score1, 3, 0);
-        grid.add(new Text ("Score team 2: "), 2, 1);
+        grid.add(new Text("Score team 2: "), 2, 1);
         grid.add(score2, 3, 1);
 
         dialog.getDialogPane().getChildren().add(grid);
@@ -167,13 +168,12 @@ public class MatchesView extends View {
             matchesTable.setRowFactory(tv -> {
                 TableRow<Match> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
                         time.clear();
                         date.clear();
                         fieldNr.clear();
                         score1.clear();
                         score2.clear();
-
                         result = dialog.showAndWait();
 
                         FootballClub footballClub1 = row.getItem().getFootballClub1();
@@ -186,14 +186,28 @@ public class MatchesView extends View {
 
                         if (result.get() == ButtonType.OK) {
                             for (Match m : matches) {
-                                if (m.getFootballClub1().equals(footballClub1) && m.getFootballClub2().equals(footballClub2)){
+                                if (m.getFootballClub1().equals(footballClub1) && m.getFootballClub2().equals(footballClub2)) {
                                     GUIController.editMatch(footballClub1, footballClub2, editedTime, editedDate, editedFieldNr, editedScore1, editedScore2);
+                                    if (GUIController.allMatchesHaveWinner(matches)) {
+                                        if (tournamentManager.getRoundOf32A().isEmpty())
+                                            tournamentManager.generateRoundOf32();
+                                        else if (tournamentManager.getRoundOf16A().isEmpty())
+                                            tournamentManager.generateRoundOf16();
+                                        else if (tournamentManager.getQuarterFinalsA().isEmpty())
+                                            tournamentManager.generateQuarterFinals();
+                                        else if (tournamentManager.getSemifinalsA().isEmpty())
+                                            tournamentManager.generateSemifinals();
+                                        else if (tournamentManager.getFinalsMatches().isEmpty()) {
+                                            tournamentManager.generateFinalA();
+                                            tournamentManager.generateFinalB();
+                                        }
+                                    }
+
                                     matchesTable.refresh();
                                     break;
                                 }
                             }
                         }
-
                     }
                 });
                 return row;
