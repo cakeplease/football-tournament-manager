@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
  */
 public class DataStorage {
     private static final String footballClubsPath = "src/main/resources/data/football-clubs.csv";
-    private static final String footballClubsTestPath = "src/main/resources/data/test/football-clubs.csv";
+    private static final String footballClubsTestPath = "src/main/resources/test_data/football-clubs.csv";
 
     private static final String groupPath = "src/main/resources/data/groups-data.csv";
-    private static final String groupPathTest = "src/main/resources/data/test/groups-data.csv";
+    private static final String groupPathTest = "src/main/resources/test_data/groups-data.csv";
 
     private static final String groupMatchesPath = "src/main/resources/data/groups-matches.csv";
-    private static final String groupMatchesPathTest = "src/main/resources/data/test/groups-matches.csv";
+    private static final String groupMatchesPathTest = "src/main/resources/test_data/groups-matches.csv";
 
     private static final String tournamentFinalsPath = "src/main/resources/data/tournament-finales.csv";
-    private static final String tournamentFinalsPathTest = "src/main/resources/data/test/tournament-finales.csv";
+    private static final String tournamentFinalsPathTest = "src/main/resources/test_data/tournament-finales.csv";
 
     private static final String COMMA_DELIMITER = ",";
 
