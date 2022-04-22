@@ -73,6 +73,12 @@ public class GUIController {
         return false;
     }
 
+    public static boolean allMatchesHaveWinner(ArrayList<Match> matches){
+        if (matches.isEmpty()) return false;
+
+        return matches.stream().allMatch(e -> e.getWinner() != null);
+    }
+
     public static void generateGroups() {
         GroupController groupController = GroupController.getInstance();
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();

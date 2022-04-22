@@ -53,6 +53,11 @@ public class MatchesView extends View {
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
         container.getChildren().add(backButton);
 
+        Button loadResults = new Button();
+        loadResults.setText("Load results from file");
+        loadResults.setOnAction(e -> GUIController.loadResultsFromFile());
+        container.getChildren().add(loadResults);
+
         Text sceneTitle = new Text("Matches (double click a match to edit)");
         sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         container.getChildren().add(sceneTitle);
