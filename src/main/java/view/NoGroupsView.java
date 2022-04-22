@@ -34,6 +34,11 @@ public class NoGroupsView extends View{
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
         pane.add(backButton, 0,1);
 
+       /* Button loadGroupsFromFile = new Button();
+        loadGroupsFromFile.setText("Load groups from file");
+        loadGroupsFromFile.setOnAction(e -> GUIController.loadGroups());
+        pane.add(loadGroupsFromFile, 1,1);*/
+
         Button generateGroups = new Button();
         generateGroups.setText("Generate groups");
         generateGroups.setOnAction(new EventHandler<ActionEvent>() {

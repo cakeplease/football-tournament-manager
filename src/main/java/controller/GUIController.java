@@ -4,6 +4,7 @@ import base.FootballClub;
 import base.Group;
 import base.Match;
 import base.TournamentManager;
+import model.DataHandler;
 import model.DataStorage;
 import model.FootballClubsFromFile;
 
@@ -68,9 +69,14 @@ public class GUIController {
                 m.setFieldNr(Integer.parseInt(fieldNr));
                 m.setScore1(Integer.parseInt(score1));
                 m.setScore2(Integer.parseInt(score2));
+
+                saveFinalesToFile();
+                saveGroupMatchesToFile();
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -85,13 +91,41 @@ public class GUIController {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
         groupController.addAll(footballClubs);
         groupController.generateGroups();
+        saveGroups();
     }
 
-    public static void loadResultsFromFile() {
-        DataStorage.loadFinalsMatches();
-    }
-
-    public static void saveResultsToFile() {
+    public static void saveFinalesToFile() {
         DataStorage.saveTournamentFinals();
     }
+
+    public static void saveGroupMatchesToFile() {
+        DataStorage.saveGroupMatches();
+    }
+
+    public static void saveGroups() {
+        DataStorage.saveGroupsToFile();
+    }
+
+    public static void loadTestData() {
+        DataStorage.loadTestData();
+    }
+
+    /*public static void loadMatchesFromFile() {
+        loadGroupMatchesFromFile();
+        loadFinalesFromFile();
+    }
+
+    public static void loadGroups() {
+        DataStorage.loadGroups();
+    }
+
+    public static void loadGroupMatchesFromFile() {
+        DataStorage.loadGroupMatches();
+    }
+    public static void loadFinalesFromFile() {
+        DataStorage.loadFinalsMatches();
+    }
+    */
+
+
 }

@@ -76,12 +76,15 @@ public class FrontpageView extends View {
         exit.setAlignment(Pos.BOTTOM_LEFT);
         exit.setOnAction(e -> System.exit(0));
 
+        Button loadTestData = new Button();
+        loadTestData.setText("LOAD TEST DATA");
+        loadTestData.setOnAction(e -> GUIController.loadTestData());
 
         Text welcome = new Text("Scandia Cup 2022");
         welcome.setFont(new Font("Verdana", 40));
 
         HBox buttons = new HBox();
-        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket,exit);
+        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket,exit, loadTestData);
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 
@@ -98,6 +101,7 @@ public class FrontpageView extends View {
         vBoxImg.setSpacing(20);
 
         pane.getChildren().add(vBoxImg);
+
     }
     /**
      * Resets pane

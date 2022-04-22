@@ -28,7 +28,7 @@ public class DataHandler {
             try {
                 file.createNewFile();
             }catch (IOException e){
-                throw new RuntimeException("file coud not be created");
+                throw new RuntimeException("File could not be created");
             }
         }
         try {

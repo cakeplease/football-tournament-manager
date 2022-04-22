@@ -18,16 +18,17 @@ import java.util.stream.Collectors;
  * @version 05.04.2022
  */
 public class DataStorage {
-    private static final String footballClubsPath = "src/main/resources/data/FootballClubs.csv";
-    private static final String footballClubsTestPath = "src/main/resources/data/FootballClubsTest.csv";
+    private static final String footballClubsPath = "src/main/resources/data/football-clubs.csv";
+    private static final String footballClubsTestPath = "src/main/resources/data/test/football-clubs.csv";
 
-    private static final String groupPath = "src/main/resources/data/GroupData.csv";
-    private static final String groupPathTest = "src/main/resources/data/GroupDataTest.csv";
+    private static final String groupPath = "src/main/resources/data/groups-data.csv";
+    private static final String groupPathTest = "src/main/resources/data/test/groups-data.csv";
 
-    private static final String groupMatchesPath = "src/main/resources/data/groupMatches.csv";
-    private static final String groupMatchesPathTest = "src/main/resources/data/groupMatchesTest.csv";
+    private static final String groupMatchesPath = "src/main/resources/data/groups-matches.csv";
+    private static final String groupMatchesPathTest = "src/main/resources/data/test/groups-matches.csv";
 
-    private static final String tournamentFinalsPath = "src/main/resources/data/tournamentFinals.csv";
+    private static final String tournamentFinalsPath = "src/main/resources/data/tournament-finales.csv";
+    private static final String tournamentFinalsPathTest = "src/main/resources/data/test/tournament-finales.csv";
 
     private static final String COMMA_DELIMITER = ",";
 
@@ -35,114 +36,105 @@ public class DataStorage {
     /**
      * Method for saving football clubs to csv-file
      * Loops through the football clubs and adds the data to the cvs-file (path)
-     * @param test boolean to not overwrite savefile
-     *
      */
-    public static void saveFootballClubs(boolean test) {
+    public static void saveFootballClubs() {
         StringBuilder data = new StringBuilder();
         for (FootballClub fc : GroupController.getInstance().getFootballClubs()) {
             data.append(fc.getCsvFormat() + "\n");
         }
-        DataHandler.saveToFile(data.toString(), getFootballClubsPath(test));
+        DataHandler.saveToFile(data.toString(), Paths.get(footballClubsPath));
     }
 
     /**
-     * reads footballclubs from file, and creates array of them
-     * @param test boolean to not overwrite savefile
-     * @throws RuntimeException if footballclubs coud not be read from file
+     * Reads football clubs from file, and creates array of them
+     * @throws RuntimeException when footballclubs can't be read from file
      */
-    private static void loadFootballClubsFromFile(boolean test)throws RuntimeException{
-        try {
-            ArrayList<FootballClub> footballClubsFromFIle = new ArrayList<FootballClub>();
-            Objects.requireNonNull(DataHandler.readFromFile(getFootballClubsPath(test))).forEach(e ->
-                    footballClubsFromFIle.add(parseFootballClub(e)));
+    private static void loadFootballClubsFromFile(boolean isTestData) throws RuntimeException {
+        Path path = Paths.get(footballClubsPath);
+        if (isTestData) {
+            path = Paths.get(footballClubsTestPath);
+        }
 
-            GroupController.getInstance().addAll(footballClubsFromFIle);
+        try {
+            ArrayList<FootballClub> footballClubsFromFile = new ArrayList<FootballClub>();
+            Objects.requireNonNull(DataHandler.readFromFile(path)).forEach(e ->
+                    footballClubsFromFile.add(parseFootballClub(e)));
+            GroupController.getInstance().addAll(footballClubsFromFile);
         } catch (NullPointerException e){
             throw new RuntimeException("No data found");
         }
     }
 
     /**
-     * returns the path for file reading later or for tests
-     * as path
-     * @param test if test or not (to not overide savefile
-     * @return footballclubs path
+     * Save groups to file
      */
-    private static Path getFootballClubsPath(boolean test){
-        return Paths.get((test) ? footballClubsTestPath : footballClubsPath);
-    }
-
-    private static Path getGroupPath(boolean test){
-        return Paths.get((test) ? groupPathTest : groupPath);
-    }
-
-    private static void saveGroupToFile(boolean test){
+    public static void saveGroupsToFile(){
         DataHandler.saveToFile(GroupController.getInstance().getGroups().stream().map(Group::generateCsv)
-                .collect(Collectors.joining("")), getGroupPath(test));
-
+                .collect(Collectors.joining("")), Paths.get(groupPath));
     }
 
     /**
-     * loades groupes from file
-     * @throws RuntimeException if gupeSaveFile coud not be read
+     * Loads groups from file
+     * @throws RuntimeException if groupSaveFile could not be read
      */
-    private static void loadGroups(boolean test) throws RuntimeException{
+    public static void loadGroups(boolean isTestData) throws RuntimeException {
+        Path path = Paths.get(groupPath);
+        if (isTestData) {
+            path = Paths.get(groupPathTest);
+        }
         try {
-            Objects.requireNonNull(DataHandler.readFromFile(getGroupPath(test))).forEach(e -> {
+            Objects.requireNonNull(DataHandler.readFromFile(path)).forEach(e -> {
                 String[] data = e.split(";");
                 Group tempGroup = new Group();
                 tempGroup.setGroupNumber(Integer.parseInt(data[0]));
                 for (int i = 1; i < data.length - 1; i++) {
-
                     tempGroup.addTeam(getFootballClubReference(parseFootballClub(data[i])));
                 }
                 tempGroup.setHasEnded(Boolean.parseBoolean(data[data.length-1]));
                 GroupController.getInstance().getGroups().add(tempGroup);
             });
-        }catch (NullPointerException e){
-            throw new RuntimeException("cant read data from file");
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Can't read data from file");
         }
     }
 
     /**
-     * creates football club from csv string
+     * Creates football club from csv string
      * @param csvString to parse
-     * @return Footballclub
+     * @return Football club
      */
-    private static FootballClub parseFootballClub(String csvString){
+    private static FootballClub parseFootballClub(String csvString) {
         String[] values = csvString.split(COMMA_DELIMITER);
         return new FootballClub(values[0],values[1], Integer.parseInt(values[2]),
                 Integer.parseInt(values[3]), Integer.parseInt(values[4]));
     }
 
-
     /**
-     * saves groupMatches to file
-     * @param test if test uses different path
+     * Saves groupMatches to file
      */
-    private static void saveGroupMatches(boolean test){
+    //TODO create file beforehand
+    public static void saveGroupMatches(){
         try {
-            DataHandler.saveToFile("", getGroupMatchesPath(test));
-
+            System.out.println("save group matches runs");
             DataHandler.saveToFile(TournamentManager.getInstance().listGroupMatches()
                             .stream().map(Match::getCsv)
-                            .collect(Collectors.joining("\n"))
-                    , getGroupMatchesPath(test));
-        } catch (NullPointerException e){
-            DataHandler.saveToFile("", getGroupMatchesPath(test));
+                            .collect(Collectors.joining("\n")),Paths.get(groupMatchesPath));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Load matches from file, and find group they exist inn
-     * then add the match to the group
-     * @param test if test
+     * Load matches from file and find group they exist inn then add the match to the group
      */
-    private static void loadGroupMatches(boolean test){
+    public static void loadGroupMatches(boolean isTestData){
+        Path path = Paths.get(groupMatchesPath);
+        if (isTestData) {
+            path = Paths.get(groupMatchesPathTest);
+        }
         ArrayList<Group> groups = GroupController.getInstance().getGroups();
 
-        DataHandler.readFromFile(getGroupMatchesPath(test)).forEach(e->{
+        DataHandler.readFromFile(path).forEach(e->{
             String[] data = e.split(";");
             FootballClub f1 = parseFootballClub(data[0]);
             FootballClub f2 = parseFootballClub(data[1]);
@@ -169,7 +161,6 @@ public class DataStorage {
         DataHandler.saveToFile("", Paths.get(tournamentFinalsPath));
         TournamentManager tr = TournamentManager.getInstance();
         ArrayList<String> dataToSave = new ArrayList<String>();
-
 
         dataToSave.add("roundOf32A");
         dataToSave.add(tr.getRoundOf32A().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
@@ -200,9 +191,13 @@ public class DataStorage {
     /**
      * Loads all tournament finals matches to correct arrays
      */
-    public static boolean loadFinalsMatches(){
+    public static boolean loadFinalsMatches(boolean isTestData){
+        Path path = Paths.get(tournamentFinalsPath);
+        if (isTestData) {
+            path = Paths.get(tournamentFinalsPathTest);
+        }
         TournamentManager tr = TournamentManager.getInstance();
-        ArrayList<String> dataRead = DataHandler.readFromFile(Paths.get(tournamentFinalsPath));
+        ArrayList<String> dataRead = DataHandler.readFromFile(path);
 
         if (dataRead == null)
             return false;
@@ -234,58 +229,57 @@ public class DataStorage {
                 }
             }
         }
+
         return true;
-
     }
 
     /**
-     * group matches path for the save file
-     * @param test if test
-     * @return path to file
-     */
-    private static Path getGroupMatchesPath(boolean test){
-        return Paths.get((test) ? groupMatchesPathTest : groupMatchesPath);
-    }
-
-    /**
-     * finds reference to footballclub in GroupController instead of copy
+     * Finds reference to footballclub in GroupController instead of copy
      * @param f footballclub to find
      * @return found club
      * @throws RuntimeException if reference was not found
      */
-    private static FootballClub getFootballClubReference(FootballClub f) throws RuntimeException{
+    private static FootballClub getFootballClubReference(FootballClub f) throws RuntimeException {
         ArrayList<FootballClub> footballClubs = GroupController.getInstance().getFootballClubs();
         int index = footballClubs.indexOf(f);
-        if (index != -1)
+        if (index != -1) {
             return footballClubs.get(index);
-        else throw new RuntimeException("cant find reference for club:" + f.toString());
+        } else {
+            throw new RuntimeException("Cannot find reference for club: " + f.toString());
+        }
     }
 
     /**
      * saves all data
-     * @param test if test
      */
-    public static void save(boolean test){
+    public static void save(){
         saveTournamentFinals();
-        saveFootballClubs(test);
-        saveGroupToFile(test);
-        saveGroupMatches(test);
-
+        saveFootballClubs();
+        saveGroupsToFile();
+        saveGroupMatches();
     }
 
     /**
      * Loads all data
-     * @param test if test
      */
-    public static void load(boolean test){
+      public static void load(){
         GroupController.getInstance().resetList();
         TournamentManager.getInstance().resetAllLists();
 
-        loadFootballClubsFromFile(test);
-        loadGroups(test);
-        loadGroupMatches(test);
-        loadFinalsMatches();
+        loadFootballClubsFromFile(false);
+        loadGroups(false);
+        loadGroupMatches(false);
+        loadFinalsMatches(false);
     }
 
+    public static void loadTestData() {
+        GroupController.getInstance().resetList();
+        TournamentManager.getInstance().resetAllLists();
+
+        loadFootballClubsFromFile(true);
+        loadGroups(true);
+        loadGroupMatches(true);
+        loadFinalsMatches(true);
+    }
 
 }

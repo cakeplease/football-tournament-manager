@@ -1,4 +1,5 @@
 package view;
+import controller.GUIController;
 import controller.GroupController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -9,13 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -122,11 +119,15 @@ public class FTApplication extends Application {
         exit.setAlignment(Pos.BOTTOM_LEFT);
         exit.setOnAction(e -> System.exit(0));
 
+        Button loadTestData = new Button();
+        loadTestData.setText("LOAD TEST DATA");
+        loadTestData.setOnAction(e -> GUIController.loadTestData());
+
         Text welcome = new Text("SCANDIA CUP 2022");
         welcome.setFont(new Font("Verdana", 40));
 
         HBox buttons = new HBox();
-        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit);
+        buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, exit, loadTestData);
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 
@@ -137,11 +138,9 @@ public class FTApplication extends Application {
         imageView.getStyleClass().add("image");
         VBox vBoxImg = new VBox();
         vBoxImg.getChildren().addAll(imageView, welcome, buttons);
-        //vBoxImg.getChildren().addAll(welcome, buttons);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         frontPage.getChildren().add(vBoxImg);
-
     }
 
     /**

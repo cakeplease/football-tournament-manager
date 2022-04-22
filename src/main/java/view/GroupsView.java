@@ -26,6 +26,7 @@ public class GroupsView extends View {
 
     public void setup() {
         this.resetPane();
+
         GroupController groupController = GroupController.getInstance();
 
         Button backButton = new Button();
