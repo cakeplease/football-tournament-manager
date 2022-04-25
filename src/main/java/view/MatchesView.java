@@ -134,7 +134,14 @@ public class MatchesView extends View {
         allMatches.put("Quarter finals B", tournamentManager.getQuarterFinalsB());
         allMatches.put("Semi-finals A", tournamentManager.getSemifinalsA());
         allMatches.put("Semi-finals B", tournamentManager.getSemifinalsB());
-        allMatches.put("Finals matches", tournamentManager.getFinalsMatches());
+        ArrayList<Match> finals = new ArrayList<>();
+        if (!tournamentManager.getFinalA().isEmpty()) {
+            finals.add(tournamentManager.getFinalA().get(0));
+        }
+        if (!tournamentManager.getFinalB().isEmpty()) {
+            finals.add(tournamentManager.getFinalB().get(0));
+        }
+        allMatches.put("Finals matches", finals);
 
         allMatches.forEach((heading, matches) -> {
 
@@ -197,8 +204,10 @@ public class MatchesView extends View {
                                             tournamentManager.generateQuarterFinals();
                                         else if (tournamentManager.getSemifinalsA().isEmpty())
                                             tournamentManager.generateSemifinals();
-                                        else if (tournamentManager.getFinalsMatches().isEmpty()) {
+                                        else if (tournamentManager.getFinalA().isEmpty()) {
                                             tournamentManager.generateFinalA();
+                                        }
+                                        else if (tournamentManager.getFinalB().isEmpty()){
                                             tournamentManager.generateFinalB();
                                         }
                                     }

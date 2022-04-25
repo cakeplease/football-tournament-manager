@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class FTApplication extends Application {
     GroupController groupController = GroupController.getInstance();

@@ -56,7 +56,8 @@ public class GUIController {
         allMatches.addAll(tournamentManager.getQuarterFinalsB());
         allMatches.addAll(tournamentManager.getSemifinalsA());
         allMatches.addAll(tournamentManager.getSemifinalsB());
-        allMatches.addAll(tournamentManager.getFinalsMatches());
+        allMatches.addAll(tournamentManager.getFinalA());
+        allMatches.addAll(tournamentManager.getFinalB());
 
         // Search for the match in group matches
         for (Match m : allMatches) {
@@ -98,15 +99,15 @@ public class GUIController {
     }
 
     public static void saveFinalesToFile() {
-        DataStorage.saveTournamentFinals();
+        DataStorage.save();
     }
 
     public static void saveGroupMatchesToFile() {
-        DataStorage.saveGroupMatches();
+        DataStorage.save();
     }
 
     public static void saveGroups() {
-        DataStorage.saveGroupsToFile();
+        DataStorage.save();
     }
 
     public static void loadTestData() {

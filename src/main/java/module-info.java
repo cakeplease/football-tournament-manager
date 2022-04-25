@@ -2,7 +2,6 @@ module footballtournamentapplication {
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.kordamp.bootstrapfx.core;
 
     //opens footballtournamentapplication to javafx.fxml;
     exports model;
