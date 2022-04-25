@@ -1,11 +1,6 @@
 package base;
 
-import model.DataHandler;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -21,9 +16,6 @@ public class Group {
     private final Random rand = new Random();
     private boolean hasEnded = false;
     private int groupNumber;
-
-
-
 
 
     /**
@@ -92,7 +84,7 @@ public class Group {
 
     /**
      * set if grupe can change after load in case we no longe are in grupe stage
-     * @param hasEnded
+     * @param hasEnded boolean
      */
     public void setHasEnded(boolean hasEnded) {
         this.hasEnded = hasEnded;
@@ -193,6 +185,8 @@ public class Group {
                     return;
                 e.setScore1((int)(rand.nextDouble()*4));
                 e.setScore2((int)(rand.nextDouble()*4));
+                e.setTime((int)(Math.random()*5 + 9) + ":" + (int)(Math.random()*60));
+                e.setDate("03.05.2022");
             });
         }
     }
