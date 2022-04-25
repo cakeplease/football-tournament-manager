@@ -1,6 +1,5 @@
 package view;
 
-import base.Group;
 import controller.GroupController;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
@@ -15,8 +14,6 @@ public class TeamsView extends View {
     protected GridPane pane;
     private ScreenController screenController;
     GroupController groupController = GroupController.getInstance();
-
-
 
     public TeamsView(ScreenController screenController) {
         this.pane = new GridPane();
@@ -48,7 +45,6 @@ public class TeamsView extends View {
         pane.setPadding(new Insets(25, 25, 25, 25));
 
 
-
         //22, 22, 16
         int i = 0;
         for (int k = 0; k < 4; k++) {
@@ -69,19 +65,3 @@ public class TeamsView extends View {
         this.pane.getChildren().clear();
     }
 }
-
-
-
-        //for testing layout without any teams
-/*        for (int i = 0; i < 64; i++){
-            for (int j = 0; j < 64/3; j++){
-                for (int k = 0; k < 3; k++){
-                    Text text = new Text("hei");
-                    text.setFont(Font.font ("Verdana", 20));
-                    teamsViewPane.add(text, k, j+5);
-                }
-            }
-        }
-
-    }
-*/

@@ -2,8 +2,6 @@ package view;
 
 import controller.GUIController;
 import controller.GroupController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -52,14 +50,11 @@ public class FrontpageView extends View {
         showGroups.setText("Show groups");
         showGroups.setLayoutX(400);
         showGroups.setLayoutY(500);
-        showGroups.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if (groupController.getGroups().isEmpty()) {
-                    screenController.activate("NoGroups");
-                } else {
-                    screenController.activate("Groups");
-                }
+        showGroups.setOnAction(e -> {
+            if (groupController.getGroups().isEmpty()) {
+                screenController.activate("NoGroups");
+            } else {
+                screenController.activate("Groups");
             }
         });
 
@@ -71,7 +66,10 @@ public class FrontpageView extends View {
 
         Button loadTestData = new Button();
         loadTestData.setText("LOAD TEST DATA");
-        loadTestData.setOnAction(e -> GUIController.loadTestData());
+        loadTestData.setOnAction(e -> {
+            GUIController.loadTestData();
+            loadTestData.setDisable(true);
+        });
 
         Button exit = new Button();
         exit.setText("Quit");

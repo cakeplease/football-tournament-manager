@@ -4,10 +4,8 @@ import base.FootballClub;
 import base.Group;
 import base.Match;
 import base.TournamentManager;
-import model.DataHandler;
 import model.DataStorage;
 import model.FootballClubsFromFile;
-
 import java.util.ArrayList;
 
 public class GUIController {
@@ -16,10 +14,15 @@ public class GUIController {
      * @param name name of the team
      * @param nationality nationality of the team
      */
-    //TODO change to boolean on successful add
-    public static void addTeam(String name, String nationality) {
-        //TODO add team handler
-        System.out.println("Team added");
+    public static String addTeam(String name, String nationality) {
+        GroupController groupController = GroupController.getInstance();
+        try {
+            groupController.addFootballClub(name, nationality);
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
+
+        return "Team added.";
     }
 
     /**

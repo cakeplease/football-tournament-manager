@@ -2,10 +2,6 @@ package controller;
 
 import base.FootballClub;
 import base.Group;
-import model.DataHandler;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -52,14 +48,15 @@ public class GroupController {
      * @param nationality Nationality of the football club (Either norwegian or foreign)
      * @throws RuntimeException if more then 64 teams, or no name or nationality is given
      */
-    public void addFootballClub(String name, String nationality) throws RuntimeException{
-        if (name.isBlank() || nationality.isBlank()){
-            throw new IllegalArgumentException("The name and nationality of the football club can not be blank!!");
+    public void addFootballClub(String name, String nationality) throws RuntimeException {
+        if (name.isBlank() || nationality.isBlank()) {
+            throw new IllegalArgumentException("The name and nationality of the football club can not be blank.");
         }
         FootballClub team = new FootballClub(name, nationality);
-        if (!this.footballClubs.contains(team)){
-            if (this.footballClubs.size() >= 64)
-                throw new RuntimeException("more then 64 teams cant be added");
+        if (!this.footballClubs.contains(team)) {
+            if (this.footballClubs.size() >= 64) {
+                throw new RuntimeException("More than 64 teams cannot be added.");
+            }
             this.footballClubs.add(team);
         }
     }
@@ -71,12 +68,13 @@ public class GroupController {
      */
     public void addAll(ArrayList<FootballClub> footballClubsToAdd) throws RuntimeException{
         if (footballClubsToAdd == null){
-            throw new NullPointerException("The footballclubs can not be null!");
+            throw new NullPointerException("The footballclubs cannot be null!");
         }
         for (FootballClub footballClub: footballClubsToAdd){
             if (!this.footballClubs.contains(footballClub)){
-                if (footballClubs.size() >= 64)
-                    throw new RuntimeException("more then 64 teams cant be added");
+                if (footballClubs.size() >= 64) {
+                    throw new RuntimeException("More than 64 teams cannot be added.");
+                }
                 this.footballClubs.add(footballClub);
             }
         }
@@ -118,7 +116,7 @@ public class GroupController {
             this.groups.get(i).generateMatches();
         }
         return true;
-        }
+    }
 
 
 
