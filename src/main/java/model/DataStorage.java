@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * class to save and load to and from file
  * @author birkn, vebjørn
- * @version 05.04.2022
+ * @version 25.04.2022
  */
 public class DataStorage {
     private static final String footballClubsPath = "src/main/resources/data/football-clubs.csv";
@@ -36,11 +36,12 @@ public class DataStorage {
     /**
      * Method for saving football clubs to csv-file
      * Loops through the football clubs and adds the data to the cvs-file (path)
+     * @throws RuntimeException if saveToFile fails
      */
-    public static void saveFootballClubs() {
+    private static void saveFootballClubs() throws RuntimeException{
         StringBuilder data = new StringBuilder();
         for (FootballClub fc : GroupController.getInstance().getFootballClubs()) {
-            data.append(fc.getCsvFormat() + "\n");
+            data.append(fc.getCsvFormat()).append("\n");
         }
         DataHandler.saveToFile(data.toString(), Paths.get(footballClubsPath));
     }
@@ -67,9 +68,11 @@ public class DataStorage {
 
     /**
      * Save groups to file
+     * @throws RuntimeException if saveToFile method fails
      */
-    public static void saveGroupsToFile(){
-        DataHandler.saveToFile(GroupController.getInstance().getGroups().stream().map(Group::generateCsv)
+    private static void saveGroupsToFile() throws RuntimeException{
+        DataHandler.saveToFile(GroupController.getInstance().getGroups().stream()
+                .map(Group::generateCsv)
                 .collect(Collectors.joining("")), Paths.get(groupPath));
     }
 
@@ -77,13 +80,13 @@ public class DataStorage {
      * Loads groups from file
      * @throws RuntimeException if groupSaveFile could not be read
      */
-    public static void loadGroups(boolean isTestData) throws RuntimeException {
-        Path path = Paths.get(groupPath);
-        if (isTestData) {
-            path = Paths.get(groupPathTest);
-        }
+    private static void loadGroups(boolean isTestData) throws RuntimeException {
+        Path path = (isTestData) ? Paths.get(groupPathTest) : Paths.get(groupPath);
+
+        if(GroupController.getInstance().getGroups().size() > 0)
+            GroupController.getInstance().getGroups().clear();
         try {
-            Objects.requireNonNull(DataHandler.readFromFile(path)).forEach(e -> {
+            DataHandler.readFromFile(path).forEach(e -> {
                 String[] data = e.split(";");
                 Group tempGroup = new Group();
                 tempGroup.setGroupNumber(Integer.parseInt(data[0]));
@@ -111,52 +114,59 @@ public class DataStorage {
 
     /**
      * Saves groupMatches to file
+     * @throws RuntimeException if Datahandler.savetofile throws exception
      */
-    //TODO create file beforehand
-    public static void saveGroupMatches(){
+    private static void saveGroupMatches() throws RuntimeException{
         try {
-            System.out.println("save group matches runs");
             DataHandler.saveToFile(TournamentManager.getInstance().listGroupMatches()
                             .stream().map(Match::getCsv)
                             .collect(Collectors.joining("\n")),Paths.get(groupMatchesPath));
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     /**
      * Load matches from file and find group they exist inn then add the match to the group
+     * @param isTestData if data to load is from test data path
+     * @throws RuntimeException if file to read is not found or if grupes dose not exist
      */
-    public static void loadGroupMatches(boolean isTestData){
-        Path path = Paths.get(groupMatchesPath);
-        if (isTestData) {
-            path = Paths.get(groupMatchesPathTest);
-        }
+    private static void loadGroupMatches(boolean isTestData) throws RuntimeException{
+        Path path = (isTestData) ? Paths.get(groupMatchesPathTest) : Paths.get(groupMatchesPath);
+
         ArrayList<Group> groups = GroupController.getInstance().getGroups();
 
-        DataHandler.readFromFile(path).forEach(e->{
-            String[] data = e.split(";");
-            FootballClub f1 = parseFootballClub(data[0]);
-            FootballClub f2 = parseFootballClub(data[1]);
-            groups.forEach(x-> {
-                for (FootballClub y : x.getGroupTeams()) {
-                    if (Objects.equals(y, f1)) {
-                        x.addMatchOnLoad(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
-                                Integer.parseInt(data[2]), Integer.parseInt(data[3]),
-                                data[4], data[5], Integer.parseInt(data[6])));
-                        break;
+        if (groups.size() == 0)
+            throw new RuntimeException("Cant add maches when grupes dont exist");
+
+        try {
+            DataHandler.readFromFile(path).forEach(e -> {
+                String[] data = e.split(";");
+                FootballClub f1 = parseFootballClub(data[0]);
+                FootballClub f2 = parseFootballClub(data[1]);
+                groups.forEach(x -> {
+                    for (FootballClub y : x.getGroupTeams()) {
+                        if (Objects.equals(y, f1)) {
+                            x.addMatchOnLoad(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
+                                    Integer.parseInt(data[2]), Integer.parseInt(data[3]),
+                                    data[4], data[5], Integer.parseInt(data[6])));
+                            break;
+                        }
                     }
-                }
+                });
             });
-        });
+        }catch (NullPointerException e){
+            throw new RuntimeException("Invalid file path");
+        }
     }
 
     /**
      * Generates csv for all finals matches.
      * If no matches in bracket no matches will be written to file
      * Separates the matches with bracket names ("roundOf32A") as named in TournamentManger class
+     * @throws RuntimeException if saveToFIle method fails
      */
-    public static void saveTournamentFinals(){
+    private static void saveTournamentFinals() throws RuntimeException{
 
         DataHandler.saveToFile("", Paths.get(tournamentFinalsPath));
         TournamentManager tr = TournamentManager.getInstance();
@@ -182,28 +192,33 @@ public class DataStorage {
         dataToSave.add("semifinalsB");
         dataToSave.add(tr.getSemifinalsB().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
 
-        dataToSave.add("FinalsMatches");
-        dataToSave.add(tr.getFinalsMatches().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+        dataToSave.add("FinalA");
+        dataToSave.add(tr.getFinalA().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
 
+        dataToSave.add("FinalB");
+        dataToSave.add(tr.getFinalB().stream().map(Match::getCsv).collect(Collectors.joining("\n")));
+
+        //throws exception
         DataHandler.saveToFile(String.join("\n", dataToSave), Paths.get(tournamentFinalsPath));
     }
 
     /**
      * Loads all tournament finals matches to correct arrays
+     * @throws RuntimeException if Datahandler.readfromfile fails or footballclub coud not be referenced
      */
-    public static boolean loadFinalsMatches(boolean isTestData){
-        Path path = Paths.get(tournamentFinalsPath);
-        if (isTestData) {
-            path = Paths.get(tournamentFinalsPathTest);
-        }
+    private static void loadFinalsMatches(boolean isTestData) throws RuntimeException{
+        Path path = (isTestData) ? Paths.get(tournamentFinalsPathTest) : Paths.get(tournamentFinalsPath);
         TournamentManager tr = TournamentManager.getInstance();
-        ArrayList<String> dataRead = DataHandler.readFromFile(path);
+        ArrayList<String> dataRead;
 
-        if (dataRead == null)
-            return false;
+        //throws runtime exception
+        dataRead = DataHandler.readFromFile(path);
 
+
+        //reference to arraylist witch is currently adding too
         ArrayList<Match> currentWritingTo = null;
 
+        //loops the read data and
         for(String e : dataRead){
             switch (e) {
                 case "roundOf32A" -> currentWritingTo = tr.getRoundOf32A();
@@ -214,7 +229,8 @@ public class DataStorage {
                 case "quarterFinalsB" -> currentWritingTo = tr.getQuarterFinalsB();
                 case "semifinalsA" -> currentWritingTo = tr.getSemifinalsA();
                 case "semifinalsB" -> currentWritingTo = tr.getSemifinalsB();
-                case "FinalsMatches" -> currentWritingTo = tr.getFinalsMatches();
+                case "FinalA" -> currentWritingTo = tr.getFinalA();
+                case "FinalB" -> currentWritingTo = tr.getFinalB();
                 case "", "\n" -> {}
                 default -> {
                     if(currentWritingTo == null)
@@ -223,6 +239,7 @@ public class DataStorage {
                     FootballClub f1 = parseFootballClub(data[0]);
                     FootballClub f2 = parseFootballClub(data[1]);
 
+                    //adds to arraylist uses getFootballClubReference to get reference not instance
                     currentWritingTo.add(new Match(getFootballClubReference(f1), getFootballClubReference(f2),
                         Integer.parseInt(data[2]), Integer.parseInt(data[3]),
                         data[4], data[5], Integer.parseInt(data[6])));
@@ -230,7 +247,6 @@ public class DataStorage {
             }
         }
 
-        return true;
     }
 
     /**
@@ -272,6 +288,10 @@ public class DataStorage {
         loadFinalsMatches(false);
     }
 
+    /**
+     * loads all test data from "resources/test_data" folder
+     * uses the is testdata parameter in the load methods
+     */
     public static void loadTestData() {
         GroupController.getInstance().resetList();
         TournamentManager.getInstance().resetAllLists();

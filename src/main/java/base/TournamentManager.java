@@ -3,6 +3,7 @@ package base;
 import controller.GroupController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -22,7 +23,9 @@ public class TournamentManager {
     private final ArrayList<Match> quarterFinalsB = new ArrayList<>(); //a list of the quarterfinals matches in the B finals
     private final ArrayList<Match> semifinalsA = new ArrayList<>(); //a list of the semifinals matches in the A finals
     private final ArrayList<Match> semifinalsB = new ArrayList<>(); //a list of the semifinals matches in the B finals
-    private final ArrayList<Match> finalsMatches = new ArrayList<>(); //a list of the finals matches
+
+    private final ArrayList<Match> finalsA = new ArrayList<>(); //a list of the semifinals matches in the A finals
+    private final ArrayList<Match> finalsB = new ArrayList<>(); //a list of the semifinals matches in the B finals
 
     private final Random rand = new Random();
 
@@ -47,7 +50,8 @@ public class TournamentManager {
          quarterFinalsB.clear();
          semifinalsA.clear();
          semifinalsB.clear();
-         finalsMatches.clear();
+         finalsA.clear();
+         finalsB.clear();
     }
 
     /**
@@ -135,8 +139,8 @@ public class TournamentManager {
      * getter for finalsMatches array list
      * @return finalsMatches array list size 0 if no matches
      */
-    public ArrayList<Match> getFinalsMatches() {
-        return finalsMatches;
+    public ArrayList<Match> getFinalA() {
+        return finalsA;
     }
 
     /**
@@ -284,15 +288,14 @@ public class TournamentManager {
      * @return the A final Match between two teams.
      */
     public Match generateFinalA(){
-        if (finalsMatches.size() > 1)
-            return null;
+        if (finalsA.size() > 0)
+            return finalsA.get(0);
         ArrayList<FootballClub> finalistsA = new ArrayList<>();
         for (int i = 0; i < 2; i++){
             finalistsA.add(semifinalsA.get(i).getWinner());
         }
-        Match m = new Match(finalistsA.get(0), finalistsA.get(1));
-        finalsMatches.add(0,m);
-        return m;
+        finalsA.add(new Match(finalistsA.get(0), finalistsA.get(1)));
+        return finalsA.get(0);
     }
 
     /**
@@ -301,15 +304,15 @@ public class TournamentManager {
      * @return the B final between two teams.
      */
     public Match generateFinalB(){
-        if (finalsMatches.size() > 1)
-            return null;
+        if (finalsB.size() > 0)
+            return finalsB.get(0);
         ArrayList<FootballClub> BFinalists = new ArrayList<>();
         for (int i = 0; i < 2; i++){
             BFinalists.add(semifinalsB.get(i).getWinner());
         }
-        Match m = new Match(BFinalists.get(0), BFinalists.get(1));
-        finalsMatches.add(m);
-        return m;
+        finalsB.add(new Match(BFinalists.get(0), BFinalists.get(1)));
+
+        return finalsB.get(0);
     }
 
     /**
@@ -322,10 +325,14 @@ public class TournamentManager {
             matchesToSim.forEach(e->{
                 FootballClub winner = (rand.nextDouble() >= 0.5) ? e.getFootballClub1() : e.getFootballClub2();
                 e.setWinner(winner);
-                if(e.getWinner() == e.getFootballClub1())
-                    e.setScore1(10);
-                else
-                    e.setScore2(0);
+
+                //finds "nicer" values for score and sets it to different teams
+                int winningScore = (int) (Math.random() * 3 + 1);
+                int losingScore = (int) (winningScore*Math.random());
+                e.setScore1((e.getWinner() == e.getFootballClub1()) ? winningScore : losingScore);
+                e.setScore2((e.getWinner() == e.getFootballClub1()) ? losingScore : winningScore);
+                e.setTime((int)(Math.random()*5 + 9) + ":" + (int)(Math.random()*60));
+                e.setDate("04.05.2022");
             });
         }
     }
@@ -356,4 +363,11 @@ public class TournamentManager {
     }
 
 
+    /**
+     * getter for finalB array
+     * @return finalB arraylist type matches
+     */
+    public ArrayList<Match> getFinalB() {
+        return finalsB;
+    }
 }
