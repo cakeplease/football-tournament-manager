@@ -52,6 +52,8 @@ public class AddTeamView extends View{
         addTeamButton.setOnAction(e -> {
             String feedback = GUIController.addTeam(teamNameField.getText(), nationalityField.getText());
             actionTarget.setText(feedback);
+            teamNameField.clear();
+            nationalityField.clear();
         });
 
         pane.add(addTeamButton, 1, 6);
