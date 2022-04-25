@@ -1,8 +1,6 @@
 package view;
 
 import controller.GUIController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
@@ -18,7 +16,6 @@ public class AddTeamView extends View{
         this.screenController = screenController;
         this.setup();
     }
-
 
     public Pane getPane() {
         return this.pane;
@@ -52,12 +49,9 @@ public class AddTeamView extends View{
         pane.add(actionTarget, 0, 15);
 
         Button addTeamButton = new Button("Add team");
-        addTeamButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                GUIController.addTeam(teamNameField.getText(), nationalityField.getText());
-                actionTarget.setText("Team added");
-            }
+        addTeamButton.setOnAction(e -> {
+            String feedback = GUIController.addTeam(teamNameField.getText(), nationalityField.getText());
+            actionTarget.setText(feedback);
         });
 
         pane.add(addTeamButton, 1, 6);
