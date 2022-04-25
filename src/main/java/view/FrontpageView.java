@@ -33,7 +33,6 @@ public class FrontpageView extends View {
         Button addTeam = new Button();
         addTeam.setText("Add team");
         addTeam.setAlignment(Pos.BOTTOM_LEFT);
-        addTeam.getStyleClass().setAll("btn","btn-primary");
         addTeam.setOnAction(e -> screenController.activate("AddTeam"));
 
         Button showAllTeams = new Button();
@@ -41,21 +40,18 @@ public class FrontpageView extends View {
         showAllTeams.setText("Show all teams");
         showAllTeams.setLayoutX(200);
         showAllTeams.setLayoutY(500);
-        showAllTeams.getStyleClass().setAll("btn","btn-primary");
         showAllTeams.setOnAction(e -> screenController.activate("Teams"));
 
         Button showMatches = new Button();
         showMatches.setText("Show matches");
         showMatches.setLayoutX(300);
         showMatches.setLayoutY(500);
-        showMatches.getStyleClass().setAll("btn","btn-primary");
         showMatches.setOnAction(e -> screenController.activate("Matches"));
 
         Button showGroups = new Button();
         showGroups.setText("Show groups");
         showGroups.setLayoutX(400);
         showGroups.setLayoutY(500);
-        showGroups.getStyleClass().setAll("btn","btn-primary");
         showGroups.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -71,18 +67,15 @@ public class FrontpageView extends View {
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
         showTournamentBracket.setLayoutY(700);
-        showTournamentBracket.getStyleClass().setAll("btn","btn-primary");
         showTournamentBracket.setOnAction(e -> screenController.activate("NewTournamentBracketView"));
 
         Button loadTestData = new Button();
         loadTestData.setText("LOAD TEST DATA");
-        loadTestData.getStyleClass().setAll("btn","btn-primary");
         loadTestData.setOnAction(e -> GUIController.loadTestData());
 
         Button exit = new Button();
         exit.setText("Quit");
         exit.setAlignment(Pos.BOTTOM_LEFT);
-        exit.getStyleClass().setAll("btn","btn-primary");
         exit.setOnAction(e -> System.exit(0));
 
         Text welcome = new Text("SKANDIA CUP 2022");

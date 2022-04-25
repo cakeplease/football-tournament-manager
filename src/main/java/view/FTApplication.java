@@ -63,7 +63,6 @@ public class FTApplication extends Application {
         primaryStage.setTitle("Skandia Cup Manager");
         frontPageScene.getStylesheets().add("/styles.css");
         frontPage.getStyleClass().add("#front-page");
-        frontPageScene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
         primaryStage.setScene(frontPageScene);
         primaryStage.show();
