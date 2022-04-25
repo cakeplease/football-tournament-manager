@@ -33,6 +33,7 @@ class DataStorageTest {
      * method for simming all matches and saving it to file for test data
      * this method is purly for testing and presentation of prodcut
      */
+    @Test
     void makeTestData(){
         //reset all files
         resetAllDataAndDeleteFiles();
@@ -123,7 +124,7 @@ class DataStorageTest {
 
         DataStorage.loadTestData();
         assertTrue(TournamentManager.getInstance().getRoundOf32A().size() > 0);
-        assertEquals(TournamentManager.getInstance().getFinalsMatches().size(), 2);
+        assertEquals(TournamentManager.getInstance().getFinalA().size(), 1);
 
     }
 
