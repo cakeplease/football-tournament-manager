@@ -1,16 +1,16 @@
-0;Cork City,England,0,0,0;Trond,Norge,0,0,0;Levanger,Norge,0,0,0;﻿Astor,Norge,0,0,0;false
-1;Anderlecht,Belgia,0,0,0;National,Norge,0,0,0;Rørvik,Norge,0,0,0;Byåsen,Norge,0,0,0;false
-2;Qarabag,Azerbajdsjan,0,0,0;Røros,Norge,0,0,0;Stjørdals-Blink,Norge,0,0,0;Kvik,Norge,0,0,0;false
-3;Nordsjælland,Danmark,0,0,0;Charlottenlund,Norge,0,0,0;Sjetne,Norge,0,0,0;Strindheim,Norge,0,0,0;false
-4;Fenerbahçe,Nederland,0,0,0;Selbu,Norge,0,0,0;Sverresborg,Norge,0,0,0;Buvik,Norge,0,0,0;false
-5;Black Star,Ghana,0,0,0;Kattem,Norge,0,0,0;Dolmøy,Norge,0,0,0;Kil/Hemne,Norge,0,0,0;false
-6;Lechia Gdansk,Polen,0,0,0;Utleira,Norge,0,0,0;Sandstad,Norge,0,0,0;Steinkjer,Norge,0,0,0;false
-7;Sporting Lisbon,Portugal,0,0,0;Singsås,Norge,0,0,0;Meldal,Norge,0,0,0;Flatås,Norge,0,0,0;false
-8;Ajax,Nederland,0,0,0;Byneset,Norge,0,0,0;Tiller,Norge,0,0,0;Sokna,Norge,0,0,0;false
-9;CSKA Moskva,Russland,0,0,0;Budal,Norge,0,0,0;Nardo,Norge,0,0,0;Orkla,Norge,0,0,0;false
-10;Rangers,Skottland,0,0,0;Ranheim,Norge,0,0,0;Rindal,Norge,0,0,0;Skaun,Norge,0,0,0;false
-11;Wycombe Wanderers,England,0,0,0;Malvik,Norge,0,0,0;Fram,Norge,0,0,0;Melhus,Norge,0,0,0;false
-12;Dinamo Zagreb,Kroatia,0,0,0;Vestbyen,Norge,0,0,0;Heimdal,Norge,0,0,0;Romolslia,Norge,0,0,0;false
-13;Chivas,Mexico,0,0,0;Ålen,Norge,0,0,0;Hitra,Norge,0,0,0;Løkken,Norge,0,0,0;false
-14;Valencia,Spania,0,0,0;Lånke,Norge,0,0,0;Orkanger,Norge,0,0,0;Freidig,Norge,0,0,0;false
-15;Maccabi Tel Aviv,Israel,0,0,0;Leik,Norge,0,0,0;Nidelv,Norge,0,0,0;Hegra,Norge,0,0,0;false
+0;Flatås,Norge,4,7,1;Dinamo Zagreb,Kroatia,3,7,3;Selbu,Norge,7,7,4;National,Norge,8,1,9;true
+1;Nardo,Norge,3,6,1;Tiller,Norge,4,6,3;Black Star,Ghana,3,4,6;Røros,Norge,8,2,7;true
+2;Orkanger,Norge,3,8,3;Chivas,Mexico,3,5,3;Lånke,Norge,7,5,6;Orkla,Norge,8,3,6;true
+3;Fenerbahçe,Nederland,4,6,1;Byneset,Norge,3,6,2;Sokna,Norge,7,4,6;Melhus,Norge,6,4,7;true
+4;Freidig,Norge,3,6,1;Skaun,Norge,4,3,4;Qarabag,Azerbajdsjan,6,5,6;﻿Astor,Norge,3,2,6;true
+5;Anderlecht,Belgia,1,3,1;Leik,Norge,3,4,4;Sjetne,Norge,3,2,6;Steinkjer,Norge,6,4,6;true
+6;Kil/Hemne,Norge,3,8,0;Budal,Norge,4,5,3;Rangers,Skottland,6,3,7;Vestbyen,Norge,8,5,7;true
+7;Rørvik,Norge,3,6,1;Cork City,England,2,5,3;Trond,Norge,5,4,5;Malvik,Norge,7,2,7;true
+8;Utleira,Norge,5,7,1;Wycombe Wanderers,England,5,6,4;Byåsen,Norge,9,7,5;Sandstad,Norge,5,4,6;true
+9;Buvik,Norge,0,7,0;Hitra,Norge,6,4,4;CSKA Moskva,Russland,4,3,5;Løkken,Norge,4,0,7;true
+10;Strindheim,Norge,6,7,3;Nordsjælland,Danmark,5,5,4;Kvik,Norge,6,6,4;Nidelv,Norge,6,5,6;true
+11;Stjørdals-Blink,Norge,2,3,2;Ranheim,Norge,3,5,4;Lechia Gdansk,Polen,5,4,4;Meldal,Norge,4,2,5;true
+12;Dolmøy,Norge,0,4,1;Valencia,Spania,1,1,4;Heimdal,Norge,3,0,5;Fram,Norge,4,3,6;true
+13;Singsås,Norge,1,7,0;Levanger,Norge,4,4,4;Maccabi Tel Aviv,Israel,1,0,5;Romolslia,Norge,6,1,7;true
+14;Rindal,Norge,6,7,3;Sporting Lisbon,Portugal,7,7,4;Hegra,Norge,4,4,4;Ålen,Norge,7,6,5;true
+15;Kattem,Norge,5,6,2;Charlottenlund,Norge,7,8,2;Ajax,Nederland,4,6,4;Sverresborg,Norge,7,3,7;true
