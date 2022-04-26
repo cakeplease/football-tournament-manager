@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
  * @version 25.04.2022
  */
 public class DataStorage {
-    private static final String footballClubsPath = "src/main/resources/data/football-clubs.csv";
-    private static final String footballClubsTestPath = "src/main/resources/test_data/football-clubs.csv";
+    private static final String footballClubsPath = "data/football-clubs.csv";
+    private static final String footballClubsTestPath = "test_data/football-clubs.csv";
 
-    private static final String groupPath = "src/main/resources/data/groups-data.csv";
-    private static final String groupPathTest = "src/main/resources/test_data/groups-data.csv";
+    private static final String groupPath = "data/groups-data.csv";
+    private static final String groupPathTest = "test_data/groups-data.csv";
 
-    private static final String groupMatchesPath = "src/main/resources/data/groups-matches.csv";
-    private static final String groupMatchesPathTest = "src/main/resources/test_data/groups-matches.csv";
+    private static final String groupMatchesPath = "data/groups-matches.csv";
+    private static final String groupMatchesPathTest = "test_data/groups-matches.csv";
 
-    private static final String tournamentFinalsPath = "src/main/resources/data/tournament-finales.csv";
-    private static final String tournamentFinalsPathTest = "src/main/resources/test_data/tournament-finales.csv";
+    private static final String tournamentFinalsPath = "data/tournament-finales.csv";
+    private static final String tournamentFinalsPathTest = "test_data/tournament-finales.csv";
 
     private static final String COMMA_DELIMITER = ",";
 
@@ -51,9 +51,9 @@ public class DataStorage {
      * @throws RuntimeException when footballclubs can't be read from file
      */
     private static void loadFootballClubsFromFile(boolean isTestData) throws RuntimeException {
-        Path path = Paths.get(footballClubsPath);
+        String path = footballClubsPath;
         if (isTestData) {
-            path = Paths.get(footballClubsTestPath);
+            path = footballClubsTestPath;
         }
 
         try {
@@ -81,7 +81,7 @@ public class DataStorage {
      * @throws RuntimeException if groupSaveFile could not be read
      */
     private static void loadGroups(boolean isTestData) throws RuntimeException {
-        Path path = (isTestData) ? Paths.get(groupPathTest) : Paths.get(groupPath);
+        String path = (isTestData) ? groupPathTest : groupPath;
 
         if(GroupController.getInstance().getGroups().size() > 0)
             GroupController.getInstance().getGroups().clear();
@@ -132,7 +132,7 @@ public class DataStorage {
      * @throws RuntimeException if file to read is not found or if grupes dose not exist
      */
     private static void loadGroupMatches(boolean isTestData) throws RuntimeException{
-        Path path = (isTestData) ? Paths.get(groupMatchesPathTest) : Paths.get(groupMatchesPath);
+        String path = (isTestData) ? groupMatchesPathTest : groupMatchesPath;
 
         ArrayList<Group> groups = GroupController.getInstance().getGroups();
 
@@ -207,7 +207,7 @@ public class DataStorage {
      * @throws RuntimeException if Datahandler.readfromfile fails or footballclub coud not be referenced
      */
     private static void loadFinalsMatches(boolean isTestData) throws RuntimeException{
-        Path path = (isTestData) ? Paths.get(tournamentFinalsPathTest) : Paths.get(tournamentFinalsPath);
+        String path = (isTestData) ? tournamentFinalsPathTest : tournamentFinalsPath;
         TournamentManager tr = TournamentManager.getInstance();
         ArrayList<String> dataRead;
 
@@ -281,11 +281,14 @@ public class DataStorage {
       public static void load(){
         GroupController.getInstance().resetList();
         TournamentManager.getInstance().resetAllLists();
+        try {
+            loadFootballClubsFromFile(false);
+            loadGroups(false);
+            loadGroupMatches(false);
+            loadFinalsMatches(false);
+        }catch (RuntimeException ignored){
 
-        loadFootballClubsFromFile(false);
-        loadGroups(false);
-        loadGroupMatches(false);
-        loadFinalsMatches(false);
+        }
     }
 
     /**
