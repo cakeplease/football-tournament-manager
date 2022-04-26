@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
 /**
- * View for situation when no groups exists.
+ * View for situation when no groups exist.
  */
 public class NoGroupsView extends View{
     protected GridPane pane;
@@ -33,11 +33,6 @@ public class NoGroupsView extends View{
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
         pane.add(backButton, 0,1);
-
-       /* Button loadGroupsFromFile = new Button();
-        loadGroupsFromFile.setText("Load groups from file");
-        loadGroupsFromFile.setOnAction(e -> GUIController.loadGroups());
-        pane.add(loadGroupsFromFile, 1,1);*/
 
         Button generateGroups = new Button();
         generateGroups.setText("Generate groups");
