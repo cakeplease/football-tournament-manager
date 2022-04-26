@@ -7,20 +7,34 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
+/**
+ * AddTeamView for adding teams
+ */
 public class AddTeamView extends View{
     protected GridPane pane;
     private ScreenController screenController;
 
+    /**
+     * AddTeamView constructor
+     * @param screenController
+     */
     public AddTeamView(ScreenController screenController) {
         this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return
+     */
     public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * Sets up back button, title, fields for name and nationality and add button
+     */
     public void setup() {
         this.resetPane();
         pane.setPadding(new Insets(25,25,25,25));

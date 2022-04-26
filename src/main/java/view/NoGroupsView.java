@@ -8,21 +8,33 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
 /**
- * View for situation when no groups exist.
+ * NoGroupsView for situation when no groups are generated.
  */
 public class NoGroupsView extends View{
     protected GridPane pane;
     private ScreenController screenController;
 
+    /**
+     * NoGroupsView constructor
+     * @param screenController
+     */
     public NoGroupsView(ScreenController screenController) {
         this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return pane
+     */
     public Pane getPane() {
         return this.pane;
     }
+
+    /**
+     * Shows back button, title, a text with instructions and a button for generating groups
+     */
     public void setup() {
         this.resetPane();
 

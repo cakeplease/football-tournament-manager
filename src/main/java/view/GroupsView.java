@@ -10,20 +10,34 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 
+/**
+ * Shows all generated groups consists of 4 teams
+ */
 public class GroupsView extends View {
     protected GridPane pane;
     private ScreenController screenController;
 
+    /**
+     * GroupsView constructor
+     * @param ScreenController
+     */
     public GroupsView(ScreenController ScreenController) {
         this.pane = new GridPane();
         this.screenController = ScreenController;
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return pane
+     */
     public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * Shows all generated groups
+     */
     public void setup() {
         this.resetPane();
 

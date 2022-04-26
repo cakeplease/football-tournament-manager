@@ -14,24 +14,25 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * MatchesView class for showing all matches
+ */
 public class MatchesView extends View {
     protected VBox pane;
     protected VBox container;
     protected ScrollPane scrollPane;
     private ScreenController screenController;
     private Dialog dialog;
-    private String timeResult;
-    private String fieldNrResult;
-    private String dateResult;
     Optional result;
-    private String score1Result;
-    private String score2Result;
 
+    /**
+     * MatchesView constructor
+     * @param screenController
+     */
     public MatchesView(ScreenController screenController) {
         this.pane = new VBox();
         this.container = new VBox();
@@ -40,11 +41,17 @@ public class MatchesView extends View {
         this.setup();
     }
 
-    @Override
-    Pane getPane() {
+    /**
+     * Gets pane
+     * @return pane
+     */
+    public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * Shows all matches in tables, where when you double-click on a row you get a dialog pop up window where you can change match data
+     */
     public void setup() {
         this.resetPane();
         container.setPadding(new Insets(25, 25, 25, 25));
@@ -232,8 +239,6 @@ public class MatchesView extends View {
 
         });
 
-        //full width tables
-        //scrollPane.setFitToWidth(true);
         scrollPane.setContent(container);
         this.pane.getChildren().add(scrollPane);
     }
@@ -245,6 +250,5 @@ public class MatchesView extends View {
     protected void resetPane() {
         this.container.getChildren().clear();
         this.pane.getChildren().clear();
-
     }
 }

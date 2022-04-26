@@ -10,10 +10,17 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * FrontpageView shows frontpage
+ */
 public class FrontpageView extends View {
     protected StackPane pane;
     private ScreenController screenController;
 
+    /**
+     * FrontpaneView constructor
+     * @param ScreenController
+     */
     public FrontpageView(ScreenController ScreenController) {
         this.pane = new StackPane();
         this.screenController = ScreenController;
@@ -21,10 +28,17 @@ public class FrontpageView extends View {
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return
+     */
     public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * Sets up title and menu buttons
+     */
     public void setup() {
         this.resetPane();
 

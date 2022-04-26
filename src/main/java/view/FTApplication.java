@@ -1,23 +1,21 @@
 package view;
-import controller.GUIController;
-import controller.GroupController;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * FTApplication main class that extends Application and runs program
+ * It shows Start and Quit button on the frontpage and prepares all screens
+ */
 public class FTApplication extends Application {
-    GroupController groupController = GroupController.getInstance();
     private StackPane frontPage = new StackPane();
     private Scene frontPageScene = new Scene(frontPage);
     protected ScreenController screenController = new ScreenController(frontPageScene);
@@ -75,7 +73,6 @@ public class FTApplication extends Application {
 
         Text welcome = new Text("SKANDIA CUP 2022");
         welcome.setId("title-text");
-        //welcome.setFont(new Font("Verdana", 40));
 
         Button start = new Button();
         start.setText("Start");
