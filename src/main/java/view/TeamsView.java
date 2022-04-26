@@ -54,15 +54,11 @@ public class TeamsView extends View {
         pane.setVgap(10);
         pane.setPadding(new Insets(25, 25, 25, 25));
 
-        //TODO adjust column layout to support fewer than 64 teams
-        int i = 0;
-        for (int k = 0; k < 4; k++) {
-            for (int j = 0; j < (groupController.getFootballClubs().size() / 4); j++) {
-                Text text = new Text(groupController.getFootballClubs().get(i).getName());
-                pane.add(text, k, j + 5);
-                i++;
-            }
+        for (int i = 0; i < groupController.getFootballClubs().size(); i++) {
+            Text text = new Text(groupController.getFootballClubs().get(i).getName());
+            pane.add(text, i%4, (int)(i/4) + 5);
         }
+
     }
 
     /**
