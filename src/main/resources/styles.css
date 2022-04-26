@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+#title-text{
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+    -fx-font-size: 80;
+}
+
 /*.my-rect {
     -fx-fill: red;
 }

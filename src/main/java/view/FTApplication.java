@@ -76,7 +76,8 @@ public class FTApplication extends Application {
     private void setup() {
 
         Text welcome = new Text("SKANDIA CUP 2022");
-        welcome.setFont(new Font("Verdana", 40));
+        welcome.setId("title-text");
+        //welcome.setFont(new Font("Verdana", 40));
 
         Button start = new Button();
         start.setText("Start");

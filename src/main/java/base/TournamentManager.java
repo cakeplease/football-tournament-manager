@@ -3,7 +3,6 @@ package base;
 import controller.GroupController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -219,13 +218,11 @@ public class TournamentManager {
         for (int i = 0; i < 16; i++){
             winnersB.add(roundOf32B.get(i).getWinner());
         }
-        Collections.shuffle(winnersA);
-        Collections.shuffle(winnersB);
-        for (int i = 0; i < 8; i++){
-            this.roundOf16A.add(new Match(winnersA.get(i), winnersA.get(15-i)));
+        for (int i = 0; i < 16; i+=2){
+            this.roundOf16A.add(new Match(winnersA.get(i), winnersA.get(i+1)));
         }
-        for (int i = 0; i < 8; i++){
-            this.roundOf16B.add(new Match(winnersB.get(i), winnersB.get(15-i)));
+        for (int i = 0; i < 16; i+=2){
+            this.roundOf16B.add(new Match(winnersB.get(i), winnersB.get(i+1)));
         }
         return !roundOf16A.isEmpty() && !roundOf16B.isEmpty();
     }
@@ -245,13 +242,11 @@ public class TournamentManager {
         for (int i = 0; i < 8; i++){
             winnersB.add(roundOf16B.get(i).getWinner());
         }
-        Collections.shuffle(winnersA);
-        Collections.shuffle(winnersB);
-        for (int i = 0; i < 4; i++){
-            this.quarterFinalsA.add(new Match(winnersA.get(i), winnersA.get(7-i)));
+        for (int i = 0; i < 8; i+=2){
+            this.quarterFinalsA.add(new Match(winnersA.get(i), winnersA.get(i+1)));
         }
-        for (int i = 0; i < 4; i++){
-            this.quarterFinalsB.add(new Match(winnersB.get(i), winnersB.get(7-i)));
+        for (int i = 0; i < 8; i+=2){
+            this.quarterFinalsB.add(new Match(winnersB.get(i), winnersB.get(i+1)));
         }
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
@@ -271,13 +266,11 @@ public class TournamentManager {
         for (int i = 0; i < 4; i++){
             winnersB.add(quarterFinalsB.get(i).getWinner());
         }
-        Collections.shuffle(winnersA);
-        Collections.shuffle(winnersB);
-        for (int i = 0; i < 2; i++){
-            this.semifinalsA.add(new Match(winnersA.get(i), winnersA.get(3-i)));
+        for (int i = 0; i < 4; i+=2){
+            this.semifinalsA.add(new Match(winnersA.get(i), winnersA.get(i+1)));
         }
-        for (int i = 0; i < 2; i++){
-            this.semifinalsB.add(new Match(winnersB.get(i), winnersB.get(3-i)));
+        for (int i = 0; i < 4; i+=2){
+            this.semifinalsB.add(new Match(winnersB.get(i), winnersB.get(i+1)));
         }
         return !quarterFinalsA.isEmpty() && !quarterFinalsB.isEmpty();
     }
