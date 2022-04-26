@@ -26,6 +26,8 @@ public class FrontpageView extends View {
     }
 
     public void setup() {
+        this.resetPane();
+
         GroupController groupController = GroupController.getInstance();
 
         Button addTeam = new Button();

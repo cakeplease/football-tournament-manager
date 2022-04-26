@@ -1,40 +1,34 @@
 package view;
 
 import base.FootballClub;
-import base.Group;
 import base.Match;
 import base.TournamentManager;
-import controller.GroupController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 /**
- * New tournament class without function to chose winner. This function will only be available under MatchesView
+ * TournamentBracketView class
+ * Shows tournament brackets filled with teams where winner shows in bold
  */
 
 public class TournamentBracketView extends View {
     protected static GridPane tournamentBracketPane;
     private ScreenController screenController;
-    private Dialog dialog;
-    private Optional result;
-    private String team1String;
-    private String team2String;
     private static StackPane stackPane;
     private ScrollPane scrollPane;
     private TournamentManager tournamentManager;
 
-
+    /**
+     * TournamentBracketView constructor
+     * @param ScreenController main screen controller set up in FTApplication class
+     */
     public TournamentBracketView(ScreenController ScreenController) {
         this.tournamentBracketPane = new GridPane();
         this.stackPane = new StackPane();
@@ -42,10 +36,29 @@ public class TournamentBracketView extends View {
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return
+     */
     public Pane getPane() {
         return this.stackPane;
     }
 
+    /**
+     * Sets up tournament bracket with all teams from group stages into A and B groups where A groups are winners and B are losers:
+     *
+     * Round of 32 A
+     * Round of 16 A
+     * Quarter finals A
+     * Semi-finals A
+     * Final A
+     *
+     * Round of 32 B
+     * Round of 16 B
+     * Quarter finals B
+     * Semi-finals B
+     * Final B
+     */
     public void setup() {
         this.resetPane();
         this.scrollPane = new ScrollPane();
@@ -57,7 +70,6 @@ public class TournamentBracketView extends View {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
@@ -68,17 +80,13 @@ public class TournamentBracketView extends View {
         tournamentBracketPane.setPadding(new Insets(25, 25, 25, 25));
 
         Text aBracket = new Text("Bracket A");
-        aBracket.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         tournamentBracketPane.add(aBracket, 0, 1);
         Text bBracket = new Text("Bracket B");
-        bBracket.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         VBox bBox = new VBox();
         bBox.getChildren().add(bBracket);
         bBox.setMinHeight(125);
         bBox.setAlignment(Pos.BOTTOM_LEFT);
         tournamentBracketPane.add(bBox, 0, 17);
-
-
 
         /*
          * Method to print out boxes to the tournament bracket. The for loop goes through every number in the
@@ -122,7 +130,6 @@ public class TournamentBracketView extends View {
                     tournamentBracketPane.add(textBox, column, row);
                     row += 7;
                     if (row == 13) row += 7; // gap between A and B brackets
-
                 }
             } else {
                 for (int row = 9; row < 26; row++) {
@@ -138,11 +145,6 @@ public class TournamentBracketView extends View {
         }
 
         int teamsIndex = 0;
-
-/*        GroupController groupController = GroupController.getInstance();
-        ArrayList<Group> groups = groupController.getGroups();
-        if (groups.size() == 16) tournamentManager.generateRoundOf32();*/
-
         if (tournamentManager.getRoundOf32A().size() == 16) {
             for (int column = 0; column < 9; column++) {
                 for (int row = 2; row < 17; row++) {
@@ -210,7 +212,6 @@ public class TournamentBracketView extends View {
             }
         }
 
-
         teamsIndex = 0;
         if (tournamentManager.getRoundOf16A().size() == 8) {
             for (int column = 1; column < 8; column++) {
@@ -235,7 +236,6 @@ public class TournamentBracketView extends View {
 
                     teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                    //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                     textBox.getChildren().add(teamLabelContainer);
                     row += 3;
@@ -269,7 +269,6 @@ public class TournamentBracketView extends View {
 
                     teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                    //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                     textBox.getChildren().add(teamLabelContainer);
                     row += 3;
@@ -303,7 +302,6 @@ public class TournamentBracketView extends View {
 
                     teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                    //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                     textBox.getChildren().add(teamLabelContainer);
                     row += 7;
@@ -337,7 +335,6 @@ public class TournamentBracketView extends View {
 
                     teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                    //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                     textBox.getChildren().add(teamLabelContainer);
                     row += 7;
@@ -372,7 +369,6 @@ public class TournamentBracketView extends View {
 
                 teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                //TODO put these two labels into one text to keep styling
                 StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                 textBox.getChildren().add(teamLabelContainer);
                 teamsIndex++;
@@ -404,7 +400,6 @@ public class TournamentBracketView extends View {
 
                 teamLabelContainer.getChildren().addAll(team1Label, team2Label);
 
-                //TODO put these two labels into one text to keep styling
                 StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
                 textBox.getChildren().add(teamLabelContainer);
                 teamsIndex++;
@@ -469,13 +464,11 @@ public class TournamentBracketView extends View {
         stackPane.getChildren().addAll(scrollPane, tournamentBracketPane);
     }
 
-
     @Override
     void resetPane() {
         this.tournamentBracketPane.getChildren().clear();
         if (!(this.stackPane == null)) this.stackPane.getChildren().clear();
     }
-
 
     static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         Node result = null;
