@@ -1,8 +1,6 @@
 package view;
 
 import controller.GUIController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
@@ -36,13 +34,10 @@ public class NoGroupsView extends View{
 
         Button generateGroups = new Button();
         generateGroups.setText("Generate groups");
-        generateGroups.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                GUIController.generateGroups();
-                screenController.activate("Groups");
+        generateGroups.setOnAction(e -> {
+            GUIController.generateGroups();
+            screenController.activate("Groups");
 
-            }
         });
         pane.add(generateGroups, 20,1);
 
