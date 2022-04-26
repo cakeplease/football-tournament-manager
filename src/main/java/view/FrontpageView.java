@@ -62,7 +62,7 @@ public class FrontpageView extends View {
         showTournamentBracket.setText("Show tournament bracket");
         showTournamentBracket.setLayoutX(250);
         showTournamentBracket.setLayoutY(700);
-        showTournamentBracket.setOnAction(e -> screenController.activate("NewTournamentBracketView"));
+        showTournamentBracket.setOnAction(e -> screenController.activate("TournamentBracketView"));
 
         Button loadTestData = new Button();
         loadTestData.setText("LOAD TEST DATA");

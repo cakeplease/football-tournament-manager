@@ -29,7 +29,6 @@ public class FTApplication extends Application {
     private TeamsView teamsView = new TeamsView(screenController);
     private MatchesView matchesView = new MatchesView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
-    private NewTournamentBracketView newTournamentBracketView = new NewTournamentBracketView(screenController);
 
     private static double windowSizeX;
     private static double windowSizeY;
@@ -49,10 +48,9 @@ public class FTApplication extends Application {
         screenController.addScreen("Groups", groupsView);
         screenController.addScreen("NoGroups", noGroupsView);
         screenController.addScreen("AddTeam", addTeamView);
-        screenController.addScreen("TournamentBracket", tournamentBracketView);
         screenController.addScreen("Teams", teamsView);
         screenController.addScreen("Matches", matchesView);
-        screenController.addScreen("NewTournamentBracketView", newTournamentBracketView);
+        screenController.addScreen("TournamentBracketView", tournamentBracketView);
 
         Image icon = new Image ("logo1.png");
         primaryStage.getIcons().add(icon);

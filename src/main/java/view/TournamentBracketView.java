@@ -1,11 +1,10 @@
 package view;
 
+import base.FootballClub;
 import base.Group;
 import base.Match;
 import base.TournamentManager;
 import controller.GroupController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,14 +13,15 @@ import javafx.scene.control.*;
 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Stack;
 
+/**
+ * New tournament class without function to chose winner. This function will only be available under MatchesView
+ */
 
 public class TournamentBracketView extends View {
     protected static GridPane tournamentBracketPane;
@@ -64,8 +64,20 @@ public class TournamentBracketView extends View {
 
         tournamentBracketPane.add(backButton, 0, 0);
         tournamentBracketPane.setHgap(30);
-        tournamentBracketPane.setVgap(8);
+        tournamentBracketPane.setVgap(10); //8
         tournamentBracketPane.setPadding(new Insets(25, 25, 25, 25));
+
+        Text aBracket = new Text("Bracket A");
+        aBracket.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        tournamentBracketPane.add(aBracket, 0, 1);
+        Text bBracket = new Text("Bracket B");
+        bBracket.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        VBox bBox = new VBox();
+        bBox.getChildren().add(bBracket);
+        bBox.setMinHeight(125);
+        bBox.setAlignment(Pos.BOTTOM_LEFT);
+        tournamentBracketPane.add(bBox, 0, 17);
+
 
 
         /*
@@ -77,31 +89,20 @@ public class TournamentBracketView extends View {
 
         for (int column : columnNumbers) {
             if (column == 0 || column == 8) {
-                for (int row = 2; row < 17; row++) { //(int row = 2; row < 10; row++)
+                for (int row = 2; row < 33; row++) { //(int row = 2; row < 17; row++)
                     Rectangle rect = new Rectangle(125, 50);
                     rect.setFill(Color.WHITESMOKE);
                     rect.setStroke(Color.BLACK);
                     StackPane textBox = new StackPane();
                     textBox.getChildren().add(rect);
 
-                    int finalRow = row; //for lambda expression
-                    textBox.setOnMouseClicked(e -> {
-                        StackPane textBox2 = (StackPane) getNodeByRowColumnIndex(finalRow, column, this.tournamentBracketPane);
-                        Text teamText2 = (Text) textBox2.getChildren().get(1);
-                        String[] teamsList = teamText2.getText().split("\n");
-                        team1String = teamsList[0];
-                        team2String = teamsList[1];
-
-                        result = createWinnerSelectDialog(team1String, team2String, finalRow, column).showAndWait();
-                        //if (team1.isPressed() || team2.isPressed()) dialog.getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
-
-
-                    });
                     tournamentBracketPane.add(textBox, column, row);
                     row++;
+                    if (row == 16) row++; //gap between A and B brackets
+
                 }
             } else if (column == 1 || column == 7) {
-                for (int row = 3; row < 16; row++) {
+                for (int row = 3; row < 33; row++) {
                     Rectangle rect = new Rectangle(125, 50);
                     rect.setFill(Color.WHITESMOKE);
                     rect.setStroke(Color.BLACK);
@@ -109,9 +110,10 @@ public class TournamentBracketView extends View {
                     textBox.getChildren().add(rect);
                     tournamentBracketPane.add(textBox, column, row);
                     row += 3;
+                    if (row == 15) row += 3; // gap between A and B brackets
                 }
             } else if (column == 2 || column == 6) {
-                for (int row = 5; row < 14; row++) {
+                for (int row = 5; row < 36; row++) {
                     Rectangle rect = new Rectangle(125, 50);
                     rect.setFill(Color.WHITESMOKE);
                     rect.setStroke(Color.BLACK);
@@ -119,182 +121,368 @@ public class TournamentBracketView extends View {
                     textBox.getChildren().add(rect);
                     tournamentBracketPane.add(textBox, column, row);
                     row += 7;
+                    if (row == 13) row += 7; // gap between A and B brackets
+
                 }
             } else {
-                int row = 9;
-                Rectangle rect = new Rectangle(125, 50);
-                rect.setFill(Color.WHITESMOKE);
-                rect.setStroke(Color.BLACK);
-                StackPane textBox = new StackPane();
-                textBox.getChildren().add(rect);
-                tournamentBracketPane.add(textBox, column, row);
+                for (int row = 9; row < 26; row++) {
+                    Rectangle rect = new Rectangle(125, 50);
+                    rect.setFill(Color.WHITESMOKE);
+                    rect.setStroke(Color.BLACK);
+                    StackPane textBox = new StackPane();
+                    textBox.getChildren().add(rect);
+                    tournamentBracketPane.add(textBox, column, row);
+                    row = (row * 2) + 6;
+                }
             }
         }
 
-        /**
-         * GROUPS
-         */
+        int teamsIndex = 0;
 
-        int teams = 0;
-        /*  if (getStartingTeams().size() == 32) {
-            for (int column = 0; 9 > column; column++) {
-                for (int row = 2; row < 17; row++) {
-                    Text text = new Text(getStartingTeams().get(teams));
-                    text.setFont(Font.font("Verdana", 11));
-                    text.setFill(Color.BLACK);
-                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
-                    textBox.getChildren().add(text);
-                    row++;
-                    teams++;
-                }
-                column += 7;
-            }
-        }*/
-
-        if (getStartingTeams().size() != 0) tournamentManager.generateRoundOf32();
+/*        GroupController groupController = GroupController.getInstance();
+        ArrayList<Group> groups = groupController.getGroups();
+        if (groups.size() == 16) tournamentManager.generateRoundOf32();*/
 
         if (tournamentManager.getRoundOf32A().size() == 16) {
-            for (int column = 0; 9 > column; column++) {
+            for (int column = 0; column < 9; column++) {
                 for (int row = 2; row < 17; row++) {
-                    Text text = new Text(tournamentManager.getRoundOf32A().get(teams).toString());
-                    text.setFont(Font.font("Verdana", 11));
-                    text.setFill(Color.BLACK);
+                    FootballClub team1 = tournamentManager.getRoundOf32A().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getRoundOf32A().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getRoundOf32A().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
                     StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
-                    textBox.getChildren().add(text);
+                    textBox.getChildren().add(teamLabelContainer);
                     row++;
-                    teams++;
+                    teamsIndex++;
                 }
                 column += 7;
             }
+        }
+
+        teamsIndex = 0;
+        if (tournamentManager.getRoundOf32B().size() == 16) {
+            for (int column = 0; column < 9; column++) {
+                for (int row = 18; row < 33; row++) {
+                    FootballClub team1 = tournamentManager.getRoundOf32B().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getRoundOf32B().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getRoundOf32B().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(teamLabelContainer);
+                    row++;
+                    teamsIndex++;
+                }
+                column += 7;
+            }
+        }
+
+
+        teamsIndex = 0;
+        if (tournamentManager.getRoundOf16A().size() == 8) {
+            for (int column = 1; column < 8; column++) {
+                for (int row = 3; row < 16; row++) {
+                    FootballClub team1 = tournamentManager.getRoundOf16A().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getRoundOf16A().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getRoundOf16A().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(teamLabelContainer);
+                    row += 3;
+                    teamsIndex++;
+                }
+                column += 5;
+            }
+        }
+
+        teamsIndex = 0;
+        if (tournamentManager.getRoundOf16B().size() == 8) {
+            for (int column = 1; column < 8; column++) {
+                for (int row = 19; row < 33; row++) {
+                    FootballClub team1 = tournamentManager.getRoundOf16B().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getRoundOf16B().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getRoundOf16B().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(teamLabelContainer);
+                    row += 3;
+                    teamsIndex++;
+                }
+                column += 5;
+            }
+        }
+
+        teamsIndex = 0;
+        if (tournamentManager.getQuarterFinalsA().size() == 4) {
+            for (int column = 2; column < 7; column++) {
+                for (int row = 5; row < 14; row++) {
+                    FootballClub team1 = tournamentManager.getQuarterFinalsA().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getQuarterFinalsA().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getQuarterFinalsA().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(teamLabelContainer);
+                    row += 7;
+                    teamsIndex++;
+                }
+                column += 3;
+            }
+        }
+
+        teamsIndex = 0;
+        if (tournamentManager.getQuarterFinalsB().size() == 4) {
+            for (int column = 2; column < 7; column++) {
+                for (int row = 21; row < 36; row++) {
+                    FootballClub team1 = tournamentManager.getQuarterFinalsB().get(teamsIndex).getFootballClub1();
+                    FootballClub team2 = tournamentManager.getQuarterFinalsB().get(teamsIndex).getFootballClub2();
+                    Match currentMatch = tournamentManager.getQuarterFinalsB().get(teamsIndex);
+                    Text team1Label = new Text(team1.toString());
+                    Text team2Label = new Text(team2.toString());
+
+                    if (currentMatch.getWinner() != null) {
+                        if (currentMatch.getWinner().equals(team1)) {
+                            team1Label.setStyle("-fx-font-weight: bold");
+                        } else if (currentMatch.getWinner().equals(team2)) {
+                            team2Label.setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                    VBox teamLabelContainer = new VBox();
+                    team1Label.setFill(Color.BLACK);
+
+                    team2Label.setFill(Color.BLACK);
+
+                    teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                    //TODO put these two labels into one text to keep styling
+                    StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                    textBox.getChildren().add(teamLabelContainer);
+                    row += 7;
+                    teamsIndex++;
+                }
+                column += 3;
+            }
+        }
+
+
+        teamsIndex = 0;
+        if (tournamentManager.getSemifinalsA().size() == 2) {
+            for (int column = 3; column < 6; column++) {
+                int row = 9;
+                FootballClub team1 = tournamentManager.getSemifinalsA().get(teamsIndex).getFootballClub1();
+                FootballClub team2 = tournamentManager.getSemifinalsA().get(teamsIndex).getFootballClub2();
+                Match currentMatch = tournamentManager.getSemifinalsA().get(teamsIndex);
+                Text team1Label = new Text(team1.toString());
+                Text team2Label = new Text(team2.toString());
+
+                if (currentMatch.getWinner() != null) {
+                    if (currentMatch.getWinner().equals(team1)) {
+                        team1Label.setStyle("-fx-font-weight: bold");
+                    } else if (currentMatch.getWinner().equals(team2)) {
+                        team2Label.setStyle("-fx-font-weight: bold");
+                    }
+                }
+                VBox teamLabelContainer = new VBox();
+                team1Label.setFill(Color.BLACK);
+
+                team2Label.setFill(Color.BLACK);
+
+                teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                //TODO put these two labels into one text to keep styling
+                StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                textBox.getChildren().add(teamLabelContainer);
+                teamsIndex++;
+                column++;
+            }
+        }
+
+        teamsIndex = 0;
+        if (tournamentManager.getSemifinalsB().size() == 2) {
+            for (int column = 3; column < 6; column++) {
+                int row = 25;
+                FootballClub team1 = tournamentManager.getSemifinalsB().get(teamsIndex).getFootballClub1();
+                FootballClub team2 = tournamentManager.getSemifinalsB().get(teamsIndex).getFootballClub2();
+                Match currentMatch = tournamentManager.getSemifinalsB().get(teamsIndex);
+                Text team1Label = new Text(team1.toString());
+                Text team2Label = new Text(team2.toString());
+
+                if (currentMatch.getWinner() != null) {
+                    if (currentMatch.getWinner().equals(team1)) {
+                        team1Label.setStyle("-fx-font-weight: bold");
+                    } else if (currentMatch.getWinner().equals(team2)) {
+                        team2Label.setStyle("-fx-font-weight: bold");
+                    }
+                }
+                VBox teamLabelContainer = new VBox();
+                team1Label.setFill(Color.BLACK);
+
+                team2Label.setFill(Color.BLACK);
+
+                teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+                //TODO put these two labels into one text to keep styling
+                StackPane textBox = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
+                textBox.getChildren().add(teamLabelContainer);
+                teamsIndex++;
+                column++;
+            }
+        }
+
+        if (!tournamentManager.getFinalA().isEmpty()) {
+            Match currentMatch = tournamentManager.getFinalA().get(0);
+            FootballClub team1 = currentMatch.getFootballClub1();
+            FootballClub team2 = currentMatch.getFootballClub2();
+
+            Text team1Label = new Text(team1.toString());
+            Text team2Label = new Text(team2.toString());
+
+            if (currentMatch.getWinner() != null) {
+                if (currentMatch.getWinner().equals(team1)) {
+                    team1Label.setStyle("-fx-font-weight: bold");
+                } else if (currentMatch.getWinner().equals(team2)) {
+                    team2Label.setStyle("-fx-font-weight: bold");
+                }
+            }
+            VBox teamLabelContainer = new VBox();
+            team1Label.setFill(Color.BLACK);
+
+            team2Label.setFill(Color.BLACK);
+
+            teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+            StackPane textBox = (StackPane) getNodeByRowColumnIndex(9, 4, tournamentBracketPane);
+            textBox.getChildren().add(teamLabelContainer);
+
+        }
+
+        if (!tournamentManager.getFinalB().isEmpty()) {
+            Match currentMatch = tournamentManager.getFinalB().get(0);
+            FootballClub team1 = currentMatch.getFootballClub1();
+            FootballClub team2 = currentMatch.getFootballClub2();
+
+            Text team1Label = new Text(team1.toString());
+            Text team2Label = new Text(team2.toString());
+
+            if (currentMatch.getWinner() != null) {
+                if (currentMatch.getWinner().equals(team1)) {
+                    team1Label.setStyle("-fx-font-weight: bold");
+                } else if (currentMatch.getWinner().equals(team2)) {
+                    team2Label.setStyle("-fx-font-weight: bold");
+                }
+            }
+            VBox teamLabelContainer = new VBox();
+            team1Label.setFill(Color.BLACK);
+
+            team2Label.setFill(Color.BLACK);
+
+            teamLabelContainer.getChildren().addAll(team1Label, team2Label);
+
+            StackPane textBox = (StackPane) getNodeByRowColumnIndex(25, 4, tournamentBracketPane);
+            textBox.getChildren().add(teamLabelContainer);
+
         }
 
         stackPane.getChildren().addAll(scrollPane, tournamentBracketPane);
-
     }
+
 
     @Override
     void resetPane() {
         this.tournamentBracketPane.getChildren().clear();
-        if(!(this.stackPane == null)) this.stackPane.getChildren().clear();
-    }
-
-    public ArrayList<String> getStartingTeams() {
-        GroupController groupController = GroupController.getInstance();
-
-        ArrayList<Group> groups = groupController.getGroups();
-        ArrayList<String> strings = new ArrayList<>();
-
-        for (Group group : groups) {
-            strings.add(group.getGroupTeams().get(0).getName() + "\n" + group.getGroupTeams().get(1).getName());
-            strings.add(group.getGroupTeams().get(2).getName() + "\n" + group.getGroupTeams().get(3).getName());
-        }
-
-        return strings;
-    }
-
-    static Dialog createWinnerSelectDialog(String team1String, String team2String, int row, int column) {
-
-        TournamentManager tournamentManager = TournamentManager.getInstance();
-
-        Dialog dialog = new Dialog();
-        dialog.getDialogPane().setMinSize(400, 200);
-        dialog.initOwner(FTApplication.primaryStage);
-
-        GridPane dialogGrid = new GridPane();
-        dialogGrid.setMinSize(200, 200);
-        dialogGrid.setHgap(10);
-        dialogGrid.setVgap(5);
-        dialogGrid.setPadding(new Insets(10, 10, 10, 10));
-        Text selectWinner = new Text("Select winner");
-        selectWinner.setFont(new Font(20));
-        dialogGrid.add(selectWinner, 0, 1);
-        RadioButton team1 = new RadioButton();
-        team1.setText(team1String);
-        team1.setMinSize(200,50);
-        RadioButton team2 = new RadioButton();
-        team2.setText(team2String);
-        team2.setMinSize(200,50);
-
-        ToggleGroup buttonGroup = new ToggleGroup();
-        team1.setToggleGroup(buttonGroup);
-        team2.setToggleGroup(buttonGroup);
-
-        buttonGroup.selectedToggleProperty().addListener((ob, o, n) -> {
-          RadioButton rb = (RadioButton)buttonGroup.getSelectedToggle();
-
-            if (rb != null) {
-                StackPane thisStackPane = (StackPane) getNodeByRowColumnIndex(row, column, tournamentBracketPane);
-                Text text = (Text) thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1);
-
-                for (Match m : tournamentManager.getRoundOf32A()){
-                    if (rb.getText().equalsIgnoreCase(m.getFootballClub1().getName())){
-                        m.setWinner(m.getFootballClub1());
-
-                        String[] splitText = text.getText().split("\n");
-
-                        TextFlow flow = new TextFlow();
-
-                        Text text1 = new Text(splitText[0] + "\n");
-                        text1.setStyle("-fx-font-weight: bold");
-
-                        Text text2=new Text(splitText[1]);
-                        text2.setStyle("-fx-font-weight: regular");
-
-                        flow.getChildren().addAll(text1, text2);
-
-                        text.setText("");
-                        flow.setTextAlignment(TextAlignment.CENTER);
-                        flow.setPadding(new Insets(10, 10, 10, 10));
-                        thisStackPane.getChildren().add(flow);
-
-                    }
-
-                    else if (rb.getText().equalsIgnoreCase(m.getFootballClub2().getName())){
-                        m.setWinner(m.getFootballClub2());
-
-                        if (thisStackPane.getChildren().get(thisStackPane.getChildren().size()-1) instanceof TextFlow){
-                            thisStackPane.getChildren().remove(thisStackPane.getChildren().size()-1);
-                        }
-
-                        String[] splitText = text.getText().split("\n");
-
-                        TextFlow flow = new TextFlow();
-
-                        Text text1 = new Text(splitText[0] + "\n");
-                        text1.setStyle("-fx-font-weight: regular");
-
-                        Text text2=new Text(splitText[1]);
-                        text2.setStyle("-fx-font-weight: bold");
-
-                        flow.getChildren().addAll(text1, text2);
-
-                        text.setText("");
-                        flow.setTextAlignment(TextAlignment.CENTER);
-                        flow.setPadding(new Insets(10, 10, 10, 10));
-                        thisStackPane.getChildren().add(flow);
-
-                    }
-
-                }
-            }
-        });
-
-        dialogGrid.add(team1, 0, 4);
-        dialogGrid.add(team2, 0, 5);
-
-
-        dialog.getDialogPane().getChildren().add(dialogGrid);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        return dialog;
+        if (!(this.stackPane == null)) this.stackPane.getChildren().clear();
     }
 
 
-    static Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+    static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
 
         for (Node node : children) {
-            if((gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column)) {
+            if ((gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column)) {
                 result = node;
                 break;
             }
