@@ -33,7 +33,6 @@ class DataStorageTest {
      * method for simming all matches and saving it to file for test data
      * this method is purly for testing and presentation of prodcut
      */
-    @Test
     void makeTestData(){
         //reset all files
         resetAllDataAndDeleteFiles();

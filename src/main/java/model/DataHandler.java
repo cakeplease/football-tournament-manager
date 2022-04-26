@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,17 +42,18 @@ public class DataHandler {
     /**
      * Method to read from a file
      *
-     * @param path path, where to read from
+     * @param path, where to read from
      */
-    public static ArrayList<String> readFromFile(Path path) {
-        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
+    public static ArrayList<String> readFromFile(String path) {
+        try (BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(DataHandler.class.getClassLoader().getResourceAsStream(path), StandardCharsets.UTF_8))) {
             String line;
             ArrayList<String> data = new ArrayList<String>();
             while ((line = bufferedReader.readLine()) != null) {
                 data.add(line);
             }
             return data;
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             return null;
         }
     }
