@@ -99,7 +99,8 @@ public class GroupController {
      * @return true when finished
      */
     public boolean generateGroups() {
-        if (this.footballClubs.size() != 64){
+
+        if (this.footballClubs.size() != 64) {
             return false;
         }
 

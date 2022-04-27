@@ -46,8 +46,6 @@ public class FrontpageView extends View {
 
         Button changeMode = new Button();
         changeMode.setText("Change theme");
-        //changeMode.setAlignment(Pos.TOP_LEFT);
-        //this.myPane.getChildren().add(changeMode);
         this.myPane.setTop(changeMode);
         changeMode.setOnAction(e -> screenController.changeMode());
 
@@ -120,13 +118,8 @@ public class FrontpageView extends View {
         vBoxImg.setSpacing(20);
         vBoxImg.setPadding(new Insets(50, 50, 50, 50));
 
-        //myPane.setMaxHeight(50);
-        //myPane.setMaxSize(200,200);
         myPane.setPadding(new Insets(10, 10, 10, 10));
-
-        //myPane.getChildren().add(vBoxImg);
         myPane.setCenter(vBoxImg);
-        //pane.getChildren().add(myPane);
 
     }
 

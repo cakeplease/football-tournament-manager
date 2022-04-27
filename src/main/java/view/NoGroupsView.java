@@ -46,21 +46,27 @@ public class NoGroupsView extends View{
 
         Button generateGroups = new Button();
         generateGroups.setText("Generate groups");
-        generateGroups.setOnAction(e -> {
-            GUIController.generateGroups();
-            screenController.activate("Groups");
 
+        Text errorFeedback = new Text("");
+        errorFeedback.setId("feedback-text");
+
+        generateGroups.setOnAction(e -> {
+            if (GUIController.generateGroups()) {
+                screenController.activate("Groups");
+            } else {
+                errorFeedback.setText("There need to be 64 teams in order to generate groups.");
+            }
         });
         pane.add(generateGroups, 20,1);
 
         Text sceneTitle = new Text("Groups");
         sceneTitle.setId("header-text");
-        //sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         pane.add(sceneTitle, 1, 2);
 
         Text noGroupsText = new Text("No groups available. Press the button in the right corner to generate groups.");
         noGroupsText.setId("normal-text");
         pane.add(noGroupsText, 1, 4);
+        pane.add(errorFeedback, 1, 5);
 
     }
 

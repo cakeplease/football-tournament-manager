@@ -107,12 +107,15 @@ public class GUIController {
     /**
      * Generate groups
      */
-    public static void generateGroups() {
+    public static boolean generateGroups() {
         GroupController groupController = GroupController.getInstance();
-        ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
-        groupController.addAll(footballClubs);
-        groupController.generateGroups();
-        saveGroups();
+
+        if (groupController.generateGroups()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
