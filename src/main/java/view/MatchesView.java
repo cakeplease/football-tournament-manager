@@ -9,10 +9,8 @@ import controller.GroupController;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,8 +20,7 @@ import java.util.Optional;
  * MatchesView class for showing all matches
  */
 public class MatchesView extends View {
-    //protected VBox pane;
-    protected Pane pane;
+    protected VBox pane;
     protected VBox container;
     protected ScrollPane scrollPane;
     private ScreenController screenController;
@@ -35,8 +32,7 @@ public class MatchesView extends View {
      * @param screenController
      */
     public MatchesView(ScreenController screenController) {
-        //this.pane = new VBox();
-        this.pane = new Pane();
+        this.pane = new VBox();
         this.container = new VBox();
         this.scrollPane = new ScrollPane();
         this.screenController = screenController;
@@ -56,7 +52,9 @@ public class MatchesView extends View {
      */
     public void setup() {
         this.resetPane();
-        container.setPadding(new Insets(25, 25, 25, 25));
+       container.setPadding(new Insets(25, 200, 25, 25));
+
+        container.setStyle(" -fx-background-color: #1a1c1f;");
         container.setSpacing(10);
         container.setId("background");
         container.setMinWidth(600);
@@ -70,7 +68,6 @@ public class MatchesView extends View {
 
 
         Text sceneTitle = new Text("Matches (double click a match to edit)");
-        //sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         sceneTitle.setId("header-text");
         container.getChildren().add(sceneTitle);
 
@@ -261,6 +258,7 @@ public class MatchesView extends View {
 
         });
 
+        scrollPane.setFitToWidth(true);
         scrollPane.setContent(container);
         this.pane.getChildren().add(scrollPane);
     }
