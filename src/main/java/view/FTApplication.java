@@ -7,8 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -18,8 +17,8 @@ import javafx.stage.Stage;
  * It shows Start and Quit button on the frontpage and prepares all screens
  */
 public class FTApplication extends Application {
-    private StackPane frontPage = new StackPane(); //todo: static?
-    private Scene frontPageScene = new Scene(frontPage); //todo: static?
+    private BorderPane frontPage = new BorderPane();
+    private Scene frontPageScene = new Scene(frontPage);
     protected ScreenController screenController = new ScreenController(frontPageScene);
 
     private FrontpageView frontpage = new FrontpageView(screenController);
@@ -30,14 +29,15 @@ public class FTApplication extends Application {
     private MatchesView matchesView = new MatchesView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
 
-    private static double windowSizeX;
-    private static double windowSizeY;
+    public static double windowSizeX;
+    public static double windowSizeY;
 
     public static Stage primaryStage;
 
     /**
      * Overrides the start() method which takes a single parameter stage.
      * Uses the show() method to display the stage.
+     *
      * @param primaryStage
      */
     @Override
@@ -52,7 +52,7 @@ public class FTApplication extends Application {
         screenController.addScreen("Matches", matchesView);
         screenController.addScreen("TournamentBracketView", tournamentBracketView);
 
-        Image icon = new Image ("logo.png");
+        Image icon = new Image("logo.png");
         primaryStage.getIcons().add(icon);
 
         primaryStage.setFullScreen(true);
@@ -70,7 +70,7 @@ public class FTApplication extends Application {
         this.setup();
 
     }
-    
+
     private void setup() {
 
         Text welcome = new Text("SKANDIA CUP 2022");
@@ -86,6 +86,11 @@ public class FTApplication extends Application {
         exit.setStyle("-fx-font-size:20");
         exit.setOnAction(e -> System.exit(0));
 
+        Button changeMode = new Button();
+        changeMode.setText("Change theme");
+        this.frontPage.setTop(changeMode);
+        changeMode.setOnAction(e -> screenController.changeMode());
+
         //Image image = new Image("/frontPage.jpg");
         Image image = new Image("/logo.png");
         ImageView imageView = new ImageView(image);
@@ -98,11 +103,14 @@ public class FTApplication extends Application {
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         vBoxImg.setPadding(new Insets(50, 50, 50, 50));
-        frontPage.getChildren().add(vBoxImg);
+
+        frontPage.setPadding(new Insets(10, 10, 10, 10));
+        frontPage.setCenter(vBoxImg);
     }
 
     /**
      * Uses the static launch() method to launch the stage.
+     *
      * @param args
      */
     public static void main(String[] args) {

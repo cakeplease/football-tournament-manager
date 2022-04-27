@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
  * FrontpageView shows frontpage
  */
 public class FrontpageView extends View {
+    protected BorderPane myPane;
     protected StackPane pane;
     private ScreenController screenController;
 
@@ -24,6 +25,7 @@ public class FrontpageView extends View {
     public FrontpageView(ScreenController ScreenController) {
         this.pane = new StackPane();
         this.screenController = ScreenController;
+        this.myPane = new BorderPane();
 
         this.setup();
     }
@@ -33,7 +35,7 @@ public class FrontpageView extends View {
      * @return
      */
     public Pane getPane() {
-        return this.pane;
+        return this.myPane;
     }
 
     /**
@@ -43,7 +45,10 @@ public class FrontpageView extends View {
         this.resetPane();
 
         Button changeMode = new Button();
-        changeMode.setText("Change mode");
+        changeMode.setText("Change theme");
+        //changeMode.setAlignment(Pos.TOP_LEFT);
+        //this.myPane.getChildren().add(changeMode);
+        this.myPane.setTop(changeMode);
         changeMode.setOnAction(e -> screenController.changeMode());
 
         GroupController groupController = GroupController.getInstance();
@@ -115,9 +120,14 @@ public class FrontpageView extends View {
         vBoxImg.setSpacing(20);
         vBoxImg.setPadding(new Insets(50, 50, 50, 50));
 
+        //myPane.setMaxHeight(50);
+        //myPane.setMaxSize(200,200);
+        myPane.setPadding(new Insets(10, 10, 10, 10));
 
-        pane.getChildren().add(vBoxImg);
-        pane.getChildren().add(changeMode);
+        //myPane.getChildren().add(vBoxImg);
+        myPane.setCenter(vBoxImg);
+        //pane.getChildren().add(myPane);
+
     }
 
     /**

@@ -141,6 +141,7 @@ public class TournamentBracketView extends View {
                     rect.setFill(Color.WHITESMOKE);
                     rect.setStroke(Color.BLACK);
                     StackPane textBox = new StackPane();
+                    textBox.setAlignment(Pos.CENTER);
                     textBox.getChildren().add(rect);
                     tournamentBracketPane.add(textBox, column, row);
                     row = (row * 2) + 6;
