@@ -109,7 +109,7 @@ public class Group {
      */
     public void generateMatches() throws RuntimeException {
         if (this.groupTeams.size() != 4){
-            throw new RuntimeException("There needs to be 4 teams in the group");
+            throw new RuntimeException("There need to be 4 teams in the group");
         }else if(this.groupMatches == null){
             this.groupMatches = new ArrayList<Match>();
 

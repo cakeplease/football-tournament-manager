@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataStorageTest {
 
     /**
-     * method for reseting and deleating all files in test
+     * Method for resetting and deleting all files in test
      */
     void resetAllDataAndDeleteFiles(){
         GroupController.getInstance().resetList();
@@ -30,8 +30,8 @@ class DataStorageTest {
     }
 
     /**
-     * method for simming all matches and saving it to file for test data
-     * this method is purly for testing and presentation of prodcut
+     * Method for simulating all matches and saving it to file for test data
+     * This method is purely for testing and presentation of product
      */
     void makeTestData(){
         //reset all files
@@ -53,10 +53,9 @@ class DataStorageTest {
     void loadAll16GroupsFromFile() {
         resetAllDataAndDeleteFiles();
 
-        //first load all data so it dose not corrupt then we can check the methods
+        //first load all data so it does not corrupt then we can check the methods
         DataStorage.loadTestData();
 
-        //check if grupes list resets after eatch load and consistant
         assertEquals(GroupController.getInstance().getGroups().size(), 16);
 
         Group g1 = GroupController.getInstance().getGroups().get(0);
@@ -103,9 +102,6 @@ class DataStorageTest {
         assert(new File("src/main/resources/data/groups-matches.csv")).exists();
         assert(new File("src/main/resources/data/tournament-finales.csv")).exists();
     }
-
-
-
 
    @Test
     void saveTournamentFinales(){

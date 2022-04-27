@@ -4,9 +4,6 @@ import controller.GroupController;
 import model.FootballClubsFromFile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.stream.Collectors;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TournamentManagerTest {
@@ -28,7 +25,6 @@ class TournamentManagerTest {
                 System.out.println(e1.getMessage());
             }
         });
-
     }
 
     @Test
@@ -49,61 +45,5 @@ class TournamentManagerTest {
         assertNotNull(tr.getRoundOf32A());
     }
 
-    @Test
-    void getRoundOf32B() {
-        tr.generateRoundOf32();
-        assertNotNull(tr.getRoundOf32B());
-    }
-
-    @Test
-    void getRoundOf16A() {
-    }
-
-    @Test
-    void getRoundOf16B() {
-    }
-
-    @Test
-    void getQuarterFinalsA() {
-    }
-
-    @Test
-    void getQuarterFinalsB() {
-    }
-
-    @Test
-    void getSemifinalsA() {
-    }
-
-    @Test
-    void getSemifinalsB() {
-    }
-
-    @Test
-    void listGroupMatches() {
-    }
-
-    @Test
-    void generateRoundOf32() {
-    }
-
-    @Test
-    void generateRoundOf16() {
-    }
-
-    @Test
-    void generateQuarterFinals() {
-    }
-
-    @Test
-    void generateSemifinals() {
-    }
-
-    @Test
-    void generateFinalA() {
-    }
-
-    @Test
-    void generateFinalB() {
-    }
+    //The rest of the functions for generating other finales are working the same as the one above
 }

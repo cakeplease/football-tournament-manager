@@ -35,7 +35,6 @@ class GroupControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {groupController.addFootballClub("", "");});
     }
 
-
     @Test
     void generateGroupsTest() {
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
