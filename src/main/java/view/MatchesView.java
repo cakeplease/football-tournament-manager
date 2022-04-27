@@ -75,7 +75,7 @@ public class MatchesView extends View {
         TournamentManager tournamentManager = TournamentManager.getInstance();
 
         dialog = new Dialog();
-        dialog.getDialogPane().setMinSize(400, 350);
+        dialog.getDialogPane().setMinSize(550, 200);
 
         GridPane grid = new GridPane();
         grid.setMinSize(200, 200);
