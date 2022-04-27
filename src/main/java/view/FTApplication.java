@@ -1,11 +1,13 @@
 package view;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,8 +18,8 @@ import javafx.stage.Stage;
  * It shows Start and Quit button on the frontpage and prepares all screens
  */
 public class FTApplication extends Application {
-    private StackPane frontPage = new StackPane();
-    private Scene frontPageScene = new Scene(frontPage);
+    private StackPane frontPage = new StackPane(); //todo: static?
+    private Scene frontPageScene = new Scene(frontPage); //todo: static?
     protected ScreenController screenController = new ScreenController(frontPageScene);
 
     private FrontpageView frontpage = new FrontpageView(screenController);
@@ -50,7 +52,7 @@ public class FTApplication extends Application {
         screenController.addScreen("Matches", matchesView);
         screenController.addScreen("TournamentBracketView", tournamentBracketView);
 
-        Image icon = new Image ("logo1.png");
+        Image icon = new Image ("logo.png");
         primaryStage.getIcons().add(icon);
 
         primaryStage.setFullScreen(true);
@@ -76,24 +78,47 @@ public class FTApplication extends Application {
 
         Button start = new Button();
         start.setText("Start");
-        start.setStyle("-fx-font-size:28");
+        start.setStyle("-fx-font-size:20");
         start.setOnAction(e -> screenController.activate("FrontPage"));
+
+        Button lightMode = new Button();
+        lightMode.setText("Light mode");
+        lightMode.setStyle("-fx-font-size:20");
+        lightMode.setOnAction(e -> {
+            frontPageScene.getStylesheets().remove("dark-mode.css");
+            frontPageScene.getStylesheets().add("styles.css");
+        });
+
+        Button darkMode = new Button();
+        darkMode.setText("Dark mode");
+        darkMode.setStyle("-fx-font-size:20");
+        darkMode.setOnAction(e -> {
+            frontPageScene.getStylesheets().remove("styles.css");
+            frontPageScene.getStylesheets().add("dark-mode.css");
+        });
 
         Button exit = new Button();
         exit.setText("Quit");
         exit.setStyle("-fx-font-size:20");
         exit.setOnAction(e -> System.exit(0));
 
-        Image image = new Image("/frontPage.jpg");
+        //Image image = new Image("/frontPage.jpg");
+        Image image = new Image("/logo.png");
         ImageView imageView = new ImageView(image);
         imageView.setX(400);
         imageView.setY(50);
         imageView.getStyleClass().add("image");
         VBox vBoxImg = new VBox();
 
-        vBoxImg.getChildren().addAll(imageView, welcome, start, exit);
+        HBox themes = new HBox();
+        themes.setSpacing(20);
+        themes.setAlignment(Pos.CENTER);
+        themes.getChildren().addAll(lightMode, darkMode);
+
+        vBoxImg.getChildren().addAll(imageView, welcome, start, themes, exit);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
+        vBoxImg.setPadding(new Insets(50, 50, 50, 50));
         frontPage.getChildren().add(vBoxImg);
     }
 

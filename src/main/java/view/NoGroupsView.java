@@ -54,10 +54,12 @@ public class NoGroupsView extends View{
         pane.add(generateGroups, 20,1);
 
         Text sceneTitle = new Text("Groups");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        sceneTitle.setId("header-text");
+        //sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         pane.add(sceneTitle, 1, 2);
 
         Text noGroupsText = new Text("No groups available. Press the button in the right corner to generate groups.");
+        noGroupsText.setId("normal-text");
         pane.add(noGroupsText, 1, 4);
 
     }

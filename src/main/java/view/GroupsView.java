@@ -49,7 +49,8 @@ public class GroupsView extends View {
 
         Text title = new Text();
         title.setText("Groups");
-        title.setFont(Font.font ("Verdana", 30));
+        title.setId("header-text");
+        //title.setFont(Font.font ("Verdana", 30));
         pane.add(backButton, 0, 0);
         pane.add(title, 0, 1);
         pane.setHgap(150);
@@ -60,7 +61,8 @@ public class GroupsView extends View {
         for (int columns = 0; columns < 4; columns++) {
             for (int rows = 0; rows < groupController.getGroups().size() / 4; rows++) {
                 Text text = new Text(getAllGroups().get(i));
-                text.setFont(Font.font("Verdana", 20));
+                //text.setFont(Font.font("Verdana", 20));
+                text.setId("normal-text");
                 pane.add(text, columns, rows + 5);
                 i++;
             }

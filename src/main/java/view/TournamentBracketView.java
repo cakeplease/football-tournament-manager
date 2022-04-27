@@ -61,7 +61,9 @@ public class TournamentBracketView extends View {
      */
     public void setup() {
         this.resetPane();
+        this.tournamentBracketPane.setId("background");
         this.scrollPane = new ScrollPane();
+        scrollPane.setId("background");
         scrollPane.setFitToWidth(true);
         this.tournamentManager = TournamentManager.getInstance();
 
@@ -80,8 +82,10 @@ public class TournamentBracketView extends View {
         tournamentBracketPane.setPadding(new Insets(25, 25, 25, 25));
 
         Text aBracket = new Text("Bracket A");
+        aBracket.setId("header-text");
         tournamentBracketPane.add(aBracket, 0, 1);
         Text bBracket = new Text("Bracket B");
+        bBracket.setId("header-text");
         VBox bBox = new VBox();
         bBox.getChildren().add(bBracket);
         bBox.setMinHeight(125);
@@ -153,6 +157,9 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getRoundOf32A().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
+
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -187,6 +194,8 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getRoundOf32B().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -221,6 +230,8 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getRoundOf16A().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -254,6 +265,8 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getRoundOf16B().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -287,6 +300,8 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getQuarterFinalsA().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -320,6 +335,8 @@ public class TournamentBracketView extends View {
                     Match currentMatch = tournamentManager.getQuarterFinalsB().get(teamsIndex);
                     Text team1Label = new Text(team1.toString());
                     Text team2Label = new Text(team2.toString());
+                    team1Label.setId("bracket-text");
+                    team2Label.setId("bracket-text");
 
                     if (currentMatch.getWinner() != null) {
                         if (currentMatch.getWinner().equals(team1)) {
@@ -354,6 +371,8 @@ public class TournamentBracketView extends View {
                 Match currentMatch = tournamentManager.getSemifinalsA().get(teamsIndex);
                 Text team1Label = new Text(team1.toString());
                 Text team2Label = new Text(team2.toString());
+                team1Label.setId("bracket-text");
+                team2Label.setId("bracket-text");
 
                 if (currentMatch.getWinner() != null) {
                     if (currentMatch.getWinner().equals(team1)) {
@@ -385,6 +404,8 @@ public class TournamentBracketView extends View {
                 Match currentMatch = tournamentManager.getSemifinalsB().get(teamsIndex);
                 Text team1Label = new Text(team1.toString());
                 Text team2Label = new Text(team2.toString());
+                team1Label.setId("bracket-text");
+                team2Label.setId("bracket-text");
 
                 if (currentMatch.getWinner() != null) {
                     if (currentMatch.getWinner().equals(team1)) {
@@ -414,6 +435,8 @@ public class TournamentBracketView extends View {
 
             Text team1Label = new Text(team1.toString());
             Text team2Label = new Text(team2.toString());
+            team1Label.setId("bracket-text");
+            team2Label.setId("bracket-text");
 
             if (currentMatch.getWinner() != null) {
                 if (currentMatch.getWinner().equals(team1)) {
@@ -441,6 +464,8 @@ public class TournamentBracketView extends View {
 
             Text team1Label = new Text(team1.toString());
             Text team2Label = new Text(team2.toString());
+            team1Label.setId("bracket-text");
+            team2Label.setId("bracket-text");
 
             if (currentMatch.getWinner() != null) {
                 if (currentMatch.getWinner().equals(team1)) {
@@ -470,6 +495,14 @@ public class TournamentBracketView extends View {
         if (!(this.stackPane == null)) this.stackPane.getChildren().clear();
     }
 
+
+    /**
+     * Method used to get a Node by giving its row, column and gridpane.
+     * @param row the row where the node is positioned
+     * @param column the column where the node is positioned
+     * @param gridPane the gridpane that should be searched in
+     * @return Node that shares all parameters in the method, or null if no result is found
+     */
     static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();

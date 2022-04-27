@@ -2,6 +2,7 @@ package view;
 
 import controller.GUIController;
 import controller.GroupController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -93,14 +94,14 @@ public class FrontpageView extends View {
         exit.setOnAction(e -> System.exit(0));
 
         Text welcome = new Text("SKANDIA CUP 2022");
-        welcome.setFont(new Font("Verdana", 40));
+        welcome.setId("title-text");
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(addTeam, showAllTeams, showMatches, showGroups, showTournamentBracket, loadTestData, exit);
         buttons.setSpacing(20);
         buttons.setAlignment(Pos.CENTER);
 
-        Image image = new Image("/frontPage.jpg");
+        Image image = new Image("/logo.png");
         ImageView imageView = new ImageView(image);
         imageView.setX(400);
         imageView.setY(50);
@@ -109,6 +110,7 @@ public class FrontpageView extends View {
         vBoxImg.getChildren().addAll(imageView, welcome, buttons);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
+        vBoxImg.setPadding(new Insets(50, 50, 50, 50));
         pane.getChildren().add(vBoxImg);
     }
     /**

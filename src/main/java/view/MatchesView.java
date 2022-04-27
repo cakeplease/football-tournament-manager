@@ -22,7 +22,8 @@ import java.util.Optional;
  * MatchesView class for showing all matches
  */
 public class MatchesView extends View {
-    protected VBox pane;
+    //protected VBox pane;
+    protected Pane pane;
     protected VBox container;
     protected ScrollPane scrollPane;
     private ScreenController screenController;
@@ -34,7 +35,8 @@ public class MatchesView extends View {
      * @param screenController
      */
     public MatchesView(ScreenController screenController) {
-        this.pane = new VBox();
+        //this.pane = new VBox();
+        this.pane = new Pane();
         this.container = new VBox();
         this.scrollPane = new ScrollPane();
         this.screenController = screenController;
@@ -55,6 +57,11 @@ public class MatchesView extends View {
     public void setup() {
         this.resetPane();
         container.setPadding(new Insets(25, 25, 25, 25));
+        container.setSpacing(10);
+        container.setId("background");
+        container.setMinWidth(600);
+        pane.setId("background");
+        scrollPane.setId("background");
 
         Button backButton = new Button();
         backButton.setText("Back");
@@ -63,14 +70,15 @@ public class MatchesView extends View {
 
 
         Text sceneTitle = new Text("Matches (double click a match to edit)");
-        sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        //sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        sceneTitle.setId("header-text");
         container.getChildren().add(sceneTitle);
 
         GroupController groupController = GroupController.getInstance();
         TournamentManager tournamentManager = TournamentManager.getInstance();
 
         dialog = new Dialog();
-        dialog.getDialogPane().setMinSize(400, 200);
+        dialog.getDialogPane().setMinSize(400, 350);
 
         GridPane grid = new GridPane();
         grid.setMinSize(200, 200);
@@ -98,16 +106,29 @@ public class MatchesView extends View {
         score2.setPromptText("Score team 2");
         score2.setMinSize(100, 20);
 
-        grid.add(new Text("Time:"), 0, 0);
+        Text timeText = new Text("Time:");
+        timeText.setId("normal-text");
+        grid.add(timeText, 0, 0);
         grid.add(time, 1, 0);
-        grid.add(new Text("Date:"), 0, 1);
+
+        Text dateText = new Text("Date:");
+        dateText.setId("normal-text");
+        grid.add(dateText, 0, 1);
         grid.add(date, 1, 1);
-        grid.add(new Text("Field number:"), 0, 2);
+
+        Text fieldNrText = new Text("Field number:");
+        fieldNrText.setId("normal-text");
+        grid.add(fieldNrText, 0, 2);
         grid.add(fieldNr, 1, 2);
 
-        grid.add(new Text("Score team 1: "), 2, 0);
+        Text score1Text = new Text("Score team 1: ");
+        score1Text.setId("normal-text");
+        grid.add(score1Text, 2, 0);
         grid.add(score1, 3, 0);
-        grid.add(new Text("Score team 2: "), 2, 1);
+
+        Text score2Text = new Text("Score team 2: ");
+        score2Text.setId("normal-text");
+        grid.add(score2Text, 2, 1);
         grid.add(score2, 3, 1);
 
         dialog.getDialogPane().getChildren().add(grid);
@@ -154,7 +175,8 @@ public class MatchesView extends View {
 
             //Table title
             Text tableHeading = new Text(heading);
-            tableHeading.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+            //tableHeading.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+            tableHeading.setId("header-text");
             container.getChildren().add(tableHeading);
 
             //Table

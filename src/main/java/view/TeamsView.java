@@ -47,7 +47,8 @@ public class TeamsView extends View {
         pane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Teams");
-        sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        //sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        sceneTitle.setId("header-text");
         pane.add(sceneTitle, 0, 2);
 
         pane.setHgap(250);
@@ -56,6 +57,7 @@ public class TeamsView extends View {
 
         for (int i = 0; i < groupController.getFootballClubs().size(); i++) {
             Text text = new Text(groupController.getFootballClubs().get(i).getName());
+            text.setId("normal-text");
             pane.add(text, i%4, (int)(i/4) + 5);
         }
 
