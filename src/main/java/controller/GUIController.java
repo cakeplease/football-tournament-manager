@@ -8,6 +8,11 @@ import model.DataStorage;
 import model.FootballClubsFromFile;
 import java.util.ArrayList;
 
+/**
+ * GUIController user interactions
+ * Controller part of the system
+ * //TODO split up into smaller controllers
+ */
 public class GUIController {
     /**
      * Adds team based on params from the form
@@ -37,7 +42,9 @@ public class GUIController {
      * @return true if the match got edited successfully, false otherwise
      */
     public static boolean editMatch(FootballClub team1, FootballClub team2, String time, String date, String fieldNr, String score1, String score2){
-        if (team1 == null || team2 == null) return false;
+        if (team1 == null || team2 == null) {
+            return false;
+        }
 
         TournamentManager tournamentManager = TournamentManager.getInstance();
         GroupController groupController = GroupController.getInstance();
@@ -84,12 +91,22 @@ public class GUIController {
         return false;
     }
 
-    public static boolean allMatchesHaveWinner(ArrayList<Match> matches){
-        if (matches.isEmpty()) return false;
+    /**
+     * Check if all matches have winner
+     * @param matches
+     * @return true of false
+     */
+    public static boolean allMatchesHaveWinner(ArrayList<Match> matches) {
+        if (matches.isEmpty()) {
+            return false;
+        }
 
         return matches.stream().allMatch(e -> e.getWinner() != null);
     }
 
+    /**
+     * Generate groups
+     */
     public static void generateGroups() {
         GroupController groupController = GroupController.getInstance();
         ArrayList<FootballClub> footballClubs = FootballClubsFromFile.readFromFile();
@@ -98,38 +115,32 @@ public class GUIController {
         saveGroups();
     }
 
+    /**
+     * Save finales to a file
+     */
     public static void saveFinalesToFile() {
         DataStorage.save();
     }
 
+    /**
+     * Save group matches to file
+     */
     public static void saveGroupMatchesToFile() {
         DataStorage.save();
     }
 
+    /**
+     * Save groups
+     */
     public static void saveGroups() {
         DataStorage.save();
     }
 
+    /**
+     * Loads test data from /resources/test_data
+     */
     public static void loadTestData() {
         DataStorage.loadTestData();
     }
-
-    /*public static void loadMatchesFromFile() {
-        loadGroupMatchesFromFile();
-        loadFinalesFromFile();
-    }
-
-    public static void loadGroups() {
-        DataStorage.loadGroups();
-    }
-
-    public static void loadGroupMatchesFromFile() {
-        DataStorage.loadGroupMatches();
-    }
-    public static void loadFinalesFromFile() {
-        DataStorage.loadFinalsMatches();
-    }
-    */
-
 
 }

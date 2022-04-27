@@ -5,17 +5,13 @@ import base.Group;
 import base.Match;
 import base.TournamentManager;
 import controller.GroupController;
-
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * class to save and load to and from file
- * @author birkn, vebjørn
- * @version 25.04.2022
+ * Class to save and load to and from file
  */
 public class DataStorage {
     private static final String footballClubsPath = "data/football-clubs.csv";

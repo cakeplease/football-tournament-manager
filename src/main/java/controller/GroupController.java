@@ -12,6 +12,7 @@ public class GroupController {
     private ArrayList<FootballClub> footballClubs;
     private ArrayList<Group> groups;
 
+    //Singleton
     private static GroupController groupController = new GroupController();
 
     /**
@@ -22,6 +23,10 @@ public class GroupController {
         this.groups = new ArrayList<>(16);
     }
 
+    /**
+     * Get an instance of group controller
+     * @return groupController
+     */
     public static GroupController getInstance() {
         return groupController;
     }
@@ -66,12 +71,13 @@ public class GroupController {
      * @param footballClubsToAdd a list of football clubs
      * @throws RuntimeException if trying to add more then 64 teams total
      */
-    public void addAll(ArrayList<FootballClub> footballClubsToAdd) throws RuntimeException{
-        if (footballClubsToAdd == null){
+    public void addAll(ArrayList<FootballClub> footballClubsToAdd) throws RuntimeException {
+        if (footballClubsToAdd == null) {
             throw new NullPointerException("The footballclubs cannot be null!");
         }
-        for (FootballClub footballClub: footballClubsToAdd){
-            if (!this.footballClubs.contains(footballClub)){
+
+        for (FootballClub footballClub: footballClubsToAdd) {
+            if (!this.footballClubs.contains(footballClub)) {
                 if (footballClubs.size() >= 64) {
                     throw new RuntimeException("More than 64 teams cannot be added.");
                 }
@@ -80,7 +86,7 @@ public class GroupController {
         }
     }
 
-    public void resetList(){
+    public void resetList() {
         footballClubs = new ArrayList<FootballClub>();
         groups = new ArrayList<Group>();
     }
@@ -92,8 +98,11 @@ public class GroupController {
      * Then the groups are generated, with the requirements of 1 foreign and 3 norwegian teams
      * @return true when finished
      */
-    public boolean generateGroups(){
-        if (this.footballClubs.size() != 64) return false;
+    public boolean generateGroups() {
+        if (this.footballClubs.size() != 64){
+            return false;
+        }
+
         ArrayList<FootballClub> norwegianClubs = new ArrayList<>();
         ArrayList<FootballClub> internationalClubs = new ArrayList<>();
         for (FootballClub f : this.footballClubs) {
@@ -117,8 +126,6 @@ public class GroupController {
         }
         return true;
     }
-
-
 
     @Override
     public String toString() {

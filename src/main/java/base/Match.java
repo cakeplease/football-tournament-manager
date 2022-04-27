@@ -2,9 +2,6 @@ package base;
 
 /**
  * Creates an instance of a match between two football clubs.
- *
- * @author danielnesvag
- * @version 16.03.2022
  */
 public class Match {
     private final FootballClub footballClub1; //the first football club in the match
@@ -22,8 +19,8 @@ public class Match {
      * @param footballClub2 the second football club
      * @throws NullPointerException if one of the clubs are null
      */
-    public Match(FootballClub footballClub1, FootballClub footballClub2)throws NullPointerException{
-        if (footballClub1 == null || footballClub2 == null){
+    public Match(FootballClub footballClub1, FootballClub footballClub2) throws NullPointerException {
+        if (footballClub1 == null || footballClub2 == null) {
             throw new NullPointerException("The football club can not be null!!");
         }
         this.footballClub1 = footballClub1;
@@ -39,11 +36,11 @@ public class Match {
      * @throws IllegalArgumentException if one of the scores are negative
      * @throws NullPointerException if one of the football clubs are null
      */
-    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2)throws IllegalArgumentException, NullPointerException{
-        if (footballClub1 == null || footballClub2 == null){
+    public Match(FootballClub footballClub1, FootballClub footballClub2, int score1, int score2) throws IllegalArgumentException, NullPointerException {
+        if (footballClub1 == null || footballClub2 == null) {
             throw new NullPointerException("The football club can not be null!!");
         }
-        if (score1 < 0 || score2 < 0){
+        if (score1 < 0 || score2 < 0) {
             throw new IllegalArgumentException("The score can not be negative!!");
         }
         this.footballClub1 = footballClub1;
@@ -63,7 +60,7 @@ public class Match {
      * @param fieldNr
      */
     public Match(FootballClub footballClub1, FootballClub footballClub2, int score1,
-                 int score2, String time, String date, int fieldNr){
+                 int score2, String time, String date, int fieldNr) {
         this.footballClub1 = footballClub1;
         this.footballClub2 = footballClub2;
         this.score1 = score1;
@@ -75,7 +72,6 @@ public class Match {
 
     /**
      * Return the first football club
-     *
      * @return footballClub1
      */
     public FootballClub getFootballClub1() {
@@ -84,7 +80,6 @@ public class Match {
 
     /**
      * Return the second football club
-     *
      * @return footballClub2
      */
     public FootballClub getFootballClub2() {
@@ -93,7 +88,6 @@ public class Match {
 
     /**
      * Return the first score, which belongs to footballClub1
-     *
      * @return score1
      */
     public int getScore1() {
@@ -102,7 +96,6 @@ public class Match {
 
     /**
      * Return the second score which belongs to footballClub2
-     *
      * @return score2
      */
     public int getScore2() {
@@ -111,14 +104,14 @@ public class Match {
 
     /**
      * Return time
-     * @return
+     * @return time
      */
     public String getTime() {
         return time;
     }
     /**
      * Return date
-     * @return
+     * @return date
      */
     public String getDate() {
         return date;
@@ -126,7 +119,7 @@ public class Match {
 
     /**
      * Return field number
-     * @return
+     * @return field number
      */
     public int getFieldNr() {
         return fieldNr;
@@ -191,25 +184,26 @@ public class Match {
      *
      * @return the winner or null.
      */
-    public FootballClub getWinner(){
-        if (this.winner != null) return this.winner;
-
-        if (score1 < score2){
+    public FootballClub getWinner() {
+        if (this.winner != null) {
+            return this.winner;
+        }
+        if (score1 < score2) {
             setWinner(footballClub2);
             return winner;
-        } else if(score1 > score2){
+        } else if (score1 > score2) {
             setWinner(footballClub1);
             return winner;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
-     * generates the csv format for the match
+     * Generates the csv format for the match
      * @return csv string
      */
-    public String getCsv(){
+    public String getCsv() {
         return footballClub1.getCsvFormat() + ";" + footballClub2.getCsvFormat()
                 + ";" + score1 + ";" + score2 + ";" + time + ";" + date + ";" + fieldNr;
     }

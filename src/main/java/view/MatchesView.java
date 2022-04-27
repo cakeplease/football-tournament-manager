@@ -53,8 +53,6 @@ public class MatchesView extends View {
     public void setup() {
         this.resetPane();
        container.setPadding(new Insets(25, 200, 25, 25));
-
-        container.setStyle(" -fx-background-color: #1a1c1f;");
         container.setSpacing(10);
         container.setId("background");
         container.setMinWidth(600);

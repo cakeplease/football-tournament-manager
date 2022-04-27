@@ -13,9 +13,7 @@ import java.util.ArrayList;
  * Model part of the system.
  * Takes care of saving and reading from files
  */
-
 public class DataHandler {
-
 
     /**
      * Method to save to file

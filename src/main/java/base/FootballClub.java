@@ -1,7 +1,6 @@
 package base;
 
 import model.DataHandler;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -27,7 +26,7 @@ public class FootballClub {
     }
 
     /**
-     * overload constructor for creation of Footballclub objects from file in DataStorage class
+     * Overload constructor for creation of FootballClub objects from file in DataStorage class
      * @see model.DataStorage
      * @param name
      * @param nationality
@@ -92,7 +91,7 @@ public class FootballClub {
     }
 
     /**
-     * setter for groupe score
+     * Sets group score
      * @param score
      */
     public void setGroupScore(int score){
@@ -100,7 +99,7 @@ public class FootballClub {
     }
 
     /**
-     * getter for grupe score
+     * Gets group score
      * @return group score
      */
     public int getGroupScore() {
@@ -116,7 +115,10 @@ public class FootballClub {
         DataHandler.saveToFile(data, path);
     }
 
-
+    /**
+     * Gets football club in .csv format
+     * @return csv formatted string of football club consisting of name, nationality, goalsScore, goals let in and group score
+     */
     public String getCsvFormat() {
         return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn +  "," + this.groupScore;
     }
