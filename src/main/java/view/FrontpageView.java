@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
@@ -19,7 +18,7 @@ public class FrontpageView extends View {
     private ScreenController screenController;
 
     /**
-     * FrontpaneView constructor
+     * FrontpageView constructor
      * @param ScreenController
      */
     public FrontpageView(ScreenController ScreenController) {
@@ -42,6 +41,10 @@ public class FrontpageView extends View {
      */
     public void setup() {
         this.resetPane();
+
+        Button changeMode = new Button();
+        changeMode.setText("Change mode");
+        changeMode.setOnAction(e -> screenController.changeMode());
 
         GroupController groupController = GroupController.getInstance();
 
@@ -111,8 +114,12 @@ public class FrontpageView extends View {
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         vBoxImg.setPadding(new Insets(50, 50, 50, 50));
+
+
         pane.getChildren().add(vBoxImg);
+        pane.getChildren().add(changeMode);
     }
+
     /**
      * Resets pane
      * (Removes all children from the list)

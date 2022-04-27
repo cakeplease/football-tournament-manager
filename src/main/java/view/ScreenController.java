@@ -12,6 +12,7 @@ public class ScreenController {
     private HashMap<String, Pane> screenMap = new HashMap<>();
     private HashMap<String, View> viewMap = new HashMap<>();
     private Scene main;
+    private boolean isDarkMode = false;
 
     /**
      * ScreenController constructor
@@ -38,5 +39,20 @@ public class ScreenController {
     protected void activate(String name) {
         viewMap.get(name).setup();
         main.setRoot(screenMap.get(name));
+    }
+
+    /**
+     * Changes mode according to the current mode
+     */
+    public void changeMode() {
+        if (!this.isDarkMode) {
+            main.getStylesheets().remove("styles.css");
+            main.getStylesheets().add("dark-mode.css");
+            this.isDarkMode = true;
+        } else {
+            main.getStylesheets().remove("dark-mode.css");
+            main.getStylesheets().add("styles.css");
+            this.isDarkMode = false;
+        }
     }
 }

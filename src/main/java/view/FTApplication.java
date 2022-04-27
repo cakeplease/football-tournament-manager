@@ -81,22 +81,6 @@ public class FTApplication extends Application {
         start.setStyle("-fx-font-size:20");
         start.setOnAction(e -> screenController.activate("FrontPage"));
 
-        Button lightMode = new Button();
-        lightMode.setText("Light mode");
-        lightMode.setStyle("-fx-font-size:20");
-        lightMode.setOnAction(e -> {
-            frontPageScene.getStylesheets().remove("dark-mode.css");
-            frontPageScene.getStylesheets().add("styles.css");
-        });
-
-        Button darkMode = new Button();
-        darkMode.setText("Dark mode");
-        darkMode.setStyle("-fx-font-size:20");
-        darkMode.setOnAction(e -> {
-            frontPageScene.getStylesheets().remove("styles.css");
-            frontPageScene.getStylesheets().add("dark-mode.css");
-        });
-
         Button exit = new Button();
         exit.setText("Quit");
         exit.setStyle("-fx-font-size:20");
@@ -110,12 +94,7 @@ public class FTApplication extends Application {
         imageView.getStyleClass().add("image");
         VBox vBoxImg = new VBox();
 
-        HBox themes = new HBox();
-        themes.setSpacing(20);
-        themes.setAlignment(Pos.CENTER);
-        themes.getChildren().addAll(lightMode, darkMode);
-
-        vBoxImg.getChildren().addAll(imageView, welcome, start, themes, exit);
+        vBoxImg.getChildren().addAll(imageView, welcome, start, exit);
         vBoxImg.setAlignment(Pos.TOP_CENTER);
         vBoxImg.setSpacing(20);
         vBoxImg.setPadding(new Insets(50, 50, 50, 50));
