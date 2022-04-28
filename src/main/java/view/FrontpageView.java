@@ -20,7 +20,7 @@ public class FrontpageView extends View {
 
     /**
      * FrontpageView constructor
-     * @param ScreenController
+     * @param ScreenController instance of screenController
      */
     public FrontpageView(ScreenController ScreenController) {
         this.pane = new StackPane();
@@ -32,7 +32,7 @@ public class FrontpageView extends View {
 
     /**
      * Gets pane
-     * @return
+     * @return Pane instance
      */
     public Pane getPane() {
         return this.myPane;

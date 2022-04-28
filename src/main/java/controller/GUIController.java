@@ -18,6 +18,7 @@ public class GUIController {
      * Adds team based on params from the form
      * @param name name of the team
      * @param nationality nationality of the team
+     * @return validation string (to print)
      */
     public static String addTeam(String name, String nationality) {
         GroupController groupController = GroupController.getInstance();
@@ -93,8 +94,8 @@ public class GUIController {
 
     /**
      * Check if all matches have winner
-     * @param matches
-     * @return true of false
+     * @param matches Match arraylist to check
+     * @return true or false
      */
     public static boolean allMatchesHaveWinner(ArrayList<Match> matches) {
         if (matches.isEmpty()) {
@@ -106,15 +107,12 @@ public class GUIController {
 
     /**
      * Generate groups
+     * @return boolean validation if groups was generated
      */
     public static boolean generateGroups() {
         GroupController groupController = GroupController.getInstance();
 
-        if (groupController.generateGroups()) {
-            return true;
-        } else {
-            return false;
-        }
+        return groupController.generateGroups();
 
     }
 

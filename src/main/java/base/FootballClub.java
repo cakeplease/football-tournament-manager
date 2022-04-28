@@ -28,11 +28,11 @@ public class FootballClub {
     /**
      * Overload constructor for creation of FootballClub objects from file in DataStorage class
      * @see model.DataStorage
-     * @param name
-     * @param nationality
-     * @param goalsScored
-     * @param goalsLetIn
-     * @param groupScore
+     * @param name name of club
+     * @param nationality   nationality of club
+     * @param goalsScored   Number of goals scored
+     * @param goalsLetIn    Number of goals let inn
+     * @param groupScore    The overall groupScore
      */
     public FootballClub(String name, String nationality, int goalsScored, int goalsLetIn, int groupScore){
         this.name = name;
@@ -92,7 +92,7 @@ public class FootballClub {
 
     /**
      * Sets group score
-     * @param score
+     * @param score the groupScore to set
      */
     public void setGroupScore(int score){
         this.groupScore = score;

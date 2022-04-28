@@ -28,6 +28,10 @@ public class TournamentManager {
 
     private static TournamentManager tournamentManager = new TournamentManager();
 
+    /**
+     * method to get the instance of tournamentManager
+     * @return TournamentManager instance
+     */
     public static TournamentManager getInstance() {
         return tournamentManager;
     }

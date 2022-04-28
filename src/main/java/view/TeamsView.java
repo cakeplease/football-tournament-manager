@@ -18,7 +18,7 @@ public class TeamsView extends View {
 
     /**
      * TeamsView constructor
-     * @param screenController
+     * @param screenController ScreenController instance to use
      */
     public TeamsView(ScreenController screenController) {
         this.pane = new GridPane();
@@ -28,7 +28,7 @@ public class TeamsView extends View {
 
     /**
      * Gets pane
-     * @return
+     * @return instance of pane
      */
     public Pane getPane() {
         return this.pane;

@@ -17,7 +17,7 @@ public class AddTeamView extends View{
 
     /**
      * AddTeamView constructor
-     * @param screenController
+     * @param screenController ScreenController object
      */
     public AddTeamView(ScreenController screenController) {
         this.pane = new GridPane();
@@ -27,7 +27,7 @@ public class AddTeamView extends View{
 
     /**
      * Gets pane
-     * @return
+     * @return Pane instance
      */
     public Pane getPane() {
         return this.pane;

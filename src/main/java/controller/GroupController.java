@@ -86,6 +86,10 @@ public class GroupController {
         }
     }
 
+    /**
+     * resets the arraylists witch store footballclub and group data
+     * used when deleting all data before load
+     */
     public void resetList() {
         footballClubs = new ArrayList<FootballClub>();
         groups = new ArrayList<Group>();

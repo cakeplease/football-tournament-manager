@@ -38,9 +38,11 @@ public class DataHandler {
     }
 
     /**
-     * Method to read from a file
+     * Method to read data from a file
      *
      * @param path, where to read from
+     *
+     * @return Data of type arrayList of type string
      */
     public static ArrayList<String> readFromFile(String path) {
         try (BufferedReader bufferedReader = new BufferedReader(

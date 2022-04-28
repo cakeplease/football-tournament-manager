@@ -29,7 +29,7 @@ public class MatchesView extends View {
 
     /**
      * MatchesView constructor
-     * @param screenController
+     * @param screenController ScreenController instance to use
      */
     public MatchesView(ScreenController screenController) {
         this.pane = new VBox();

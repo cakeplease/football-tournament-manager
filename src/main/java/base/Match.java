@@ -51,13 +51,13 @@ public class Match {
 
     /**
      * overload constructor to create copy for loading save files
-     * @param footballClub1
-     * @param footballClub2
-     * @param score1
-     * @param score2
-     * @param time
-     * @param date
-     * @param fieldNr
+     * @param footballClub1 first football club instance
+     * @param footballClub2 second football club instance
+     * @param score1 score of first club
+     * @param score2 score of second club
+     * @param time the time of match
+     * @param date the date of match
+     * @param fieldNr the field number of match
      */
     public Match(FootballClub footballClub1, FootballClub footballClub2, int score1,
                  int score2, String time, String date, int fieldNr) {

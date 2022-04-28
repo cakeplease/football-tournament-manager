@@ -19,7 +19,7 @@ public class GroupsView extends View {
 
     /**
      * GroupsView constructor
-     * @param ScreenController
+     * @param ScreenController ScreenController object
      */
     public GroupsView(ScreenController ScreenController) {
         this.pane = new GridPane();
@@ -71,6 +71,7 @@ public class GroupsView extends View {
 
     /**
      * Takes the list of the groups and puts them in a list of strings
+     * @return Arraylist of groups as readable format
      */
     public ArrayList<String> getAllGroups(){
         GroupController groupController = GroupController.getInstance();

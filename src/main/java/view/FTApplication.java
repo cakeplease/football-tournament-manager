@@ -29,16 +29,26 @@ public class FTApplication extends Application {
     private MatchesView matchesView = new MatchesView(screenController);
     private TournamentBracketView tournamentBracketView = new TournamentBracketView(screenController);
 
+    /**
+     * window size x dir
+     */
     public static double windowSizeX;
+
+    /**
+     * window size y dir
+     */
     public static double windowSizeY;
 
+    /**
+     * The main stage
+     */
     public static Stage primaryStage;
 
     /**
      * Overrides the start() method which takes a single parameter stage.
      * Uses the show() method to display the stage.
      *
-     * @param primaryStage
+     * @param primaryStage Stage to show
      */
     @Override
     public void start(Stage primaryStage) {
@@ -111,7 +121,7 @@ public class FTApplication extends Application {
     /**
      * Uses the static launch() method to launch the stage.
      *
-     * @param args
+     * @param args args
      */
     public static void main(String[] args) {
         FTApplication.launch(args);

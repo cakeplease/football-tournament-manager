@@ -16,7 +16,7 @@ public class NoGroupsView extends View{
 
     /**
      * NoGroupsView constructor
-     * @param screenController
+     * @param screenController ScreenController instance to use
      */
     public NoGroupsView(ScreenController screenController) {
         this.pane = new GridPane();

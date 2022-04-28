@@ -38,7 +38,7 @@ public class TournamentBracketView extends View {
 
     /**
      * Gets pane
-     * @return
+     * @return instance of pane
      */
     public Pane getPane() {
         return this.stackPane;
