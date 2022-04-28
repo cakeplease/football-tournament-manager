@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"footballtournamentapplication","l":"base"},{"m":"footballtournamentapplication","l":"controller"},{"m":"footballtournamentapplication","l":"model"},{"m":"footballtournamentapplication","l":"view"}];updateSearchResults();
