@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Class to read football clubs to an array
  */
 public class FootballClubsFromFile {
-    private static final Path path = Paths.get("src/main/resources/footballclubs.csv");
+    private static final Path path = Paths.get("footballclubs.csv");
     private static final String COMMA_DELIMITER = ";";
 
     /**
