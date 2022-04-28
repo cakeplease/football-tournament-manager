@@ -1,7 +1,6 @@
 package base;
 
 import model.DataHandler;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -24,6 +23,23 @@ public class FootballClub {
     public FootballClub(String name, String nationality) {
         this.name = name;
         this.nationality = nationality;
+    }
+
+    /**
+     * Overload constructor for creation of FootballClub objects from file in DataStorage class
+     * @see model.DataStorage
+     * @param name
+     * @param nationality
+     * @param goalsScored
+     * @param goalsLetIn
+     * @param groupScore
+     */
+    public FootballClub(String name, String nationality, int goalsScored, int goalsLetIn, int groupScore){
+        this.name = name;
+        this.nationality = nationality;
+        this.goalsScored = goalsScored;
+        this.goalsLetIn = goalsLetIn;
+        this.groupScore = groupScore;
     }
 
     /**
@@ -75,7 +91,7 @@ public class FootballClub {
     }
 
     /**
-     * setter for groupe score
+     * Sets group score
      * @param score
      */
     public void setGroupScore(int score){
@@ -83,7 +99,7 @@ public class FootballClub {
     }
 
     /**
-     * getter for grupe score
+     * Gets group score
      * @return group score
      */
     public int getGroupScore() {
@@ -99,9 +115,12 @@ public class FootballClub {
         DataHandler.saveToFile(data, path);
     }
 
-
+    /**
+     * Gets football club in .csv format
+     * @return csv formatted string of football club consisting of name, nationality, goalsScore, goals let in and group score
+     */
     public String getCsvFormat() {
-        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn + "\n";
+        return this.name + "," + this.nationality + "," + this.goalsScored + "," + this.goalsLetIn +  "," + this.groupScore;
     }
 
     /**
@@ -114,7 +133,7 @@ public class FootballClub {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FootballClub that = (FootballClub) o;
-        return goalsScored == that.goalsScored && goalsLetIn == that.goalsLetIn && Objects.equals(name, that.name) && Objects.equals(nationality, that.nationality);
+        return  name.equalsIgnoreCase(that.getName()) && nationality.equalsIgnoreCase(that.nationality);
     }
 
     /**
@@ -123,7 +142,7 @@ public class FootballClub {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, nationality, goalsScored, goalsLetIn);
+        return Objects.hash(name, nationality);
     }
 
     /**
@@ -132,11 +151,6 @@ public class FootballClub {
      */
     @Override
     public String toString() {
-        return "FootballClub{" +
-                "name='" + name + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", goalsScored=" + goalsScored +
-                ", goalsLetIn=" + goalsLetIn +
-                '}';
+        return name;
     }
 }

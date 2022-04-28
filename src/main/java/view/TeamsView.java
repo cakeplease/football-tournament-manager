@@ -1,48 +1,73 @@
 package view;
 
-import base.Group;
 import controller.GroupController;
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
 /**
  * TeamsView class
+ * Shows all teams
  */
-public class TeamsView {
-    protected GridPane teamsViewPane;
+public class TeamsView extends View {
+    protected GridPane pane;
     private ScreenController screenController;
-    //TODO: bytt ut denne med singleton
     GroupController groupController = GroupController.getInstance();
 
-
+    /**
+     * TeamsView constructor
+     * @param screenController
+     */
     public TeamsView(ScreenController screenController) {
-        this.teamsViewPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return
+     */
+    public Pane getPane() {
+        return this.pane;
+    }
+
+    /**
+     * Sets up the pane with the back button, a title and columns with the teams
+     */
     public void setup() {
+        this.resetPane();
+
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        teamsViewPane.add(backButton, 0,1);
+
+        pane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Teams");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        teamsViewPane.add(sceneTitle, 1, 2);
+        //sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        sceneTitle.setId("header-text");
+        pane.add(sceneTitle, 0, 2);
 
-        //22, 22, 16
+        pane.setHgap(250);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(25, 25, 25, 25));
 
-
-        for (int i = 0; i < groupController.getFootballClubs().size(); i++){
-            for (int j = 0; j < groupController.getFootballClubs().size()/3; j++){
-                for (int k = 0; k < 3; k++){
-                    teamsViewPane.add(new Text(groupController.getFootballClubs().get(i).getName()), k, j);
-
-                }
-            }
+        for (int i = 0; i < groupController.getFootballClubs().size(); i++) {
+            Text text = new Text(groupController.getFootballClubs().get(i).getName());
+            text.setId("normal-text");
+            pane.add(text, i%4, (int)(i/4) + 5);
         }
 
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

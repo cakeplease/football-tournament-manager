@@ -13,32 +13,28 @@ class GroupTest {
         group.addTeam(new FootballClub("test1", "testN1"));
         group.addTeam(new FootballClub("test2", "testN2"));
         group.addTeam(new FootballClub("test3", "testN3"));
+        group.addTeam(new FootballClub("test4", "testN4"));
 
     }
 
     @Test
     void getGroupTeams() {
         assertNotNull(group.getGroupTeams());
-        assertEquals(group.getGroupTeams().size(), 3);
+        assertEquals(group.getGroupTeams().size(), 4);
     }
 
     @Test
-    void getGroupMatches() {
+    void generateAndGetGroupMatches() {
+        group.generateMatches();
+        assertNotNull(group.getGroupMatches());
+        assertEquals(group.getGroupMatches().size(), 6);
     }
 
     @Test
     void addTeam() {
+        group = new Group();
+        group.addTeam(new FootballClub("test1", "testN1"));
+        assertEquals(group.getGroupTeams().size(), 1);
     }
 
-    @Test
-    void generateMatches() {
-    }
-
-    @Test
-    void endGrupe() {
-    }
-
-    @Test
-    void testSimulateAllMatches() {
-    }
 }

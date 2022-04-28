@@ -1,56 +1,94 @@
 package view;
 
 import controller.GUIController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 
-public class AddTeamView {
-    protected GridPane addTeamPane;
+/**
+ * AddTeamView for adding teams
+ */
+public class AddTeamView extends View{
+    protected GridPane pane;
     private ScreenController screenController;
 
+    /**
+     * AddTeamView constructor
+     * @param screenController
+     */
     public AddTeamView(ScreenController screenController) {
-        this.addTeamPane = new GridPane();
+        this.pane = new GridPane();
         this.screenController = screenController;
         this.setup();
     }
 
+    /**
+     * Gets pane
+     * @return
+     */
+    public Pane getPane() {
+        return this.pane;
+    }
+
+    /**
+     * Sets up back button, title, fields for name and nationality and add button
+     */
     public void setup() {
+        this.resetPane();
+        pane.setPadding(new Insets(25,25,25,25));
+        pane.setHgap(10);
+        pane.setVgap(10);
         Button backButton = new Button();
         backButton.setText("Back");
         backButton.setOnAction(e -> screenController.activate("FrontPage"));
-        addTeamPane.add(backButton, 0,1);
+        pane.add(backButton, 0,1);
 
         Text sceneTitle = new Text("Add team");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        addTeamPane.add(sceneTitle, 1, 2);
+        sceneTitle.setId("header-text");
+        pane.add(sceneTitle, 0, 2);
 
         Label teamName = new Label("Team name:");
-        addTeamPane.add(teamName, 1, 3);
+        pane.add(teamName, 0, 3);
 
         TextField teamNameField = new TextField();
-        addTeamPane.add(teamNameField, 2, 3);
+        teamNameField.setMaxWidth(200);
+        teamNameField.setMaxHeight(20);
+        pane.add(teamNameField, 1, 3);
 
         Label nationalityLabel = new Label("Nationality:");
-        addTeamPane.add(nationalityLabel, 1, 4);
+        pane.add(nationalityLabel, 0, 4);
 
         TextField nationalityField = new TextField();
-        addTeamPane.add(nationalityField, 2, 4);
+        nationalityField.setMaxWidth(200);
+        pane.add(nationalityField, 1, 4);
 
         Text actionTarget = new Text();
-        addTeamPane.add(actionTarget, 1, 15);
+        actionTarget.setId("feedback-text");
+        VBox actionBox = new VBox();
+        actionBox.getChildren().add(actionTarget);
+        actionBox.setMinWidth(500);
+        //pane.add(actionTarget, 0, 15);
+        pane.add(actionBox, 1, 5);
 
         Button addTeamButton = new Button("Add team");
-        addTeamButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                GUIController.addTeam(teamNameField.getText(), nationalityField.getText());
-                actionTarget.setText("Team added");
-            }
+        addTeamButton.setOnAction(e -> {
+            String feedback = GUIController.addTeam(teamNameField.getText(), nationalityField.getText());
+            actionTarget.setText(feedback);
+            teamNameField.clear();
+            nationalityField.clear();
         });
 
-        addTeamPane.add(addTeamButton, 1, 6);
+        pane.add(addTeamButton, 1, 6);
+    }
+
+    /**
+     * Resets pane
+     * (Removes all children from the list)
+     */
+    protected void resetPane() {
+        this.pane.getChildren().clear();
     }
 }

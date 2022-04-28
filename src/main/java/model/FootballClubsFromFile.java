@@ -9,17 +9,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * class to read football clubs to an array
- *
- * @author birkn
- * @version 1.01 23.03.2022
+ * Class to read football clubs to an array
  */
 public class FootballClubsFromFile {
-    private static final Path path = Paths.get("src/main/resources/footballclubs.csv");
+    private static final Path path = Paths.get("footballclubs.csv");
     private static final String COMMA_DELIMITER = ";";
 
     /**
-     * read from csv file and return a footballclub array
+     * Read from csv file and return a football club array
      * @return footballclub array
      */
     public static ArrayList<FootballClub> readFromFile() {
