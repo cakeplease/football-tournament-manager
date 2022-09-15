@@ -1,6 +1,8 @@
 # Idatt1002_2022_K2-08
 
-Skoleprosjektet i Systemutvikling.
+Previously stored on GitLab.
+
+School project for System development class.
 
 **Project Assignment**
 
