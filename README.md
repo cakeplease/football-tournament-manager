@@ -1,6 +1,4 @@
-# Idatt1002_2022_K2-08
-
-Previously stored on GitLab.
+*Previously stored on GitLab*
 
 School project for System development class.
 
